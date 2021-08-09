@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using C21_Ex01_2;
 
 namespace C21_Ex01_3
 {
@@ -10,10 +8,10 @@ namespace C21_Ex01_3
     {
         public static void Main()
         {
-            SandGlass();
+            sandGlass();
         }
 
-        public static void SandGlass()
+        private static void sandGlass()
         {
             Console.WriteLine("Please enter the number of lines for the sand machine");
             string numberOfLinesStr = Console.ReadLine();

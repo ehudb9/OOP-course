@@ -10,10 +10,10 @@ namespace C21_Ex01_2
     {
         public static void Main()
         {
-            SandGlass();
+            sandGlass();
         }
 
-        public static void SandGlass()
+        private static void sandGlass()
         {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder = GenerateSandClockWithInput(ref stringBuilder, 0, 5);
