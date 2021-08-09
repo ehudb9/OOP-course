@@ -16,18 +16,27 @@ namespace C21_Ex01_3
         public static void SandGlass()
         {
             Console.WriteLine("Please enter the number of lines for the sand machine");
-            int numberOfLines = int.Parse(Console.ReadLine());
+            string numberOfLinesStr = Console.ReadLine();
+            
+            int numberOfLines = 0;
+            bool goodInput = int.TryParse(numberOfLinesStr, out numberOfLines);
 
             StringBuilder stringBuilder = new StringBuilder();
-
-            if (numberOfLines % 2 == 0)
+            if (goodInput)
             {
-                numberOfLines = numberOfLines + 1;
+                if (numberOfLines % 2 == 0)
+                {
+                    numberOfLines = numberOfLines + 1;
+                }
+
+                stringBuilder = C21_Ex01_2.Program.GenerateSandClockWithInput(ref stringBuilder, 0, numberOfLines);
+                Console.WriteLine(stringBuilder.ToString());
             }
-
-            stringBuilder = C21_Ex01_2.Program.GenerateSandClockWithInput(ref stringBuilder, 0, numberOfLines);
-
-            Console.WriteLine(stringBuilder.ToString());
+            else
+            {
+                Console.WriteLine("There was an error with your input");
+            }
+            
             Console.WriteLine("Please press 'Enter' to exit...");
             Console.ReadLine();
         }
