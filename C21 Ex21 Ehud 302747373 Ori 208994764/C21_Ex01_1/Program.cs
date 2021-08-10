@@ -37,6 +37,8 @@ namespace C21_Ex01_1
             int decimalNum1 = BinaryToDecimal(binaryNum1);
             int decimalNum2 = BinaryToDecimal(binaryNum2);
             int decimalNum3 = BinaryToDecimal(binaryNum3);
+            System.Console.WriteLine("The numbers input in decilmal are:{0} , {1} , {2}" , decimalNum1, decimalNum2, decimalNum3);
+
             int zerosCounter = 0;
             int onesCounter = 0;
             int powerOfTowCounter = 0;
@@ -54,9 +56,9 @@ namespace C21_Ex01_1
                     onesCounter++;
                 }
             }
-            /// how many is power of two
-            
-            ///TBC: prints
+            System.Console.WriteLine("The avarage of '1' is : {0} \n The avarage of '0' is : {1} ", onesCounter / 3, zerosCounter / 3);
+
+            /// how many is power of two  :: TBC!
             if (IsSeriesOfIncreasingNumber(decimalNum1))
             {
                 increasingNumbersCounter++;
@@ -68,6 +70,21 @@ namespace C21_Ex01_1
             if (IsSeriesOfIncreasingNumber(decimalNum3))
             {
                 increasingNumbersCounter++;
+            }
+
+
+
+            if (IsPowerOfTow(decimalNum1))
+            {
+                powerOfTowCounter++;
+            }
+            if (powerOfTowCounter(decimalNum2))
+            {
+                IsPowerOfTow++;
+            }
+            if (powerOfTowCounter(decimalNum3))
+            {
+                powerOfTowCounter++;
             }
             /// TODO:  change to formate
             System.Console.WriteLine("There is a" + increasingNumbersCounter + "of increasing numbers");
@@ -122,5 +139,10 @@ namespace C21_Ex01_1
         }
         return i_IsIncreaseNumber;
 
+    }
+
+    public static bool IsPowerOfTow(int i_ThreeDigitDecimal)
+    {
+        ///TBC
     }
 }
