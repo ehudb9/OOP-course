@@ -19,19 +19,19 @@ namespace C21_Ex01_1
             string binaryNum1 = System.Console.ReadLine();
             while (!IsValidInput(binaryNum1))
             {
-                System.Console.WriteLine("Invalid input\nPlease enter 3 Binary numbers with 7 digits each:");
+                System.Console.WriteLine("Invalid input\nPlease enter Binary numbers with 7 digits each:");
                 binaryNum1 = System.Console.ReadLine();
             }
             string binaryNum2 = System.Console.ReadLine();
             while (!IsValidInput(binaryNum2))
             {
-                System.Console.WriteLine("Invalid input\nPlease enter 3 Binary numbers with 7 digits each:");
+                System.Console.WriteLine("Invalid input\nPlease enter Binary numbers with 7 digits each:");
                 binaryNum2 = System.Console.ReadLine();
             }
             string binaryNum3 = System.Console.ReadLine();
             while (!IsValidInput(binaryNum3))
             {
-                System.Console.WriteLine("Invalid input\nPlease enter 3 Binary numbers with 7 digits each:");
+                System.Console.WriteLine("Invalid input\nPlease enter Binary numbers with 7 digits each:");
                 binaryNum3 = System.Console.ReadLine();
             }
             int decimalNum1 = BinaryToDecimal(binaryNum1);
@@ -58,7 +58,6 @@ namespace C21_Ex01_1
             }
             System.Console.WriteLine("The avarage of '1' is : {0} \n The avarage of '0' is : {1} ", onesCounter / 3, zerosCounter / 3);
 
-            /// how many is power of two  :: TBC!
             if (IsSeriesOfIncreasingNumber(decimalNum1))
             {
                 increasingNumbersCounter++;
@@ -78,16 +77,16 @@ namespace C21_Ex01_1
             {
                 powerOfTowCounter++;
             }
-            if (powerOfTowCounter(decimalNum2))
-            {
-                IsPowerOfTow++;
-            }
-            if (powerOfTowCounter(decimalNum3))
+            if (IsPowerOfTow(decimalNum2))
             {
                 powerOfTowCounter++;
             }
-            /// TODO:  change to formate
-            System.Console.WriteLine("There is a" + increasingNumbersCounter + "of increasing numbers");
+            if (IsPowerOfTow(decimalNum3))
+            {
+                powerOfTowCounter++;
+            }
+            System.Console.WriteLine("There is a {0} of increasing numbers", increasingNumbersCounter);
+            System.Console.WriteLine("There is a {0} numbers that is power of 2", powerOfTowCounter);
             System.Console.WriteLine("The Max number is:" + Math.Max(Math.Max(decimalNum1, decimalNum2), decimalNum3));
             System.Console.WriteLine("The Min number is:" + Math.Min(Math.Min(decimalNum1, decimalNum2), decimalNum3));
 
@@ -143,6 +142,18 @@ namespace C21_Ex01_1
 
     public static bool IsPowerOfTow(int i_ThreeDigitDecimal)
     {
-        ///TBC
+        if(i_ThreeDigitDecimal == 0)
+        {
+            return false;
+        }
+        while(i_ThreeDigitDecimal != 1)
+        {
+            i_ThreeDigitDecimal /= 2;
+            if(i_ThreeDigitDecimal % 2 && i_ThreeDigitDecimal != 1)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 }
