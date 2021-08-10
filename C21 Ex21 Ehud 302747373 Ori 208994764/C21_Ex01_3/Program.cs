@@ -32,7 +32,7 @@ namespace C21_Ex01_3
             }
             else
             {
-                Console.WriteLine("There was an error with your input");
+                Console.WriteLine("There was an error with your input, please exit and try again");
             }
             
             Console.WriteLine("Please press 'Enter' to exit...");

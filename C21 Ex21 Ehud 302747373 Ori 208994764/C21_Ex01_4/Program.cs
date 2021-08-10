@@ -16,28 +16,26 @@ namespace C21_Ex01_4
 
         private static void stringAnalysis()
         {
-            string isDevideBy4Str = "Yes";
-            string isPalindromStr = "Yes";
+            string isDevideBy4Str = "No";
+            string isPalindromStr = "No";
             int amountUpercaseletter = 0;
 
             Console.WriteLine("Please enter a string of 8 chars - contains either only numbers or only letters");
             string inputStr = Console.ReadLine();
 
             bool inputIsValid = checkInputValidity(inputStr);
-            if(inputIsValid == false)
+            while(inputIsValid == false)
             {
-                Console.WriteLine("There is a problem with your string. Please exit and try again");
-                Console.WriteLine("Please press 'Enter' to exit...");
-                Console.ReadLine();
-                return;
+                Console.WriteLine("There is a problem with your string. Please try again");
+                inputStr = Console.ReadLine();
             }
             
-            if(inputStr[0] >='0' && inputStr[0] <= '9')
+            if(Char.IsDigit(inputStr[0]))
             {
                 bool devideBy4 = int.Parse(inputStr) % 4 == 0;
-                if(devideBy4 == false)
+                if(devideBy4 == true)
                 {
-                    isDevideBy4Str = "No";
+                    isDevideBy4Str = "Yes";
                 }
             }
             else
@@ -46,9 +44,9 @@ namespace C21_Ex01_4
             }
 
             bool strIsPalindrom = isPalindrom(inputStr, 0, inputStr.Length - 1);
-            if (strIsPalindrom == false)
+            if (strIsPalindrom == true)
             {
-                isPalindromStr = "No";
+                isPalindromStr = "Yes";
             }
 
             string message = createFormatMessege(inputStr, isPalindromStr, isDevideBy4Str, amountUpercaseletter);
@@ -68,14 +66,11 @@ namespace C21_Ex01_4
             for (int i = 0; i < i_strForChecking.Length; i++)
             {
                 char currentReadChar = i_strForChecking[i];
-                if (currentReadChar < '0' && currentReadChar > '9')
+                if (!Char.IsLetter(currentReadChar))
                 {
-                    if (currentReadChar < 'a' && currentReadChar > 'z')
+                    if (!Char.IsDigit(currentReadChar))
                     {
-                        if (currentReadChar < 'A' && currentReadChar > 'Z')
-                        {
-                            return false;
-                        }
+                        return false;
                     }
                 }
             }
@@ -88,7 +83,7 @@ namespace C21_Ex01_4
             for (int i = 0; i < i_strForChecking.Length; i++)
             {
                 char currentReadChar = i_strForChecking[i];
-                if (currentReadChar < '0' && currentReadChar > '9')
+                if (!Char.IsDigit(currentReadChar))
                 {
                     return false;
                 }
@@ -102,7 +97,7 @@ namespace C21_Ex01_4
             for (int i = 0; i < i_strForChecking.Length; i++)
             {
                 char currentReadChar = i_strForChecking[i];
-                if (currentReadChar >= '0' && currentReadChar <= '9')
+                if (Char.IsDigit(currentReadChar))
                 {
                     return false;
                 }

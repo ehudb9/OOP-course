@@ -16,12 +16,10 @@ namespace C21_Ex01_5
             string inputNumberStr = Console.ReadLine();
 
             bool inputIsValid = checkInputValidity(inputNumberStr);
-            if (inputIsValid == false)
+            while (inputIsValid == false)
             {
-                Console.WriteLine("There is a problem with your string. Please exit and try again");
-                Console.WriteLine("Please press 'Enter' to exit...");
-                Console.ReadLine();
-                return;
+                Console.WriteLine("There is a problem with your string. Please try again");
+                inputNumberStr = Console.ReadLine();
             }
 
             int unityDigit = inputNumberStr[inputNumberStr.Length - 1];
