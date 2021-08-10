@@ -112,48 +112,49 @@ namespace C21_Ex01_1
             }
             return i_ValidFlag;
         }
-    }
-    public static int BinaryToDecimal(string i_BinaryNum)
-    {
-        int i_DecimalNumber = 0;
-        double i_Power = 0;
-        for(int i = i_BinaryNum.Length - 1; i >= 0; i++)
+        public static int BinaryToDecimal(string i_BinaryNum)
         {
-            i_Power = Math.Pow(2, i_BinaryNum.Length - i - 1);
-            i_DecimalNumber += int.Parse(i_BinaryNum[i].ToString()) * i_Power;
+            int i_DecimalNumber = 0;
+            double i_Power = 0;
+            for (int i = i_BinaryNum.Length - 1; i >= 0; i++)
+            {
+                i_Power = Math.Pow(2, i_BinaryNum.Length - i - 1);
+                i_DecimalNumber += int.Parse(i_BinaryNum[i].ToString()) * i_Power;
+            }
+            return i_DecimalNumber;
         }
-        return i_DecimalNumber;
-    }
 
-    public static bool IsSeriesOfIncreasingNumber(int i_ThreeDigitDecimal)
-    {
-        int i_Division = 10;
-        bool i_IsIncreaseNumber = false;
-        int i_Hundres = i_ThreeDigitDecimal / 100;
-        int i_Units = i_ThreeDigitDecimal % 10;
-        int i_Dozens = (i_ThreeDigitDecimal / 10) % 10;
-        if(i_Hundres < i_Hundres && i_Hundres < i_Units)
+        public static bool IsSeriesOfIncreasingNumber(int i_ThreeDigitDecimal)
         {
-            i_IsIncreaseNumber = true;
+            int i_Division = 10;
+            bool i_IsIncreaseNumber = false;
+            int i_Hundres = i_ThreeDigitDecimal / 100;
+            int i_Units = i_ThreeDigitDecimal % 10;
+            int i_Dozens = (i_ThreeDigitDecimal / 10) % 10;
+            if (i_Hundres < i_Hundres && i_Hundres < i_Units)
+            {
+                i_IsIncreaseNumber = true;
+            }
+            return i_IsIncreaseNumber;
+
         }
-        return i_IsIncreaseNumber;
 
-    }
-
-    public static bool IsPowerOfTow(int i_ThreeDigitDecimal)
-    {
-        if(i_ThreeDigitDecimal == 0)
+        public static bool IsPowerOfTow(int i_ThreeDigitDecimal)
         {
-            return false;
-        }
-        while(i_ThreeDigitDecimal != 1)
-        {
-            i_ThreeDigitDecimal /= 2;
-            if(i_ThreeDigitDecimal % 2 && i_ThreeDigitDecimal != 1)
+            if (i_ThreeDigitDecimal == 0)
             {
                 return false;
             }
+            while (i_ThreeDigitDecimal != 1)
+            {
+                i_ThreeDigitDecimal /= 2;
+                if (i_ThreeDigitDecimal % 2 && i_ThreeDigitDecimal != 1)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
-        return true;
     }
+    
 }
