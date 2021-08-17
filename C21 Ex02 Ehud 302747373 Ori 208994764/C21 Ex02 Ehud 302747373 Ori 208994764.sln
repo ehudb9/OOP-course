@@ -3,9 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex2.ConsoleUI", "Ex3.ConsoleUI\Ex2.ConsoleUI.csproj", "{3F654D66-930F-40B2-AA67-0F54660455DE}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex2.GameManager", "Ex2.GameManager\Ex2.GameManager.csproj", "{AAB65E66-6B5D-469F-B2B1-3FC8FC700F24}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C21_Ex02", "C21_Ex02\C21_Ex02.csproj", "{6C532FAA-FC73-42E1-AC54-881329D66B61}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3F654D66-930F-40B2-AA67-0F54660455DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3F654D66-930F-40B2-AA67-0F54660455DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3F654D66-930F-40B2-AA67-0F54660455DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3F654D66-930F-40B2-AA67-0F54660455DE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AAB65E66-6B5D-469F-B2B1-3FC8FC700F24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AAB65E66-6B5D-469F-B2B1-3FC8FC700F24}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AAB65E66-6B5D-469F-B2B1-3FC8FC700F24}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AAB65E66-6B5D-469F-B2B1-3FC8FC700F24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C532FAA-FC73-42E1-AC54-881329D66B61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C532FAA-FC73-42E1-AC54-881329D66B61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C532FAA-FC73-42E1-AC54-881329D66B61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C532FAA-FC73-42E1-AC54-881329D66B61}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
