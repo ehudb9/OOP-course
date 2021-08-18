@@ -24,12 +24,9 @@ namespace C21_Ex02.GameManager
 
         public void InitializeBoard()
         {
-            for(int i = 0; i < m_NumOfRows; i++)
+            foreach (BoardCell cell in m_boardCells)
             {
-                for(int j = 0; j < m_NumOfColumns; j++)
-                {
-                    m_boardCells[i, j] = new BoardCell();
-                }
+                cell = new BoardCell();
             }
         }
 
