@@ -40,7 +40,7 @@ namespace C21_Ex02
             /// 5. initilaize players/player+computer
         }
 
-        public static void Run()
+        public void Run()
         {
             
             while (m_GameIsAlive)

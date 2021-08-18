@@ -30,7 +30,7 @@ namespace C21_Ex02
             int m_NumOfColumns = int.Parse(Console.ReadLine());
             int m_NumOfRows = int.Parse(Console.ReadLine());
 
-            m_boardCells = new BoardCellValue[m_NumOfRows, m_NumOfColumns];
+            //m_boardCells = new BoardCellValue[m_NumOfRows, m_NumOfColumns];
         }
 
 
@@ -42,4 +42,4 @@ namespace C21_Ex02
     }
 
 }
-}
+
