@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using C21_Ex02.ConsoleUI;
-using C21_Ex02.GameManager;
+using C21_Ex02.LogicGame;
 
 
 namespace C21_Ex02
@@ -14,18 +14,18 @@ namespace C21_Ex02
     /// </summary>
     public class GameRunner
     {
-
-        bool m_PlayerVsComputerMode = false;
-        private bool m_GameIsAlive = false;
-        private bool m_Turn = true;
+        private bool m_playerVsComputerMode = false;
+        private bool m_gameIsAlive = false;
+        private bool m_turn = true;
         Player m_PlayerOne = null, m_PlayerTwo = null;
-        //ComputerPlay ComputerPlay = null;
+        ComputerPlayer m_computerPlayer = null;
         int m_SizeOfColumns = 0;
         int m_SizeOfRows = 0;
         Board m_GameBoard = null;
+
         public GameRunner()
         {
-            m_GameIsAlive = true;
+            m_gameIsAlive = true;
             InitGame();
         }
         public void InitGame()
@@ -44,16 +44,16 @@ namespace C21_Ex02
                 Prints.ErrorSizeMessage();
             }
             //m_GameBoard = new Board(m_SizeOfColumns, m_SizeOfRows);
-            m_PlayerOne = new Player();
+            m_PlayerOne = new Player(1);
             Console.WriteLine("\n Thank you, now type 'y' if you wish to play against the computer , 'n' to play with player 2:");
             if(Console.ReadLine().Equals("y"))
             {
-                m_PlayerVsComputerMode = true;
-                //ComputerPlay = new ComputerPlay();
+                m_playerVsComputerMode = true;
+                m_computerPlayer = new ComputerPlayer(2, m_SizeOfColumns);
             }
             else
             {
-                m_PlayerTwo = new Player();
+                m_PlayerTwo = new Player(2);
             }
 
             Prints.StartMessageQToExit();
@@ -69,25 +69,27 @@ namespace C21_Ex02
         public void Run()
         {
             
-            while (m_GameIsAlive)
+            while (m_gameIsAlive)
             {
-                /// m_GameBoard.ShowBoard();
-                if (m_Turn)
+                m_GameBoard.ShowBoard();
+
+                if (m_turn)
                 {
                     playerMove();
                 }
-                else if (m_PlayerVsComputerMode)
+                else if (m_playerVsComputerMode)
                 {
                     //ComputerPlay.computerMove();
                 }
                 else
                 {
-                    playerMove(1);
+                    playerMove(2);
                 }
                 
                 if (m_GameBoard.CheckEndGame())
                 {
-                    if (m_GameBoard.IsAWinner)
+                    //TODO: who played in the last turn. for now I'm check it for player1, we need to change it for generic checking
+                    if (m_GameBoard.HasWon(eCellTokenValue.Player1))
                     {
                         /// printWinner
                         /// printScores
@@ -96,27 +98,28 @@ namespace C21_Ex02
 
                 }
 
-                m_Turn = !m_Turn;
+                m_turn = !m_turn;
                 
-                m_GameIsAlive = false;
+                m_gameIsAlive = false;
             }
         }
                            
-        private void playerMove(int i_player=0)
+        private void playerMove(int i_player = 1)
         {
             Prints.ChooseColumn();
-            string ChosenColumn = Console.ReadLine();
+            string chosenColumn = Console.ReadLine();
             int numOfColumnToInsert = 0;
-            if (ChosenColumn.Equals("q") || ChosenColumn.Equals("q"))
+            if (chosenColumn.Equals("q") || chosenColumn.Equals("q"))
             {
-                m_GameIsAlive = false;
+                m_gameIsAlive = false;
                 return;
             }
-            while (!(int.TryParse(ChosenColumn, out numOfColumnToInsert) || isValidColumn(numOfColumnToInsert)))
+            while (!(int.TryParse(chosenColumn, out numOfColumnToInsert) || isValidColumn(numOfColumnToInsert)))
             {
                 Prints.ErrorSizeMessage();
             }
-            //m_GameBoard.InsertCell(numOfColumnToInsert, i_player); 
+
+            m_GameBoard.InsertCellToBoard(numOfColumnToInsert, i_player == 1 ? eCellTokenValue.Player1 : eCellTokenValue.Player2);
         }
 
         private bool isValidColumn(int i_ChosenColumn)

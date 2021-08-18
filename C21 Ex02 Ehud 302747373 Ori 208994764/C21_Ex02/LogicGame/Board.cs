@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace C21_Ex02.GameManager
+namespace C21_Ex02.LogicGame
 {
     /// <summary>
     /// Create and initialize the board and check its status
@@ -12,7 +9,7 @@ namespace C21_Ex02.GameManager
     public class Board
     {
         public int m_NumOfRows;
-        public  int m_NumOfColumns;
+        public int m_NumOfColumns;
         private readonly BoardCell[,] m_boardCells;
 
         public Board(int i_boardColumnSize, int i_boardRowSize)
@@ -26,7 +23,10 @@ namespace C21_Ex02.GameManager
         {
             foreach (BoardCell cell in m_boardCells)
             {
-                cell = new BoardCell();
+                cell.CellTokenValue = eCellTokenValue.Empty;
+                {
+                    m_boardCells[i, j] = new BoardCell();
+                }
             }
         }
 

@@ -42,15 +42,15 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Compile Include="Board.cs" />
-    <Compile Include="GameManager\Player.cs" />
+    <Compile Include="LogicGame\ComputerPlayer.cs" />
+    <Compile Include="LogicGame\Player.cs" />
     <Compile Include="GameRunner.cs" />
     <Compile Include="ConsoleUI\Prints.cs" />
     <Compile Include="ConsoleUI\Screen.cs" />
-    <Compile Include="GameManager\Board.cs" />
-    <Compile Include="GameManager\BoardCell.cs" />
-    <Compile Include="GameManager\eCellTokenValue.cs" />
-    <Compile Include="GameManager\eGameMode.cs" />
+    <Compile Include="LogicGame\Board.cs" />
+    <Compile Include="LogicGame\BoardCell.cs" />
+    <Compile Include="LogicGame\eCellTokenValue.cs" />
+    <Compile Include="LogicGame\eGameMode.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
