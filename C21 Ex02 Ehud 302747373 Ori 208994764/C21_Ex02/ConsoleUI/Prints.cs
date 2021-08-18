@@ -13,6 +13,10 @@ namespace C21_Ex02.ConsoleUI
             Console.WriteLine("\tHello and welcome!!! :) ");
             Console.WriteLine("\tPlease type size of board to start the game");
         }
+        public static void ErrorSizeMessage()
+        {
+            Console.WriteLine("\tPlease try again type a single int :");
+        }
 
         public static void AskForBoardSizeMessage()
         {
@@ -29,12 +33,16 @@ namespace C21_Ex02.ConsoleUI
             ///TBC
         }
 
-        public static void StartMessage()
+        public static void StartMessageQToExit()
         {
             ///TBC
             Console.WriteLine("At any time- perss 'q' and enter");
         }
+        public static void ChooseColumn()
+        {
+            Console.WriteLine("Type the number of the column you want to insert");
 
+        }
         public static void ReatsrtGameOfferMessage()
         {
             Console.WriteLine("For restart the game type 'y'\n to exit the game type 'q'");
