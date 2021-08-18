@@ -40,10 +40,12 @@
       <HintPath>..\..\..\..\..\..\Temp\Ex02.ConsoleUtils.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="ConsoleUI\" />
-  </ItemGroup>
-  <ItemGroup>
+    <Compile Include="Board.cs" />
+    <Compile Include="GameRunner.cs" />
+    <Compile Include="ConsoleUI\Prints.cs" />
+    <Compile Include="ConsoleUI\Screen.cs" />
     <Compile Include="GameManager\Board.cs" />
     <Compile Include="GameManager\BoardCell.cs" />
     <Compile Include="GameManager\eCellTokenValue.cs" />
