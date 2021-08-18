@@ -15,8 +15,8 @@ namespace C21_Ex02
     public class GameRunner
     {
         private eGameMode m_playerVsComputerMode = eGameMode.PlayerVsPlayer;
-        private bool m_gameIsAlive = false;
-        private bool m_turn = true;
+        private bool m_GameIsAlive = false;
+        private bool m_Turn = true;
         Player m_PlayerOne = null, m_PlayerTwo = null;
         ComputerPlayer m_computerPlayer = null;
         int m_SizeOfColumns = 0;
@@ -46,7 +46,7 @@ namespace C21_Ex02
             }
             m_GameBoard = new Board(m_SizeOfColumns, m_SizeOfRows);
             m_PlayerOne = new Player(1);
-            Console.WriteLine("\n Thank you, now type 'y' if you wish to play against the computer , 'n' to play with player 2:");
+            Prints.CompurerOrPlayerMeggage();
             if(Console.ReadLine().Equals("y"))
             {
                 m_playerVsComputerMode = eGameMode.PlayerVsComputer;
@@ -77,29 +77,17 @@ namespace C21_Ex02
                 if (m_Turn)
                 {
                     m_CurrentPlayer = eCellTokenValue.Player1;
-                    playerMove();
+                    PlayerMove();
                 }
                 else if (m_playerVsComputerMode == eGameMode.PlayerVsComputer)
                 {
+                    m_CurrentPlayer = eCellTokenValue.Player2;
                     m_computerPlayer.MakeComputerMove(m_GameBoard);
                 }
                 else
                 {
-                    playerMove(2);
-                }
-                
-                if (m_GameBoard.CheckEndGame())
                     m_CurrentPlayer = eCellTokenValue.Player2;
-
-                    if (m_playerVsComputerMode)
-                    {
-
-                        //ComputerPlay.computerMove();
-                    }
-                    else
-                    {
-                        playerMove();
-                    }
+                    PlayerMove();
                 }
 
                 if (m_GameBoard.HasWon(m_CurrentPlayer))
@@ -115,14 +103,14 @@ namespace C21_Ex02
                 }
 
                 m_Turn = !m_Turn;
-                
-                m_GameIsAlive = false;
             }
             //TODO: close the console....///
 
         }
+
+ 
                            
-        private void playerMove()
+        public void PlayerMove()
         {
             Prints.ChooseColumn();
             string chosenColumn = Console.ReadLine();
@@ -134,7 +122,16 @@ namespace C21_Ex02
             }
             while (!(int.TryParse(chosenColumn, out numOfColumnToInsert) || isValidColumn(numOfColumnToInsert)))
             {
-                Prints.ErrorSizeMessage();
+                if(m_GameBoard.IsFullColumn(numOfColumnToInsert))
+                {
+                    Prints.ColumnIsFullMessage();        
+                }
+                else
+                {
+                    Prints.ErrorSizeMessage();
+                }
+                Prints.ChooseColumn();
+                chosenColumn = Console.ReadLine();
             }
             //explanation!
             //m_GameBoard.InsertCellToBoard(numOfColumnToInsert, i_player == 1 ? eCellTokenValue.Player1 : eCellTokenValue.Player2);
@@ -150,7 +147,7 @@ namespace C21_Ex02
         private void EndGame()
         {
             bool isValidAnswer = false;
-            while (isValidAnswer)
+            while (!isValidAnswer)
             {
                 Prints.ReatsrtGameOfferMessage();
                 string userAnswer = Console.ReadLine();

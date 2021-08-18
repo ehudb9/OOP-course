@@ -18,7 +18,7 @@ namespace C21_Ex02.LogicGame
             m_boardCells = new BoardCell[i_boardRowSize, i_boardColumnSize];
             m_NumOfRows = i_boardRowSize;
             m_NumOfColumns = i_boardColumnSize;
-            m_ColumnsIndex = new int[i_boardColumnSize];
+            m_ColumnsIndex = new int[m_NumOfRows];
             resetColumnIndex();
         }
 
@@ -46,8 +46,9 @@ namespace C21_Ex02.LogicGame
 
         public void InsertCellToBoard(int i_column, eCellTokenValue i_playerTokenValue)
         {
-            
-            
+            //how to set the value of the cell
+
+            /*
             int potentialRowToAdd = 0;
 
             while((potentialRowToAdd < m_NumOfRows - 1)
@@ -55,8 +56,9 @@ namespace C21_Ex02.LogicGame
             {
                 potentialRowToAdd = potentialRowToAdd + 1;
             }
-
-            m_boardCells[potentialRowToAdd, i_column].CellTokenValue = i_playerTokenValue;
+            */
+            m_boardCells[m_ColumnsIndex[i_column - 1], i_column].CellTokenValue = i_playerTokenValue;
+            m_ColumnsIndex[i_column - 1]--;
         }
         public bool IsFullColumn(int i_Column)
         {
@@ -74,6 +76,10 @@ namespace C21_Ex02.LogicGame
             }
             return true;
         }
+        
+        ///=================================================================================================//
+        ///all wrog!!!//
+        ///most be changed!
         public bool HasWon(eCellTokenValue i_CellToken)
         {
             for(int i = 0; i < m_NumOfRows; i ++)

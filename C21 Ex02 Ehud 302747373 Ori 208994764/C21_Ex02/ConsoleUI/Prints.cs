@@ -18,24 +18,20 @@ namespace C21_Ex02.ConsoleUI
             Console.WriteLine("\tPlease try again type a single int :");
         }
 
-        public static void AskForBoardSizeMessage()
-        {
-            ///TBC
-        }
-
         public static void CompurerOrPlayerMeggage()
         {
-            ///TBC
+            Console.WriteLine("\n Thank you, now type 'y' if you wish to play against the computer , 'n' to play with player 2:");
+
         }
 
         public static void ColumnIsFullMessage()
         {
-            ///TBC
+            Console.WriteLine("the column you choosed is full, please try a different column");
+
         }
 
         public static void StartMessageQToExit()
         {
-            ///TBC
             Console.WriteLine("At any time- perss 'q' and enter");
         }
         public static void ChooseColumn()
