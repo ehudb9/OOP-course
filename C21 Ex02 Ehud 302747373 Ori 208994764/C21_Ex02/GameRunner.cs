@@ -10,11 +10,11 @@ using C21_Ex02.LogicGame;
 namespace C21_Ex02
 {
     /// <summary>
-    /// Iterate the turns douring the game
+    /// Iterate the turns during the game
     /// </summary>
     public class GameRunner
     {
-        private bool m_playerVsComputerMode = false;
+        private eGameMode m_playerVsComputerMode = eGameMode.PlayerVsPlayer;
         private bool m_gameIsAlive = false;
         private bool m_turn = true;
         Player m_PlayerOne = null, m_PlayerTwo = null;
@@ -43,12 +43,13 @@ namespace C21_Ex02
             {
                 Prints.ErrorSizeMessage();
             }
-            //m_GameBoard = new Board(m_SizeOfColumns, m_SizeOfRows);
+
+            m_GameBoard = new Board(m_SizeOfColumns, m_SizeOfRows);
             m_PlayerOne = new Player(1);
             Console.WriteLine("\n Thank you, now type 'y' if you wish to play against the computer , 'n' to play with player 2:");
             if(Console.ReadLine().Equals("y"))
             {
-                m_playerVsComputerMode = true;
+                m_playerVsComputerMode = eGameMode.PlayerVsComputer;
                 m_computerPlayer = new ComputerPlayer(2, m_SizeOfColumns);
             }
             else
@@ -77,9 +78,9 @@ namespace C21_Ex02
                 {
                     playerMove();
                 }
-                else if (m_playerVsComputerMode)
+                else if (m_playerVsComputerMode == eGameMode.PlayerVsComputer)
                 {
-                    //ComputerPlay.computerMove();
+                    m_computerPlayer.MakeComputerMove(m_GameBoard);
                 }
                 else
                 {
