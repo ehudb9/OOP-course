@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace C21_Ex02.GameManager
+namespace C21_Ex02.LogicGame
 {
     public enum eCellTokenValue
     {

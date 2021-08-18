@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using C21_Ex02.ConsoleUI;
-using C21_Ex02.GameManager;
+using C21_Ex02.LogicGame;
 
 
 namespace C21_Ex02
@@ -14,15 +14,15 @@ namespace C21_Ex02
     /// </summary>
     public class GameRunner
     {
-
         bool m_PlayerVsComputerMode = false;
         private bool m_GameIsAlive = false;
         private bool m_Turn = true;
         Player m_PlayerOne = null, m_PlayerTwo = null;
-        //ComputerPlay ComputerPlay = null;
+        //ComputerPlay ComputerPlayer = null;
         int m_SizeOfColumns = 0;
         int m_SizeOfRows = 0;
         Board m_GameBoard = null;
+
         public GameRunner()
         {
             m_GameIsAlive = true;
@@ -87,7 +87,7 @@ namespace C21_Ex02
                 
                 if (m_GameBoard.CheckEndGame())
                 {
-                    if (m_GameBoard.IsAWinner)
+                    if (m_GameBoard.)
                     {
                         /// printWinner
                         /// printScores
@@ -102,7 +102,7 @@ namespace C21_Ex02
             }
         }
                            
-        private void playerMove(int i_player=0)
+        private void playerMove(int i_player = 0)
         {
             Prints.ChooseColumn();
             string ChosenColumn = Console.ReadLine();
