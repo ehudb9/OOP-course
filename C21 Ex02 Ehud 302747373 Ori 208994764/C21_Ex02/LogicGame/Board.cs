@@ -11,25 +11,34 @@ namespace C21_Ex02.LogicGame
         public int m_NumOfRows;
         public int m_NumOfColumns;
         private readonly BoardCell[,] m_boardCells;
+        private int[] m_ColumnsIndex;
 
         public Board(int i_boardColumnSize, int i_boardRowSize)
         {
             m_boardCells = new BoardCell[i_boardRowSize, i_boardColumnSize];
             m_NumOfRows = i_boardRowSize;
             m_NumOfColumns = i_boardColumnSize;
+            m_ColumnsIndex = new int[i_boardColumnSize];
+            resetColumnIndex();
         }
 
-        public void InitializeBoard()
+        private void resetColumnIndex()
+        {
+            for (int i = 0; i < m_ColumnsIndex.Length; i++)
+            {
+                m_ColumnsIndex[i] = m_NumOfRows;
+            }
+        }
+        public void ResetBoard()
         {
             foreach (BoardCell cell in m_boardCells)
             {
                 cell.CellTokenValue = eCellTokenValue.Empty;
-                {
-                    m_boardCells[i, j] = new BoardCell();
-                }
             }
+            resetColumnIndex();
         }
 
+        //FOR WHAT??
         public bool CanAddInColumn(int i_column)
         {
             return m_boardCells[0, i_column].CellTokenValue == eCellTokenValue.Empty;
@@ -37,6 +46,8 @@ namespace C21_Ex02.LogicGame
 
         public void InsertCellToBoard(int i_column, eCellTokenValue i_playerTokenValue)
         {
+            
+            
             int potentialRowToAdd = 0;
 
             while((potentialRowToAdd < m_NumOfRows - 1)
@@ -47,7 +58,22 @@ namespace C21_Ex02.LogicGame
 
             m_boardCells[potentialRowToAdd, i_column].CellTokenValue = i_playerTokenValue;
         }
-
+        public bool IsFullColumn(int i_Column)
+        {
+            return m_ColumnsIndex[i_Column] == 0;
+        }
+        public bool BoardIsFull()
+        {
+            foreach (int i in m_ColumnsIndex)
+            {
+                if (i > 0)
+                {
+                    return false;
+                }
+                
+            }
+            return true;
+        }
         public bool HasWon(eCellTokenValue i_CellToken)
         {
             for(int i = 0; i < m_NumOfRows; i ++)

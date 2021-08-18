@@ -15,17 +15,18 @@ namespace C21_Ex02
     public class GameRunner
     {
         private bool m_playerVsComputerMode = false;
-        private bool m_gameIsAlive = false;
-        private bool m_turn = true;
+        private bool m_GameIsAlive = false;
+        private bool m_Turn = true;
         Player m_PlayerOne = null, m_PlayerTwo = null;
         ComputerPlayer m_computerPlayer = null;
         int m_SizeOfColumns = 0;
         int m_SizeOfRows = 0;
         Board m_GameBoard = null;
+        eCellTokenValue m_CurrentPlayer = eCellTokenValue.Empty;
 
         public GameRunner()
         {
-            m_gameIsAlive = true;
+            m_GameIsAlive = true;
             InitGame();
         }
         public void InitGame()
@@ -43,7 +44,7 @@ namespace C21_Ex02
             {
                 Prints.ErrorSizeMessage();
             }
-            //m_GameBoard = new Board(m_SizeOfColumns, m_SizeOfRows);
+            m_GameBoard = new Board(m_SizeOfColumns, m_SizeOfRows);
             m_PlayerOne = new Player(1);
             Console.WriteLine("\n Thank you, now type 'y' if you wish to play against the computer , 'n' to play with player 2:");
             if(Console.ReadLine().Equals("y"))
@@ -60,66 +61,77 @@ namespace C21_Ex02
 
         }
 
-        public static void ReSetGame()
+        public void ResetBoard()
         {
-            //m_gameBoard.ReSet();
+            m_GameBoard.ResetBoard();
             Prints.StartMessageQToExit();
         }
 
         public void Run()
         {
-            
-            while (m_gameIsAlive)
+
+            while (m_GameIsAlive)
             {
                 m_GameBoard.ShowBoard();
 
-                if (m_turn)
+                if (m_Turn)
                 {
+                    m_CurrentPlayer = eCellTokenValue.Player1;
                     playerMove();
-                }
-                else if (m_playerVsComputerMode)
-                {
-                    //ComputerPlay.computerMove();
                 }
                 else
                 {
-                    playerMove(2);
-                }
-                
-                if (m_GameBoard.CheckEndGame())
-                {
-                    //TODO: who played in the last turn. for now I'm check it for player1, we need to change it for generic checking
-                    if (m_GameBoard.HasWon(eCellTokenValue.Player1))
+                    m_CurrentPlayer = eCellTokenValue.Player2;
+
+                    if (m_playerVsComputerMode)
                     {
-                        /// printWinner
-                        /// printScores
-                        /// askto end of game -->restart or exit. 
-                    }
 
+                        //ComputerPlay.computerMove();
+                    }
+                    else
+                    {
+                        playerMove();
+                    }
                 }
 
-                m_turn = !m_turn;
+                if (m_GameBoard.HasWon(m_CurrentPlayer))
+                {
+                    Console.WriteLine("{0} Won!!!", m_CurrentPlayer);
+                    //TODO: print the scores and score of the computer it there is
+                    //Console.WriteLine("current score is : \n\t{0} player 1\n\t {1} player 2", m_CurrentPlayer);
+                    EndGame();
+                }
+                else if (m_GameBoard.BoardIsFull())
+                {
+                    EndGame();
+                }
+
+                m_Turn = !m_Turn;
                 
-                m_gameIsAlive = false;
+                m_GameIsAlive = false;
             }
+            //TODO: close the console....///
+
         }
                            
-        private void playerMove(int i_player = 1)
+        private void playerMove()
         {
             Prints.ChooseColumn();
             string chosenColumn = Console.ReadLine();
             int numOfColumnToInsert = 0;
-            if (chosenColumn.Equals("q") || chosenColumn.Equals("q"))
+            if (chosenColumn.Equals("q") || chosenColumn.Equals("Q"))
             {
-                m_gameIsAlive = false;
+                m_GameIsAlive = false;
                 return;
             }
             while (!(int.TryParse(chosenColumn, out numOfColumnToInsert) || isValidColumn(numOfColumnToInsert)))
             {
                 Prints.ErrorSizeMessage();
             }
+            //explanation!
+            //m_GameBoard.InsertCellToBoard(numOfColumnToInsert, i_player == 1 ? eCellTokenValue.Player1 : eCellTokenValue.Player2);
+            m_GameBoard.InsertCellToBoard(numOfColumnToInsert, m_CurrentPlayer);
 
-            m_GameBoard.InsertCellToBoard(numOfColumnToInsert, i_player == 1 ? eCellTokenValue.Player1 : eCellTokenValue.Player2);
         }
 
         private bool isValidColumn(int i_ChosenColumn)
@@ -127,5 +139,24 @@ namespace C21_Ex02
             return i_ChosenColumn > 0  && i_ChosenColumn <= m_SizeOfColumns && !m_GameBoard.IsFullColumn(i_ChosenColumn);
         }
 
+        private void EndGame()
+        {
+            bool isValidAnswer = false;
+            while (isValidAnswer)
+            {
+                Prints.ReatsrtGameOfferMessage();
+                string userAnswer = Console.ReadLine();
+                if (userAnswer.Equals("y"))
+                {
+                    ResetBoard();
+                    isValidAnswer = true;
+                }
+                else if (userAnswer.Equals("q"))
+                {
+                    m_GameIsAlive = false;
+                    isValidAnswer = true;
+                }
+            }
+        }
     }
 }
