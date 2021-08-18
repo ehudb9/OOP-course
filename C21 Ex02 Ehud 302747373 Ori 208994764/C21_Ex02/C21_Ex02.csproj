@@ -43,6 +43,7 @@
   <ItemGroup />
   <ItemGroup>
     <Compile Include="Board.cs" />
+    <Compile Include="GameManager\Player.cs" />
     <Compile Include="GameRunner.cs" />
     <Compile Include="ConsoleUI\Prints.cs" />
     <Compile Include="ConsoleUI\Screen.cs" />

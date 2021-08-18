@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using C21_Ex02.ConsoleUI;
+using C21_Ex02.GameManager;
+
 
 namespace C21_Ex02
 {
@@ -12,32 +14,56 @@ namespace C21_Ex02
     /// </summary>
     public class GameRunner
     {
-        bool m_GameIsAlive = false;
-        bool m_turn = false;
 
+        bool m_PlayerVsComputerMode = false;
+        private bool m_GameIsAlive = false;
+        private bool m_Turn = true;
+        Player m_PlayerOne = null, m_PlayerTwo = null;
+        //ComputerPlay ComputerPlay = null;
+        int m_SizeOfColumns = 0;
+        int m_SizeOfRows = 0;
+        Board m_GameBoard = null;
         public GameRunner()
         {
             m_GameIsAlive = true;
-            StartGame();
-           
+            InitGame();
         }
-        public static void StartGame()
+        public void InitGame()
         {
+
+            Prints.WelcomeMessage();
+            Console.WriteLine("\tPlease type size of columns (8-4):");
+            while (!(int.TryParse(Console.ReadLine(),out m_SizeOfColumns)))
+            {
+                Prints.ErrorSizeMessage();
+            }
             
-            /// 1.welocome
-            /// 2. get size
-            /// 3. Set booard according to input size-- gameBoard
-            /// 4. get mode game
-            /// 5. initilaize players/player+computer
+            Console.WriteLine("\tPlease type size of rows (8-4):");
+            while (!(int.TryParse(Console.ReadLine(), out m_SizeOfColumns)))
+            {
+                Prints.ErrorSizeMessage();
+            }
+            //m_GameBoard = new Board(m_SizeOfColumns, m_SizeOfRows);
+            m_PlayerOne = new Player();
+            Console.WriteLine("\n Thank you, now type 'y' if you wish to play against the computer , 'n' to play with player 2:");
+            if(Console.ReadLine().Equals("y"))
+            {
+                m_PlayerVsComputerMode = true;
+                //ComputerPlay = new ComputerPlay();
+            }
+            else
+            {
+                m_PlayerTwo = new Player();
+            }
+
+            Prints.StartMessageQToExit();
+
         }
 
-        public static void InitGame()
+        public static void ReSetGame()
         {
-            /// 1.welocome
-            /// 2. get size
-            /// 3. Set booard according to input size-- gameBoard -------ORI
-            /// 4. get mode game
-            /// 5. initilaize players/player+computer
+            //m_gameBoard.ReSet();
+            Prints.StartMessageQToExit();
         }
 
         public void Run()
@@ -45,21 +71,58 @@ namespace C21_Ex02
             
             while (m_GameIsAlive)
             {
+                /// m_GameBoard.ShowBoard();
+                if (m_Turn)
+                {
+                    playerMove();
+                }
+                else if (m_PlayerVsComputerMode)
+                {
+                    //ComputerPlay.computerMove();
+                }
+                else
+                {
+                    playerMove(1);
+                }
+                
+                if (m_GameBoard.CheckEndGame())
+                {
+                    if (m_GameBoard.IsAWinner)
+                    {
+                        /// printWinner
+                        /// printScores
+                        /// askto end of game -->restart or exit. 
+                    }
 
-                /// gameBoard.ShowBoard(); -------------EHUD
-                /// if(turn) --> userMove(); ------------EHUD
-                /// else if (comuterMode) --> computerMove() ------------ORI
-                ///else -- player2Move();  -------------EHUD
-                //////
-                ///////
-                /// checkBoardStatus();--> if end of game -->restart or exit.  -------ORi
+                }
 
-                /// turn = !turn;
-
+                m_Turn = !m_Turn;
+                
                 m_GameIsAlive = false;
             }
         }
-        
-        
+                           
+        private void playerMove(int i_player=0)
+        {
+            Prints.ChooseColumn();
+            string ChosenColumn = Console.ReadLine();
+            int numOfColumnToInsert = 0;
+            if (ChosenColumn.Equals("q") || ChosenColumn.Equals("q"))
+            {
+                m_GameIsAlive = false;
+                return;
+            }
+            while (!(int.TryParse(ChosenColumn, out numOfColumnToInsert) || isValidColumn(numOfColumnToInsert)))
+            {
+                Prints.ErrorSizeMessage();
+            }
+            //m_GameBoard.InsertCell(numOfColumnToInsert, i_player); 
+        }
+
+        private bool isValidColumn(int i_ChosenColumn)
+        {
+            return i_ChosenColumn > 0  && i_ChosenColumn <= m_SizeOfColumns && !m_GameBoard.IsFullColumn(i_ChosenColumn);
+        }
+
     }
 }
