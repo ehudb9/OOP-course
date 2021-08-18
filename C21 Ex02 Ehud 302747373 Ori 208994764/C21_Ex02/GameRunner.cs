@@ -10,13 +10,13 @@ using C21_Ex02.LogicGame;
 namespace C21_Ex02
 {
     /// <summary>
-    /// Iterate the turns douring the game
+    /// Iterate the turns during the game
     /// </summary>
     public class GameRunner
     {
-        private bool m_playerVsComputerMode = false;
-        private bool m_GameIsAlive = false;
-        private bool m_Turn = true;
+        private eGameMode m_playerVsComputerMode = eGameMode.PlayerVsPlayer;
+        private bool m_gameIsAlive = false;
+        private bool m_turn = true;
         Player m_PlayerOne = null, m_PlayerTwo = null;
         ComputerPlayer m_computerPlayer = null;
         int m_SizeOfColumns = 0;
@@ -49,7 +49,7 @@ namespace C21_Ex02
             Console.WriteLine("\n Thank you, now type 'y' if you wish to play against the computer , 'n' to play with player 2:");
             if(Console.ReadLine().Equals("y"))
             {
-                m_playerVsComputerMode = true;
+                m_playerVsComputerMode = eGameMode.PlayerVsComputer;
                 m_computerPlayer = new ComputerPlayer(2, m_SizeOfColumns);
             }
             else
@@ -79,8 +79,16 @@ namespace C21_Ex02
                     m_CurrentPlayer = eCellTokenValue.Player1;
                     playerMove();
                 }
+                else if (m_playerVsComputerMode == eGameMode.PlayerVsComputer)
+                {
+                    m_computerPlayer.MakeComputerMove(m_GameBoard);
+                }
                 else
                 {
+                    playerMove(2);
+                }
+                
+                if (m_GameBoard.CheckEndGame())
                     m_CurrentPlayer = eCellTokenValue.Player2;
 
                     if (m_playerVsComputerMode)
