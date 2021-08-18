@@ -43,7 +43,7 @@ namespace C21_Ex02.LogicGame
         {
             return m_boardCells[0, i_column].CellTokenValue == eCellTokenValue.Empty;
         }
-
+        ///WHAT????
         public void InsertCellToBoard(int i_column, eCellTokenValue i_playerTokenValue)
         {
             //how to set the value of the cell
@@ -78,10 +78,12 @@ namespace C21_Ex02.LogicGame
         }
         
         ///=================================================================================================//
-        ///all wrog!!!//
+        ///all wrong!!!//
         ///most be changed!
         public bool HasWon(eCellTokenValue i_CellToken)
         {
+            
+            //HOW to get the current cell index????????????
             for(int i = 0; i < m_NumOfRows; i ++)
             {
                 for(int j = 0; j < m_NumOfColumns; j++)
@@ -123,6 +125,26 @@ namespace C21_Ex02.LogicGame
                 }
             }
             return true;
+
+            //////////////
+            int sameValueCounter = 0;
+            eCellTokenValue prevValue = i_CellToken;
+            int rowNum = i_row;
+            while (rowNum < m_NumOfRows && prevValue == m_boardCells[rowNum++, i_column].CellTokenValue)
+            {
+                sameValueCounter++;
+                prevValue = m_boardCells[rowNum, i_column].CellTokenValue;
+            }
+            while(rowNum>0 && prevValue == m_boardCells[rowNum--, i_column].CellTokenValue)
+            {
+                sameValueCounter++;
+                prevValue = m_boardCells[rowNum, i_column].CellTokenValue;
+            }
+            if (sameValueCounter == 4)
+            {
+                return true;
+            }
+            return false;
         }
 
         private bool checkHorizontally(int i_row, int i_column, eCellTokenValue i_CellToken)
@@ -140,6 +162,27 @@ namespace C21_Ex02.LogicGame
                 }
             }
             return true;
+            
+            
+            //////////////
+            int sameValueCounter = 0;
+            eCellTokenValue prevValue = i_CellToken;
+            int columnNum = i_column;
+            while (columnNum < m_NumOfRows && prevValue == m_boardCells[i_row++, columnNum++].CellTokenValue)
+            {
+                sameValueCounter++;
+                prevValue = m_boardCells[i_row, i_column].CellTokenValue;
+            }
+            while (columnNum > 0 && prevValue == m_boardCells[i_row, columnNum--].CellTokenValue)
+            {
+                sameValueCounter++;
+                prevValue = m_boardCells[i_row, columnNum].CellTokenValue;
+            }
+            if (sameValueCounter == 4)
+            {
+                return true;
+            }
+            return false;
         }
 
         private bool checkDiagonallyDown(int i_row, int i_column, eCellTokenValue i_CellToken)
