@@ -20,9 +20,14 @@ namespace C21_Ex02.LogicGame
             m_maxChosenColumnVal = i_maxChosenColumnVal;
             r_random = new Random();
         }
-
+        public int Score
+        {
+            get => m_Score;
+            set => m_Score = value;
+        }
         private int pickRandomColumnNumber()
         {
+            //TODO: while-tocheck if the column if not full  ----->Ehud
             int chosenColumn = r_random.Next(0, m_maxChosenColumnVal);
             return chosenColumn;
         }
@@ -30,7 +35,7 @@ namespace C21_Ex02.LogicGame
         public void MakeComputerMove(Board i_gameBoard)
         {
             int chosenColumn = pickRandomColumnNumber();
-            i_gameBoard.InsertCellToBoard(chosenColumn, Sign == 1 ? eCellTokenValue.Player1 : eCellTokenValue.Player2);
+            i_gameBoard.InsertCellToBoard(chosenColumn, eCellTokenValue.Player2);
         }
     }
 }

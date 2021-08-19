@@ -10,5 +10,10 @@
             m_Score = 0;
             Sign = i_sign;
         }
+        public int Score
+        {
+            get => m_Score;
+            set => m_Score = value;
+        }
     }
 }

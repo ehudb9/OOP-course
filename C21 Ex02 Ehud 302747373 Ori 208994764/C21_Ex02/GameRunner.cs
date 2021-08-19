@@ -90,11 +90,12 @@ namespace C21_Ex02
                     PlayerMove();
                 }
 
+                // must be checked!
                 if (m_GameBoard.HasWon(m_CurrentPlayer))
                 {
                     Console.WriteLine("{0} Won!!!", m_CurrentPlayer);
-                    //TODO: print the scores and score of the computer it there is
-                    //Console.WriteLine("current score is : \n\t{0} player 1\n\t {1} player 2", m_CurrentPlayer);
+                    //TODO: print the scores and score of the computer it there is ---- ORI
+                    Console.WriteLine("current score is : \n\t{0} player 1\n\t {1} player 2", m_CurrentPlayer);
                     EndGame();
                 }
                 else if (m_GameBoard.BoardIsFull())
@@ -104,7 +105,7 @@ namespace C21_Ex02
 
                 m_Turn = !m_Turn;
             }
-            //TODO: close the console....///
+            //TODO: close the console..../// ---> TO LEAVE TO THE END
 
         }
 
@@ -133,8 +134,6 @@ namespace C21_Ex02
                 Prints.ChooseColumn();
                 chosenColumn = Console.ReadLine();
             }
-            //explanation!
-            //m_GameBoard.InsertCellToBoard(numOfColumnToInsert, i_player == 1 ? eCellTokenValue.Player1 : eCellTokenValue.Player2);
             m_GameBoard.InsertCellToBoard(numOfColumnToInsert, m_CurrentPlayer);
 
         }
