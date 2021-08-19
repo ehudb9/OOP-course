@@ -77,7 +77,6 @@ namespace C21_Ex02.LogicGame
         
         public bool HasWon(eCellTokenValue i_CellToken)
         {
-
             if (checkVertically(i_CellToken) || checkHorizontally(i_CellToken))
             {
                 return true;
@@ -92,7 +91,6 @@ namespace C21_Ex02.LogicGame
 
         private bool checkVertically(eCellTokenValue i_CellToken)
         {
-            
             int sameValueCounter = 0;
             eCellTokenValue prevValue = i_CellToken;
             int rowNum = m_CurrentCellRowIndex;
@@ -119,7 +117,6 @@ namespace C21_Ex02.LogicGame
 
         private bool checkHorizontally(eCellTokenValue i_CellToken)
         {
-            
             int sameValueCounter = 0;
             eCellTokenValue prevValue = i_CellToken;
             int columnNum = m_CurrentCellColumnIndex;
@@ -214,7 +211,10 @@ namespace C21_Ex02.LogicGame
             StringBuilder visualBoard = new StringBuilder();
             for(int i = 0; i < m_NumOfRows; i++)
             {
-                visualBoard.AppendFormat("   {0}", i + 1);
+                if(i + 1 < m_NumOfRows)
+                {
+                    visualBoard.AppendFormat("   {0}", i + 1);
+                }
             }
 
             visualBoard.AppendLine();
