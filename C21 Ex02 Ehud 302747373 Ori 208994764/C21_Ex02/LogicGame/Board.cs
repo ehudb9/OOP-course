@@ -13,6 +13,8 @@ namespace C21_Ex02.LogicGame
         private readonly BoardCell[,] m_boardCells;
         private int[] m_RowsIndex;
         private int m_CurrentCellRowIndex = 0;
+        private int m_CurrentCellColumnIndex = 0;
+
 
         public Board(int i_boardColumnSize, int i_boardRowSize)
         {
@@ -41,8 +43,9 @@ namespace C21_Ex02.LogicGame
        
         public void InsertCellToBoard(int i_column, eCellTokenValue i_playerTokenValue)
         {
-            m_boardCells[m_RowsIndex[i_column - 1], i_column - 1].CellTokenValue = i_playerTokenValue;
-            m_CurrentCellRowIndex = m_RowsIndex[i_column - 1];
+            m_CurrentCellColumnIndex = i_column - 1;
+            m_CurrentCellRowIndex = m_RowsIndex[m_CurrentCellColumnIndex];
+            m_boardCells[m_CurrentCellRowIndex, m_CurrentCellColumnIndex].CellTokenValue = i_playerTokenValue;
             m_RowsIndex[i_column - 1]--;
         }
         public bool IsFullColumn(int i_Column)
@@ -63,63 +66,38 @@ namespace C21_Ex02.LogicGame
         
         public bool HasWon(eCellTokenValue i_CellToken)
         {
-            
-            //HOW to get the current cell index????????????
-            for(int i = 0; i < m_NumOfRows; i ++)
-            {
-                for(int j = 0; j < m_NumOfColumns; j++)
-                {
-                    if(checkVertically(i, j, i_CellToken))
-                    {
-                        return true;
-                    }
-                    if (checkHorizontally(i, j, i_CellToken))
-                    {
-                        return true;
-                    }
-                    if (checkDiagonallyDown(i, j, i_CellToken))
-                    {
-                        return true;
-                    }
-                    if (checkDiagonallyUp(i, j, i_CellToken))
-                    {
-                        return true;
-                    }
-                }
-            }
 
+            if (checkVertically(i_CellToken) || checkHorizontally(i_CellToken))
+            {
+                return true;
+            }
+            if (checkDiagonallyDown(i_CellToken) || checkDiagonallyUp(i_CellToken))
+            {
+                return true;
+            }
+            
             return false;
         }
 
-        private bool checkVertically(int i_row, int i_column, eCellTokenValue i_CellToken)
+        private bool checkVertically(eCellTokenValue i_CellToken)
         {
-            if(i_row + 3 >= m_NumOfRows)
-            {
-                return false;
-            }
-
-            for(int i = 0; i < 4; i++)
-            {
-                if(m_boardCells[i_row + i, i_column].CellTokenValue != i_CellToken)
-                {
-                    return false;
-                }
-            }
-            return true;
-
-            //////////////
+            
             int sameValueCounter = 0;
             eCellTokenValue prevValue = i_CellToken;
-            int rowNum = i_row;
-            while (rowNum < m_NumOfRows && prevValue == m_boardCells[rowNum++, i_column].CellTokenValue)
+            int rowNum = m_CurrentCellRowIndex;
+            while (rowNum < m_NumOfRows && prevValue == m_boardCells[rowNum, m_CurrentCellColumnIndex].CellTokenValue)
             {
                 sameValueCounter++;
-                prevValue = m_boardCells[rowNum, i_column].CellTokenValue;
+                prevValue = m_boardCells[rowNum, m_CurrentCellColumnIndex].CellTokenValue;
+                rowNum++;
             }
-            while(rowNum>0 && prevValue == m_boardCells[rowNum--, i_column].CellTokenValue)
+            rowNum = m_CurrentCellRowIndex - 1;
+            prevValue = i_CellToken;
+            while (rowNum >= 0 && prevValue == m_boardCells[rowNum, m_CurrentCellColumnIndex].CellTokenValue)
             {
                 sameValueCounter++;
-                prevValue = m_boardCells[rowNum, i_column].CellTokenValue;
+                prevValue = m_boardCells[rowNum, m_CurrentCellColumnIndex].CellTokenValue;
+                rowNum--;
             }
             if (sameValueCounter == 4)
             {
@@ -128,36 +106,25 @@ namespace C21_Ex02.LogicGame
             return false;
         }
 
-        private bool checkHorizontally(int i_row, int i_column, eCellTokenValue i_CellToken)
+        private bool checkHorizontally(eCellTokenValue i_CellToken)
         {
-            if (i_column + 3 >= m_NumOfColumns)
-            {
-                return false;
-            }
-
-            for (int i = 0; i < 4; i++)
-            {
-                if (m_boardCells[i_row, i_column + i].CellTokenValue != i_CellToken)
-                {
-                    return false;
-                }
-            }
-            return true;
             
-            
-            //////////////
             int sameValueCounter = 0;
             eCellTokenValue prevValue = i_CellToken;
-            int columnNum = i_column;
-            while (columnNum < m_NumOfRows && prevValue == m_boardCells[i_row++, columnNum++].CellTokenValue)
+            int columnNum = m_CurrentCellColumnIndex;
+            while (columnNum < m_NumOfColumns && prevValue == m_boardCells[m_CurrentCellRowIndex, columnNum].CellTokenValue)
             {
                 sameValueCounter++;
-                prevValue = m_boardCells[i_row, i_column].CellTokenValue;
+                prevValue = m_boardCells[m_CurrentCellRowIndex, columnNum].CellTokenValue;
+                columnNum++;
             }
-            while (columnNum > 0 && prevValue == m_boardCells[i_row, columnNum--].CellTokenValue)
+            columnNum = m_CurrentCellRowIndex - 1;
+            prevValue = i_CellToken;
+            while (columnNum >= 0 && prevValue == m_boardCells[m_CurrentCellRowIndex, columnNum].CellTokenValue)
             {
                 sameValueCounter++;
-                prevValue = m_boardCells[i_row, columnNum].CellTokenValue;
+                prevValue = m_boardCells[m_CurrentCellRowIndex, columnNum].CellTokenValue;
+                columnNum--;
             }
             if (sameValueCounter == 4)
             {
@@ -166,48 +133,67 @@ namespace C21_Ex02.LogicGame
             return false;
         }
 
-        private bool checkDiagonallyDown(int i_row, int i_column, eCellTokenValue i_CellToken)
+        private bool checkDiagonallyDown(eCellTokenValue i_CellToken)
         {
-            if (i_row + 3 >= m_NumOfRows)
-            {
-                return false;
-            }
 
-            if (i_column + 3 >= m_NumOfColumns)
-            {
-                return false;
-            }
+            int sameValueCounter = 0;
+            eCellTokenValue prevValue = i_CellToken;
+            int columnNum = m_CurrentCellColumnIndex;
+            int rowNum = m_CurrentCellRowIndex;
 
-            for (int i = 0; i < 4; i++)
+            while (columnNum < m_NumOfColumns && prevValue == m_boardCells[rowNum, columnNum].CellTokenValue)
             {
-                if (m_boardCells[i_row + i, i_column + i].CellTokenValue != i_CellToken)
-                {
-                    return false;
-                }
+                sameValueCounter++;
+                prevValue = m_boardCells[rowNum, columnNum].CellTokenValue;
+                columnNum++;
+                rowNum++;
             }
-            return true;
+            columnNum = m_CurrentCellRowIndex - 1;
+            rowNum = m_CurrentCellRowIndex - 1;
+            prevValue = i_CellToken;
+            while (columnNum >= 0 && prevValue == m_boardCells[rowNum, columnNum].CellTokenValue)
+            {
+                sameValueCounter++;
+                prevValue = m_boardCells[rowNum, columnNum].CellTokenValue;
+                columnNum--;
+                rowNum--;
+            }
+            if (sameValueCounter == 4)
+            {
+                return true;
+            }
+            return false;
         }
 
-        private bool checkDiagonallyUp(int i_row, int i_column, eCellTokenValue i_CellToken)
+        private bool checkDiagonallyUp(eCellTokenValue i_CellToken)
         {
-            if (i_row - 3 < 0)
-            {
-                return false;
-            }
+            int sameValueCounter = 0;
+            eCellTokenValue prevValue = i_CellToken;
+            int columnNum = m_CurrentCellColumnIndex;
+            int rowNum = m_CurrentCellRowIndex;
 
-            if (i_column + 3 >= m_NumOfColumns)
+            while (columnNum < m_NumOfColumns && prevValue == m_boardCells[rowNum, columnNum].CellTokenValue)
             {
-                return false;
+                sameValueCounter++;
+                prevValue = m_boardCells[rowNum, columnNum].CellTokenValue;
+                columnNum++;
+                rowNum--;
             }
-
-            for (int i = 0; i < 4; i++)
+            columnNum = m_CurrentCellRowIndex - 1;
+            rowNum = m_CurrentCellRowIndex + 1;
+            prevValue = i_CellToken;
+            while (columnNum >= 0 && prevValue == m_boardCells[rowNum, columnNum].CellTokenValue)
             {
-                if (m_boardCells[i_row - i, i_column + i].CellTokenValue != i_CellToken)
-                {
-                    return false;
-                }
+                sameValueCounter++;
+                prevValue = m_boardCells[rowNum, columnNum].CellTokenValue;
+                columnNum--;
+                rowNum++;
             }
-            return true;
+            if (sameValueCounter == 4)
+            {
+                return true;
+            }
+            return false;
         }
 
         public void ShowBoard()
