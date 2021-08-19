@@ -34,15 +34,22 @@ namespace C21_Ex02.ConsoleUI
         {
             Console.WriteLine("At any time- perss 'q' and enter");
         }
+
         public static void ChooseColumn()
         {
             Console.WriteLine("Type the number of the column you want to insert");
 
         }
+
         public static void ReatsrtGameOfferMessage()
         {
             Console.WriteLine("GAME END \nFor restart the game type 'y'\n to exit the game type 'q'");
 
+        }
+
+        public static void ExitGameMessage()
+        {
+            Console.WriteLine("Thank you for playing our game! Please press any key to exit");
         }
 
     }
