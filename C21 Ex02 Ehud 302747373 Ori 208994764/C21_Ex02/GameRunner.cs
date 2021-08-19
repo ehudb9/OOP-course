@@ -19,8 +19,8 @@ namespace C21_Ex02
         private bool m_turn = true;
         private Player m_playerOne = null, m_playerTwo = null;
         private ComputerPlayer m_computerPlayer = null;
-        private int m_sizeOfColumns = 0;
-        private int m_sizeOfRows = 0;
+        public int m_sizeOfColumns = 0;
+        public int m_sizeOfRows = 0;
         private Board m_gameBoard = null;
         private eCellTokenValue m_CurrentPlayer = eCellTokenValue.Empty;
 
@@ -121,7 +121,7 @@ namespace C21_Ex02
                     }    
                     EndGame();
                 }
-                else if (m_gameBoard.BoardIsFull())
+                else if (m_gameBoard.BoardIsFull() == true)
                 {
                     EndGame();
                 }
@@ -146,7 +146,7 @@ namespace C21_Ex02
                 m_gameIsAlive = false;
                 return;
             }
-            while (!(int.TryParse(chosenColumn, out numOfColumnToInsert) || isValidColumn(numOfColumnToInsert)))
+            while (!(int.TryParse(chosenColumn, out numOfColumnToInsert) || IsValidColumn(numOfColumnToInsert)))
             {
                 if(m_gameBoard.IsFullColumn(numOfColumnToInsert))
                 {
@@ -163,7 +163,7 @@ namespace C21_Ex02
 
         }
 
-        private bool isValidColumn(int i_ChosenColumn)
+        public bool IsValidColumn(int i_ChosenColumn)
         {
             return i_ChosenColumn > 0  && i_ChosenColumn <= m_sizeOfColumns && !m_gameBoard.IsFullColumn(i_ChosenColumn);
         }

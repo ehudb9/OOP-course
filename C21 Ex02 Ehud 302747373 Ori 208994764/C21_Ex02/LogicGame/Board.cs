@@ -21,10 +21,21 @@ namespace C21_Ex02.LogicGame
             m_boardCells = new BoardCell[i_boardRowSize, i_boardColumnSize];
             m_NumOfRows = i_boardRowSize;
             m_NumOfColumns = i_boardColumnSize;
+            initializeBoard();
             m_RowsIndex = new int[m_NumOfRows];
             resetColumnIndex();
         }
 
+        private void initializeBoard()
+        {
+            for (int i = 0; i < m_NumOfRows; i++)
+            {
+                for (int j = 0; j < m_NumOfColumns; j++)
+                {
+                    m_boardCells[i, j] = new BoardCell();
+                }
+            }
+        }
         private void resetColumnIndex()
         {
             for (int i = 0; i < m_RowsIndex.Length; i++)
@@ -44,7 +55,7 @@ namespace C21_Ex02.LogicGame
         public void InsertCellToBoard(int i_column, eCellTokenValue i_playerTokenValue)
         {
             m_CurrentCellColumnIndex = i_column - 1;
-            m_CurrentCellRowIndex = m_RowsIndex[m_CurrentCellColumnIndex];
+            m_CurrentCellRowIndex = m_RowsIndex[m_CurrentCellColumnIndex] - 1;
             m_boardCells[m_CurrentCellRowIndex, m_CurrentCellColumnIndex].CellTokenValue = i_playerTokenValue;
             m_RowsIndex[i_column - 1]--;
         }
@@ -56,7 +67,7 @@ namespace C21_Ex02.LogicGame
         {
             for (int i = 0; i < m_RowsIndex.Length; i++)
             {
-                if (m_RowsIndex[i] == 0)
+                if (m_RowsIndex[i] != 0)
                 {
                     return false;
                 }
@@ -141,7 +152,7 @@ namespace C21_Ex02.LogicGame
             int columnNum = m_CurrentCellColumnIndex;
             int rowNum = m_CurrentCellRowIndex;
 
-            while (columnNum < m_NumOfColumns && prevValue == m_boardCells[rowNum, columnNum].CellTokenValue)
+            while (columnNum < m_NumOfColumns && rowNum < m_NumOfRows && prevValue == m_boardCells[rowNum, columnNum].CellTokenValue)
             {
                 sameValueCounter++;
                 prevValue = m_boardCells[rowNum, columnNum].CellTokenValue;
@@ -172,7 +183,7 @@ namespace C21_Ex02.LogicGame
             int columnNum = m_CurrentCellColumnIndex;
             int rowNum = m_CurrentCellRowIndex;
 
-            while (columnNum < m_NumOfColumns && prevValue == m_boardCells[rowNum, columnNum].CellTokenValue)
+            while (columnNum < m_NumOfColumns && rowNum < m_NumOfRows && prevValue == m_boardCells[rowNum, columnNum].CellTokenValue)
             {
                 sameValueCounter++;
                 prevValue = m_boardCells[rowNum, columnNum].CellTokenValue;
@@ -182,7 +193,7 @@ namespace C21_Ex02.LogicGame
             columnNum = m_CurrentCellRowIndex - 1;
             rowNum = m_CurrentCellRowIndex + 1;
             prevValue = i_CellToken;
-            while (columnNum >= 0 && prevValue == m_boardCells[rowNum, columnNum].CellTokenValue)
+            while (columnNum >= 0 && rowNum < m_NumOfRows && prevValue == m_boardCells[rowNum, columnNum].CellTokenValue)
             {
                 sameValueCounter++;
                 prevValue = m_boardCells[rowNum, columnNum].CellTokenValue;
@@ -198,7 +209,7 @@ namespace C21_Ex02.LogicGame
 
         public void ShowBoard()
         {
-            //Ex02.ConsoleUtils.Screen.Clear();
+            Ex02.ConsoleUtils.Screen.Clear();
 
             StringBuilder visualBoard = new StringBuilder();
             for(int i = 0; i < m_NumOfRows; i++)
@@ -214,11 +225,11 @@ namespace C21_Ex02.LogicGame
 
                 for(int j = 0; j < m_NumOfColumns; j++)
                 {
-                    int cellValue = (int) m_boardCells[i, j].CellTokenValue;
-                    if(cellValue != 0)
+                    eCellTokenValue cellValue = m_boardCells[i, j].CellTokenValue;
+                    if(cellValue != eCellTokenValue.Empty)
                     {
                         char cellTokenIcon;
-                        if(cellValue == 1)
+                        if(cellValue == eCellTokenValue.Player1)
                         {
                             cellTokenIcon = 'X';
                         }
