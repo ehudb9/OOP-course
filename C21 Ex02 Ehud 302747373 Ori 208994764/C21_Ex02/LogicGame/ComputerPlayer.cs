@@ -25,17 +25,21 @@ namespace C21_Ex02.LogicGame
             get => m_Score;
             set => m_Score = value;
         }
-        private int pickRandomColumnNumber()
+        private int pickRandomColumnNumber(Board i_GameBoard)
         {
-            //TODO: while-tocheck if the column if not full  ----->Ehud
+            
             int chosenColumn = r_random.Next(0, m_maxChosenColumnVal);
+            while (i_GameBoard.IsFullColumn(chosenColumn))
+            {
+                chosenColumn = r_random.Next(0, m_maxChosenColumnVal);
+            }
             return chosenColumn;
         }
 
-        public void MakeComputerMove(Board i_gameBoard)
+        public void MakeComputerMove(Board i_GameBoard)
         {
-            int chosenColumn = pickRandomColumnNumber();
-            i_gameBoard.InsertCellToBoard(chosenColumn, eCellTokenValue.Player2);
+            int chosenColumn = pickRandomColumnNumber(i_GameBoard);
+            i_GameBoard.InsertCellToBoard(chosenColumn, eCellTokenValue.Player2);
         }
     }
 }

@@ -90,8 +90,7 @@ namespace C21_Ex02
                     PlayerMove();
                 }
 
-                // must be checked!
-                //ToDo - Changed!!
+                
                 if (m_gameBoard.HasWon(m_CurrentPlayer))
                 {
                     Console.WriteLine("{0} Won!!!", m_CurrentPlayer);
@@ -111,7 +110,7 @@ namespace C21_Ex02
                         }
                         
                     }
-                    //ToDo - Changed!!
+                    
                     if(m_playerVsComputerMode == eGameMode.PlayerVsPlayer)
                     {
                         Console.WriteLine("current score is : \n\tplayer 1: {0}\n\tplayer 2: {1}", m_playerOne.Score, m_playerTwo.Score);
