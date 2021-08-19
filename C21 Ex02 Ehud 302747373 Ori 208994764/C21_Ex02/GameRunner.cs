@@ -40,7 +40,7 @@ namespace C21_Ex02
             }
             
             Console.WriteLine("\tPlease type size of rows (8-4):");
-            while (!(int.TryParse(Console.ReadLine(), out m_sizeOfColumns)))
+            while (!(int.TryParse(Console.ReadLine(), out m_sizeOfRows)))
             {
                 Prints.ErrorSizeMessage();
             }

@@ -198,7 +198,7 @@ namespace C21_Ex02.LogicGame
 
         public void ShowBoard()
         {
-            Ex02.ConsoleUtils.Screen.Clear();
+            //Ex02.ConsoleUtils.Screen.Clear();
 
             StringBuilder visualBoard = new StringBuilder();
             for(int i = 0; i < m_NumOfRows; i++)
