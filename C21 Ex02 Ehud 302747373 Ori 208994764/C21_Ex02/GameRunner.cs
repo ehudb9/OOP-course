@@ -139,7 +139,14 @@ namespace C21_Ex02
             {
                 if(m_CurrentPlayer == eCellTokenValue.Player1)
                 {
-                    m_PlayerTwo.Score++;
+                    if(m_PlayerVsComputerMode == eGameMode.PlayerVsComputer)
+                    {
+                        m_ComputerPlayer.Score++;
+                    }
+                    else
+                    {
+                        m_PlayerTwo.Score++;
+                    }
                 }
                 else
                 {
@@ -149,7 +156,7 @@ namespace C21_Ex02
                 m_GameIsAlive = false;
                 return;
             }
-            while (!(int.TryParse(chosenColumn, out numOfColumnToInsert) && IsValidColumn(numOfColumnToInsert)))
+            while (!(char.IsDigit(char.Parse(chosenColumn)) && int.TryParse(chosenColumn, out numOfColumnToInsert) && IsValidColumn(numOfColumnToInsert)))
             {
                 if(m_GameBoard.IsFullColumn(numOfColumnToInsert))
                 {

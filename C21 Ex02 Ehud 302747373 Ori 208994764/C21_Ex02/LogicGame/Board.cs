@@ -65,7 +65,7 @@ namespace C21_Ex02.LogicGame
         public bool IsFullColumn(int i_Column)
         {
             //ToDo - arrive here with wrong input (such char)
-            bool isColumnFull = r_RowsIndex[i_Column - 1] == 0 && (i_Column <= m_NumOfColumns);
+            bool isColumnFull = char.IsDigit((char)i_Column) && i_Column <= m_NumOfColumns && r_RowsIndex[i_Column - 1] == 0 && (i_Column <= m_NumOfColumns);
             return isColumnFull;
         }
 
@@ -126,7 +126,7 @@ namespace C21_Ex02.LogicGame
         private bool checkHorizontally(eCellTokenValue i_CellToken)
         {
             int sameValueCounter = 1;
-            bool foundSequenceHorizontally = false;
+            bool foundSequenceHorizontally = true;
             eCellTokenValue prevValue = i_CellToken;
             int columnNum = m_CurrentCellColumnIndex + 1;
 
@@ -146,9 +146,9 @@ namespace C21_Ex02.LogicGame
                 columnNum--;
             }
 
-            if (sameValueCounter == 4)
+            if (sameValueCounter < 4)
             {
-                foundSequenceHorizontally = true;
+                foundSequenceHorizontally = false;
             }
 
             return foundSequenceHorizontally;
@@ -173,7 +173,7 @@ namespace C21_Ex02.LogicGame
             columnNum = m_CurrentCellColumnIndex - 1;
             rowNum = m_CurrentCellRowIndex - 1;
             prevValue = i_CellToken;
-            while (columnNum >= 0 && prevValue == m_BoardCells[rowNum, columnNum].CellTokenValue)
+            while (columnNum >= 0 && rowNum >= 0 && prevValue == m_BoardCells[rowNum, columnNum].CellTokenValue)
             {
                 sameValueCounter++;
                 prevValue = m_BoardCells[rowNum, columnNum].CellTokenValue;
