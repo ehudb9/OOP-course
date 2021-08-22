@@ -8,7 +8,7 @@ namespace C21_Ex02.LogicGame
     /// </summary>
     public class Board
     {
-        //Todo - try to understand if when we use bool variable 
+        //Todo - try to understand if 
         public int m_NumOfRows;
         public int m_NumOfColumns;
         public readonly BoardCell[,] m_BoardCells;
