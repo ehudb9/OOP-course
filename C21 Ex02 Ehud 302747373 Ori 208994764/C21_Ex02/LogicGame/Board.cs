@@ -22,7 +22,7 @@ namespace C21_Ex02.LogicGame
             m_NumOfRows = i_boardRowSize;
             m_NumOfColumns = i_boardColumnSize;
             initializeBoard();
-            m_RowsIndex = new int[m_NumOfRows];
+            m_RowsIndex = new int[m_NumOfColumns]; //Todo - Think that this is the right version and not array with size of m_NomOfRows
             resetColumnIndex();
         }
 
@@ -36,6 +36,7 @@ namespace C21_Ex02.LogicGame
                 }
             }
         }
+
         private void resetColumnIndex()
         {
             for (int i = 0; i < m_RowsIndex.Length; i++)
@@ -43,6 +44,7 @@ namespace C21_Ex02.LogicGame
                 m_RowsIndex[i] = m_NumOfRows;
             }
         }
+
         public void ResetBoard()
         {
             foreach (BoardCell cell in m_boardCells)
@@ -54,20 +56,37 @@ namespace C21_Ex02.LogicGame
        
         public void InsertCellToBoard(int i_column, eCellTokenValue i_playerTokenValue)
         {
-            m_CurrentCellColumnIndex = i_column - 1;
-            m_CurrentCellRowIndex = m_RowsIndex[m_CurrentCellColumnIndex] - 1;
-            m_boardCells[m_CurrentCellRowIndex, m_CurrentCellColumnIndex].CellTokenValue = i_playerTokenValue;
-            m_RowsIndex[i_column - 1]--;
+            //Todo - Why we get 0 to i_column in the computer turn
+            //if(i_column != 0)
+            //{
+                m_CurrentCellColumnIndex = i_column - 1;
+                m_CurrentCellRowIndex = m_RowsIndex[m_CurrentCellColumnIndex] - 1;
+                m_boardCells[m_CurrentCellRowIndex, m_CurrentCellColumnIndex].CellTokenValue = i_playerTokenValue;
+                m_RowsIndex[i_column - 1]--;
+           // }
+            //else
+           // {
+           //     Console.WriteLine("Computer chose 0");
+           // }
         }
         public bool IsFullColumn(int i_Column)
         {
-            return m_RowsIndex[i_Column] == 0;
+            if(i_Column > m_NumOfColumns)
+            {
+                return false;
+            }
+            //ToDo - check why this situation occurs.
+            if(i_Column == 0)
+            {
+                i_Column = 1;
+            }
+            return m_RowsIndex[i_Column - 1] == 0;
         }
         public bool BoardIsFull()
         {
-            for (int i = 0; i < m_RowsIndex.Length; i++)
+            foreach(int index in m_RowsIndex)
             {
-                if (m_RowsIndex[i] != 0)
+                if(index != 0)
                 {
                     return false;
                 }
@@ -77,15 +96,26 @@ namespace C21_Ex02.LogicGame
         
         public bool HasWon(eCellTokenValue i_CellToken)
         {
-            if (checkVertically(i_CellToken) || checkHorizontally(i_CellToken))
-            {
-                return true;
-            }
-            if (checkDiagonallyDown(i_CellToken) || checkDiagonallyUp(i_CellToken))
+            if (checkVertically(i_CellToken))  
             {
                 return true;
             }
             
+            if (checkHorizontally(i_CellToken))
+            {
+                return true;
+            }
+            
+            if (checkDiagonallyDown(i_CellToken)) 
+            {
+                return true;
+            }
+
+            if(checkDiagonallyUp(i_CellToken))
+            {
+                return true;
+            }
+
             return false;
         }
 
@@ -180,7 +210,7 @@ namespace C21_Ex02.LogicGame
             int columnNum = m_CurrentCellColumnIndex;
             int rowNum = m_CurrentCellRowIndex;
 
-            while (columnNum < m_NumOfColumns && rowNum < m_NumOfRows && prevValue == m_boardCells[rowNum, columnNum].CellTokenValue)
+            while (columnNum < m_NumOfColumns && rowNum >= 0 && prevValue == m_boardCells[rowNum, columnNum].CellTokenValue)
             {
                 sameValueCounter++;
                 prevValue = m_boardCells[rowNum, columnNum].CellTokenValue;
@@ -211,10 +241,7 @@ namespace C21_Ex02.LogicGame
             StringBuilder visualBoard = new StringBuilder();
             for(int i = 0; i < m_NumOfRows; i++)
             {
-                if(i + 1 < m_NumOfRows)
-                {
-                    visualBoard.AppendFormat("   {0}", i + 1);
-                }
+                visualBoard.AppendFormat("   {0}", i + 1);
             }
 
             visualBoard.AppendLine();

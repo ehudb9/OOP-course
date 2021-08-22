@@ -52,5 +52,14 @@ namespace C21_Ex02.ConsoleUI
             Console.WriteLine("Thank you for playing our game! Please press any key to exit");
         }
 
+        public static void Player1PlayNowMessage()
+        {
+            Console.WriteLine("Player 1 Turn:");
+        }
+
+        public static void Player2PlayNowMessage()
+        {
+            Console.WriteLine("Player 2 Turn:");
+        }
     }
 }

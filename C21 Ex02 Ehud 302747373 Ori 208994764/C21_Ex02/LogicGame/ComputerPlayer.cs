@@ -8,18 +8,18 @@ using System.Threading.Tasks;
 
 namespace C21_Ex02.LogicGame
 {
-    class ComputerPlayer
+    public class ComputerPlayer
     {
         public int Sign { get; }
         private int m_Score;
         private readonly int m_maxChosenColumnVal;
         private readonly Random r_random;
 
-        public ComputerPlayer(int i_sign, int i_maxChosenColumnVal)
+        public ComputerPlayer(int i_Sign, int i_MaxChosenColumnVal)
         {
             m_Score = 0;
-            Sign = i_sign;
-            m_maxChosenColumnVal = i_maxChosenColumnVal;
+            Sign = i_Sign;
+            m_maxChosenColumnVal = i_MaxChosenColumnVal + 1;
             r_random = new Random();
         }
         public int Score
@@ -27,27 +27,26 @@ namespace C21_Ex02.LogicGame
             get => m_Score;
             set => m_Score = value;
         }
-        private int pickRandomColumnNumber(Board i_gameBoard)
+        private int pickRandomColumnNumber(Board i_GameBoard)
         {
-            
-            int chosenColumn = r_random.Next(0, m_maxChosenColumnVal);
-            FieldInfo boardNumColumnInfo = typeof(GameRunner).GetField("m_sizeOfColumns");
-            while (i_gameBoard.IsFullColumn(chosenColumn) && (isValidColumn(chosenColumn, (int)boardNumColumnInfo.GetValue(null), i_gameBoard)))
+            int chosenColumn = r_random.Next(1, m_maxChosenColumnVal);
+            while (i_GameBoard.IsFullColumn(chosenColumn))
             {
-                chosenColumn = r_random.Next(0, m_maxChosenColumnVal);
+                chosenColumn = r_random.Next(1, m_maxChosenColumnVal);
             }
+            Console.WriteLine(chosenColumn);
             return chosenColumn;
         }
 
-        public void MakeComputerMove(Board i_gameBoard)
+        public void MakeComputerMove(Board i_GameBoard)
         {
-            int chosenColumn = pickRandomColumnNumber(i_gameBoard);
-            i_gameBoard.InsertCellToBoard(chosenColumn, eCellTokenValue.Player2);
+            int chosenColumn = pickRandomColumnNumber(i_GameBoard);
+            i_GameBoard.InsertCellToBoard(chosenColumn, eCellTokenValue.Player2);
         }
 
-        private static bool isValidColumn(int i_chosenColmn, int i_numOfColumns, Board i_gameBoard)
+        private static bool isValidColumn(int i_ChosenColumn, int i_NumOfColumns, Board i_GameBoard)
         {
-            return i_chosenColmn > 0 && i_chosenColmn <= i_numOfColumns && !i_gameBoard.IsFullColumn(i_chosenColmn);
+            return i_ChosenColumn > 0 && i_ChosenColumn <= i_NumOfColumns && !i_GameBoard.IsFullColumn(i_ChosenColumn);
         }
     }
 }

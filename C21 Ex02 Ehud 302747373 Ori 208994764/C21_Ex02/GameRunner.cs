@@ -69,7 +69,6 @@ namespace C21_Ex02
 
         public void Run()
         {
-
             while (m_gameIsAlive)
             {
                 m_gameBoard.ShowBoard();
@@ -77,22 +76,27 @@ namespace C21_Ex02
                 if (m_turn)
                 {
                     m_CurrentPlayer = eCellTokenValue.Player1;
+                    Prints.Player1PlayNowMessage();
                     PlayerMove();
+                    //Todo - check if someone win
                 }
                 else if (m_playerVsComputerMode == eGameMode.PlayerVsComputer)
                 {
                     m_CurrentPlayer = eCellTokenValue.Player2;
                     m_computerPlayer.MakeComputerMove(m_gameBoard);
+                    //Todo - check if someone win
                 }
                 else
                 {
                     m_CurrentPlayer = eCellTokenValue.Player2;
+                    Prints.Player2PlayNowMessage();
                     PlayerMove();
+                    //Todo - check if someone win
                 }
 
-                
                 if (m_gameBoard.HasWon(m_CurrentPlayer))
                 {
+                    m_gameBoard.ShowBoard();
                     Console.WriteLine("{0} Won!!!", m_CurrentPlayer);
                     if(m_CurrentPlayer == eCellTokenValue.Player1)
                     {
@@ -110,7 +114,7 @@ namespace C21_Ex02
                         }
                         
                     }
-                    
+
                     if(m_playerVsComputerMode == eGameMode.PlayerVsPlayer)
                     {
                         Console.WriteLine("current score is : \n\tplayer 1: {0}\n\tplayer 2: {1}", m_playerOne.Score, m_playerTwo.Score);
@@ -128,20 +132,19 @@ namespace C21_Ex02
 
                 m_turn = !m_turn;
             }
+
+            m_gameBoard.ShowBoard();
             Prints.ExitGameMessage();
             Console.ReadLine();
-            //TODO: close the console..../// ---> TO LEAVE TO THE END
-
         }
 
- 
-                           
         public void PlayerMove()
         {
             Prints.ChooseColumn();
             string chosenColumn = Console.ReadLine();
             int numOfColumnToInsert = 0;
-            if (chosenColumn.Equals("q") || chosenColumn.Equals("Q"))
+            //ToDo - Why if the user press a number is spit of q and after it try to quit the game?
+            if (chosenColumn.Equals("q") || chosenColumn.Equals("Q"))//Todo - add 1 point to the other player - If someone exit from the game, the second player will win
             {
                 m_gameIsAlive = false;
                 return;
@@ -160,7 +163,6 @@ namespace C21_Ex02
                 chosenColumn = Console.ReadLine();
             }
             m_gameBoard.InsertCellToBoard(numOfColumnToInsert, m_CurrentPlayer);
-
         }
 
         public bool IsValidColumn(int i_ChosenColumn)
