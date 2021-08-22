@@ -72,34 +72,27 @@ namespace C21_Ex02
         {
             while (m_GameIsAlive)
             {
-                //TODO:change path----why twice??
-                //ShowBoardUI.ShowBoard(m_gameBoard);
-                m_GameBoard.ShowBoard();
-
-                if (m_Turn)
+                ShowBoardUI.ShowBoard(m_GameBoard);
                 {
                     m_CurrentPlayer = eCellTokenValue.Player1;
                     Prints.Player1PlayNowMessage();
                     PlayerMove();
-                    //Todo - check if someone win
+                    
                 }
                 else if (m_PlayerVsComputerMode == eGameMode.PlayerVsComputer)
                 {
                     m_CurrentPlayer = eCellTokenValue.Player2;
                     m_ComputerPlayer.MakeComputerMove(m_GameBoard);
-                    //Todo - check if someone win
                 }
                 else
                 {
                     m_CurrentPlayer = eCellTokenValue.Player2;
                     Prints.Player2PlayNowMessage();
                     PlayerMove();
-                    //Todo - check if someone win
                 }
 
                 if (m_GameBoard.HasWon(m_CurrentPlayer))
                 {
-                    m_GameBoard.ShowBoard();
                     Console.WriteLine("{0} Won!!!", m_CurrentPlayer);
                     if(m_CurrentPlayer == eCellTokenValue.Player1)
                     {
@@ -135,8 +128,8 @@ namespace C21_Ex02
 
                 m_Turn = !m_Turn;
             }
-
-            m_GameBoard.ShowBoard();
+            
+            ShowBoardUI.ShowBoard(m_GameBoard);
             Prints.ExitGameMessage();
             Console.ReadLine();
         }
