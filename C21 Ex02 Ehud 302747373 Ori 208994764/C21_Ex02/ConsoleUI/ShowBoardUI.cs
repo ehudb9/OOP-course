@@ -14,7 +14,7 @@ namespace C21_Ex02.ConsoleUI
             Ex02.ConsoleUtils.Screen.Clear();
 
             StringBuilder visualBoard = new StringBuilder();
-            for (int i = 0; i < i_BoardGame.m_NumOfRows; i++)
+            for (int i = 0; i < i_BoardGame.m_NumOfColumns; i++)
             {
                 visualBoard.AppendFormat("   {0}", i + 1);
             }

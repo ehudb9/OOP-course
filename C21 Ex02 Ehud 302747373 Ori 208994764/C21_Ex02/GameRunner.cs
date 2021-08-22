@@ -12,9 +12,8 @@ namespace C21_Ex02
     /// <summary>
     /// Iterate the turns during the game
     /// </summary>
-    public class GameRunner
+    public class GameRunner //Todo - Think to change the run method, and remove the object of ComputerPlayer (use it just for get random number)
     {
-        //מאתתייים פעם החלפתי את השמות וזה חוזר כל הזמן!!למה??????
         private eGameMode m_PlayerVsComputerMode = eGameMode.PlayerVsPlayer;
         private bool m_GameIsAlive = false;
         private bool m_Turn = true;
@@ -32,22 +31,21 @@ namespace C21_Ex02
         }
         public void InitGame()
         {
-
             Prints.WelcomeMessage();
-            Console.WriteLine("\tPlease type size of columns (8-4):");
-            while (!(int.TryParse(Console.ReadLine(),out m_SizeOfColumns)))
+            Console.WriteLine("Please type size of columns (8-4):");
+            while (!(int.TryParse(Console.ReadLine(),out m_SizeOfColumns) && m_SizeOfColumns >= 4 && m_SizeOfColumns <= 8))
             {
                 Prints.ErrorSizeMessage();
             }
             
-            Console.WriteLine("\tPlease type size of rows (8-4):");
-            while (!(int.TryParse(Console.ReadLine(), out m_SizeOfRows)))
+            Console.WriteLine("Please type size of rows (8-4):");
+            while (!(int.TryParse(Console.ReadLine(), out m_SizeOfRows) && m_SizeOfRows >= 4 && m_SizeOfRows <= 8))
             {
                 Prints.ErrorSizeMessage();
             }
             m_GameBoard = new Board(m_SizeOfColumns, m_SizeOfRows);
             m_PlayerOne = new Player(1);
-            Prints.CompurerOrPlayerMeggage();
+            Prints.ComputerOrPlayerMeggage();
             if(Console.ReadLine().Equals("y"))
             {
                 m_PlayerVsComputerMode = eGameMode.PlayerVsComputer;
@@ -59,7 +57,6 @@ namespace C21_Ex02
             }
 
             Prints.StartMessageQToExit();
-
         }
 
         public void ResetBoard()
@@ -73,22 +70,26 @@ namespace C21_Ex02
             while (m_GameIsAlive)
             {
                 ShowBoardUI.ShowBoard(m_GameBoard);
+                if(m_Turn)
                 {
                     m_CurrentPlayer = eCellTokenValue.Player1;
                     Prints.Player1PlayNowMessage();
                     PlayerMove();
-                    
+                    ShowBoardUI.ShowBoard(m_GameBoard);
+
                 }
                 else if (m_PlayerVsComputerMode == eGameMode.PlayerVsComputer)
                 {
                     m_CurrentPlayer = eCellTokenValue.Player2;
                     m_ComputerPlayer.MakeComputerMove(m_GameBoard);
+                    ShowBoardUI.ShowBoard(m_GameBoard);
                 }
                 else
                 {
                     m_CurrentPlayer = eCellTokenValue.Player2;
                     Prints.Player2PlayNowMessage();
                     PlayerMove();
+                    ShowBoardUI.ShowBoard(m_GameBoard);
                 }
 
                 if (m_GameBoard.HasWon(m_CurrentPlayer))
@@ -111,25 +112,19 @@ namespace C21_Ex02
                         
                     }
 
-                    if(m_PlayerVsComputerMode == eGameMode.PlayerVsPlayer)
-                    {
-                        Console.WriteLine("current score is : \n\tplayer 1: {0}\n\tplayer 2: {1}", m_PlayerOne.Score, m_PlayerTwo.Score);
-                    }
-                    else
-                    {
-                        Console.WriteLine("current score is : \n\tplayer: {0}\n\tcomputer: {1}", m_PlayerOne.Score, m_ComputerPlayer.Score);
-                    }    
+                    printCurrentScore();
                     EndGame();
                 }
-                else if (m_GameBoard.BoardIsFull() == true)
+                else if (m_GameBoard.BoardIsFull())
                 {
+                    Prints.ItsATie();
+                    printCurrentScore();
                     EndGame();
                 }
 
                 m_Turn = !m_Turn;
             }
-            
-            ShowBoardUI.ShowBoard(m_GameBoard);
+
             Prints.ExitGameMessage();
             Console.ReadLine();
         }
@@ -142,6 +137,15 @@ namespace C21_Ex02
             //ToDo - Why if the user press a number is spit of q and after it try to quit the game?
             if (chosenColumn.Equals("q") || chosenColumn.Equals("Q"))//Todo - add 1 point to the other player - If someone exit from the game, the second player will win
             {
+                if(m_CurrentPlayer == eCellTokenValue.Player1)
+                {
+                    m_PlayerTwo.Score++;
+                }
+                else
+                {
+                    m_PlayerOne.Score++;
+                }
+
                 m_GameIsAlive = false;
                 return;
             }
@@ -183,6 +187,18 @@ namespace C21_Ex02
                     m_GameIsAlive = false;
                     isValidAnswer = true;
                 }
+            }
+        }
+
+        private void printCurrentScore()
+        {
+            if (m_PlayerVsComputerMode == eGameMode.PlayerVsPlayer)
+            {
+                Console.WriteLine("current score is : \n\tplayer 1: {0}\n\tplayer 2: {1}\n", m_PlayerOne.Score, m_PlayerTwo.Score);
+            }
+            else
+            {
+                Console.WriteLine("current score is : \n\tplayer: {0}\n\tcomputer: {1}\n", m_PlayerOne.Score, m_ComputerPlayer.Score);
             }
         }
     }
