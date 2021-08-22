@@ -62,7 +62,7 @@ namespace C21_Ex02.LogicGame
                 m_CurrentCellColumnIndex = i_column - 1;
                 m_CurrentCellRowIndex = m_RowsIndex[m_CurrentCellColumnIndex] - 1;
                 m_boardCells[m_CurrentCellRowIndex, m_CurrentCellColumnIndex].CellTokenValue = i_playerTokenValue;
-                m_RowsIndex[i_column - 1]--;
+                m_RowsIndex[m_CurrentCellColumnIndex]--;
            // }
             //else
            // {
@@ -74,11 +74,6 @@ namespace C21_Ex02.LogicGame
             if(i_Column > m_NumOfColumns)
             {
                 return false;
-            }
-            //ToDo - check why this situation occurs.
-            if(i_Column == 0)
-            {
-                i_Column = 1;
             }
             return m_RowsIndex[i_Column - 1] == 0;
         }

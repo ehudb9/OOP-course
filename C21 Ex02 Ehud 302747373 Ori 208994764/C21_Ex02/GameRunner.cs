@@ -149,7 +149,7 @@ namespace C21_Ex02
                 m_gameIsAlive = false;
                 return;
             }
-            while (!(int.TryParse(chosenColumn, out numOfColumnToInsert) || IsValidColumn(numOfColumnToInsert)))
+            while (!(int.TryParse(chosenColumn, out numOfColumnToInsert) && IsValidColumn(numOfColumnToInsert)))
             {
                 if(m_gameBoard.IsFullColumn(numOfColumnToInsert))
                 {
