@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Compile Include="ConsoleUI\ShowBoardUI.cs" />
     <Compile Include="LogicGame\ComputerPlayer.cs" />
     <Compile Include="LogicGame\Player.cs" />
     <Compile Include="GameRunner.cs" />

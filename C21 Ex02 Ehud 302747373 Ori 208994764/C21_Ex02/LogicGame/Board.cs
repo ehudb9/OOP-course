@@ -10,19 +10,19 @@ namespace C21_Ex02.LogicGame
     {
         public int m_NumOfRows;
         public int m_NumOfColumns;
-        private readonly BoardCell[,] m_boardCells;
+        public readonly BoardCell[,] m_BoardCells;
         private int[] m_RowsIndex;
         private int m_CurrentCellRowIndex = 0;
         private int m_CurrentCellColumnIndex = 0;
+        private bool v_HasWon = true;
 
-
-        public Board(int i_boardColumnSize, int i_boardRowSize)
+        public Board(int i_BoardColumnSize, int i_BoardRowSize)
         {
-            m_boardCells = new BoardCell[i_boardRowSize, i_boardColumnSize];
-            m_NumOfRows = i_boardRowSize;
-            m_NumOfColumns = i_boardColumnSize;
+            m_BoardCells = new BoardCell[i_BoardRowSize, i_BoardColumnSize];
+            m_NumOfRows = i_BoardRowSize;
+            m_NumOfColumns = i_BoardColumnSize;
             initializeBoard();
-            m_RowsIndex = new int[m_NumOfColumns]; //Todo - Think that this is the right version and not array with size of m_NomOfRows
+            m_RowsIndex = new int[m_NumOfColumns];
             resetColumnIndex();
         }
 
@@ -32,7 +32,7 @@ namespace C21_Ex02.LogicGame
             {
                 for (int j = 0; j < m_NumOfColumns; j++)
                 {
-                    m_boardCells[i, j] = new BoardCell();
+                    m_BoardCells[i, j] = new BoardCell();
                 }
             }
         }
@@ -47,71 +47,50 @@ namespace C21_Ex02.LogicGame
 
         public void ResetBoard()
         {
-            foreach (BoardCell cell in m_boardCells)
+            foreach (BoardCell cell in m_BoardCells)
             {
                 cell.CellTokenValue = eCellTokenValue.Empty;
             }
             resetColumnIndex();
         }
        
-        public void InsertCellToBoard(int i_column, eCellTokenValue i_playerTokenValue)
+        public void InsertCellToBoard(int i_Column, eCellTokenValue i_PlayerTokenValue)
         {
-            //Todo - Why we get 0 to i_column in the computer turn
-            //if(i_column != 0)
-            //{
-                m_CurrentCellColumnIndex = i_column - 1;
-                m_CurrentCellRowIndex = m_RowsIndex[m_CurrentCellColumnIndex] - 1;
-                m_boardCells[m_CurrentCellRowIndex, m_CurrentCellColumnIndex].CellTokenValue = i_playerTokenValue;
-                m_RowsIndex[m_CurrentCellColumnIndex]--;
-           // }
-            //else
-           // {
-           //     Console.WriteLine("Computer chose 0");
-           // }
+            m_CurrentCellColumnIndex = i_Column - 1;
+            m_CurrentCellRowIndex = m_RowsIndex[m_CurrentCellColumnIndex] - 1;
+            m_BoardCells[m_CurrentCellRowIndex, m_CurrentCellColumnIndex].CellTokenValue = i_PlayerTokenValue;
+            m_RowsIndex[m_CurrentCellColumnIndex]--;
         }
         public bool IsFullColumn(int i_Column)
         {
-            if(i_Column > m_NumOfColumns)
-            {
-                return false;
-            }
-            return m_RowsIndex[i_Column - 1] == 0;
+            return m_RowsIndex[i_Column - 1] == 0 && (i_Column <= m_NumOfColumns);
         }
         public bool BoardIsFull()
         {
+            bool v_BoardIsNotFull = true;
             foreach(int index in m_RowsIndex)
             {
                 if(index != 0)
                 {
-                    return false;
+                    return v_BoardIsNotFull;
                 }
             }
-            return true;
+            return !v_BoardIsNotFull;
         }
         
         public bool HasWon(eCellTokenValue i_CellToken)
         {
-            if (checkVertically(i_CellToken))  
+            if (checkVertically(i_CellToken) || checkDiagonallyDown(i_CellToken))  
             {
-                return true;
+                return v_HasWon;
             }
             
-            if (checkHorizontally(i_CellToken))
+            else if (checkHorizontally(i_CellToken) || checkDiagonallyUp(i_CellToken))
             {
-                return true;
+                return v_HasWon;
             }
             
-            if (checkDiagonallyDown(i_CellToken)) 
-            {
-                return true;
-            }
-
-            if(checkDiagonallyUp(i_CellToken))
-            {
-                return true;
-            }
-
-            return false;
+            return !v_HasWon;
         }
 
         private bool checkVertically(eCellTokenValue i_CellToken)
@@ -119,25 +98,25 @@ namespace C21_Ex02.LogicGame
             int sameValueCounter = 0;
             eCellTokenValue prevValue = i_CellToken;
             int rowNum = m_CurrentCellRowIndex;
-            while (rowNum < m_NumOfRows && prevValue == m_boardCells[rowNum, m_CurrentCellColumnIndex].CellTokenValue)
+            while (rowNum < m_NumOfRows && prevValue == m_BoardCells[rowNum, m_CurrentCellColumnIndex].CellTokenValue)
             {
                 sameValueCounter++;
-                prevValue = m_boardCells[rowNum, m_CurrentCellColumnIndex].CellTokenValue;
+                prevValue = m_BoardCells[rowNum, m_CurrentCellColumnIndex].CellTokenValue;
                 rowNum++;
             }
             rowNum = m_CurrentCellRowIndex - 1;
             prevValue = i_CellToken;
-            while (rowNum >= 0 && prevValue == m_boardCells[rowNum, m_CurrentCellColumnIndex].CellTokenValue)
+            while (rowNum >= 0 && prevValue == m_BoardCells[rowNum, m_CurrentCellColumnIndex].CellTokenValue)
             {
                 sameValueCounter++;
-                prevValue = m_boardCells[rowNum, m_CurrentCellColumnIndex].CellTokenValue;
+                prevValue = m_BoardCells[rowNum, m_CurrentCellColumnIndex].CellTokenValue;
                 rowNum--;
             }
             if (sameValueCounter == 4)
             {
-                return true;
+                return v_HasWon;
             }
-            return false;
+            return !v_HasWon;
         }
 
         private bool checkHorizontally(eCellTokenValue i_CellToken)
@@ -145,25 +124,25 @@ namespace C21_Ex02.LogicGame
             int sameValueCounter = 0;
             eCellTokenValue prevValue = i_CellToken;
             int columnNum = m_CurrentCellColumnIndex;
-            while (columnNum < m_NumOfColumns && prevValue == m_boardCells[m_CurrentCellRowIndex, columnNum].CellTokenValue)
+            while (columnNum < m_NumOfColumns && prevValue == m_BoardCells[m_CurrentCellRowIndex, columnNum].CellTokenValue)
             {
                 sameValueCounter++;
-                prevValue = m_boardCells[m_CurrentCellRowIndex, columnNum].CellTokenValue;
+                prevValue = m_BoardCells[m_CurrentCellRowIndex, columnNum].CellTokenValue;
                 columnNum++;
             }
             columnNum = m_CurrentCellRowIndex - 1;
             prevValue = i_CellToken;
-            while (columnNum >= 0 && prevValue == m_boardCells[m_CurrentCellRowIndex, columnNum].CellTokenValue)
+            while (columnNum >= 0 && prevValue == m_BoardCells[m_CurrentCellRowIndex, columnNum].CellTokenValue)
             {
                 sameValueCounter++;
-                prevValue = m_boardCells[m_CurrentCellRowIndex, columnNum].CellTokenValue;
+                prevValue = m_BoardCells[m_CurrentCellRowIndex, columnNum].CellTokenValue;
                 columnNum--;
             }
             if (sameValueCounter == 4)
             {
-                return true;
+                return v_HasWon;
             }
-            return false;
+            return !v_HasWon;
         }
 
         private bool checkDiagonallyDown(eCellTokenValue i_CellToken)
@@ -174,28 +153,28 @@ namespace C21_Ex02.LogicGame
             int columnNum = m_CurrentCellColumnIndex;
             int rowNum = m_CurrentCellRowIndex;
 
-            while (columnNum < m_NumOfColumns && rowNum < m_NumOfRows && prevValue == m_boardCells[rowNum, columnNum].CellTokenValue)
+            while (columnNum < m_NumOfColumns && rowNum < m_NumOfRows && prevValue == m_BoardCells[rowNum, columnNum].CellTokenValue)
             {
                 sameValueCounter++;
-                prevValue = m_boardCells[rowNum, columnNum].CellTokenValue;
+                prevValue = m_BoardCells[rowNum, columnNum].CellTokenValue;
                 columnNum++;
                 rowNum++;
             }
             columnNum = m_CurrentCellRowIndex - 1;
             rowNum = m_CurrentCellRowIndex - 1;
             prevValue = i_CellToken;
-            while (columnNum >= 0 && prevValue == m_boardCells[rowNum, columnNum].CellTokenValue)
+            while (columnNum >= 0 && prevValue == m_BoardCells[rowNum, columnNum].CellTokenValue)
             {
                 sameValueCounter++;
-                prevValue = m_boardCells[rowNum, columnNum].CellTokenValue;
+                prevValue = m_BoardCells[rowNum, columnNum].CellTokenValue;
                 columnNum--;
                 rowNum--;
             }
             if (sameValueCounter == 4)
             {
-                return true;
+                return v_HasWon;
             }
-            return false;
+            return !v_HasWon;
         }
 
         private bool checkDiagonallyUp(eCellTokenValue i_CellToken)
@@ -205,30 +184,30 @@ namespace C21_Ex02.LogicGame
             int columnNum = m_CurrentCellColumnIndex;
             int rowNum = m_CurrentCellRowIndex;
 
-            while (columnNum < m_NumOfColumns && rowNum >= 0 && prevValue == m_boardCells[rowNum, columnNum].CellTokenValue)
+            while (columnNum < m_NumOfColumns && rowNum >= 0 && prevValue == m_BoardCells[rowNum, columnNum].CellTokenValue)
             {
                 sameValueCounter++;
-                prevValue = m_boardCells[rowNum, columnNum].CellTokenValue;
+                prevValue = m_BoardCells[rowNum, columnNum].CellTokenValue;
                 columnNum++;
                 rowNum--;
             }
             columnNum = m_CurrentCellRowIndex - 1;
             rowNum = m_CurrentCellRowIndex + 1;
             prevValue = i_CellToken;
-            while (columnNum >= 0 && rowNum < m_NumOfRows && prevValue == m_boardCells[rowNum, columnNum].CellTokenValue)
+            while (columnNum >= 0 && rowNum < m_NumOfRows && prevValue == m_BoardCells[rowNum, columnNum].CellTokenValue)
             {
                 sameValueCounter++;
-                prevValue = m_boardCells[rowNum, columnNum].CellTokenValue;
+                prevValue = m_BoardCells[rowNum, columnNum].CellTokenValue;
                 columnNum--;
                 rowNum++;
             }
             if (sameValueCounter == 4)
             {
-                return true;
+                return v_HasWon;
             }
-            return false;
+            return !v_HasWon;
         }
-
+        // move to different module
         public void ShowBoard()
         {
             Ex02.ConsoleUtils.Screen.Clear();
@@ -247,7 +226,7 @@ namespace C21_Ex02.LogicGame
 
                 for(int j = 0; j < m_NumOfColumns; j++)
                 {
-                    eCellTokenValue cellValue = m_boardCells[i, j].CellTokenValue;
+                    eCellTokenValue cellValue = m_BoardCells[i, j].CellTokenValue;
                     if(cellValue != eCellTokenValue.Empty)
                     {
                         char cellTokenIcon;

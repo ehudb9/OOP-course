@@ -14,6 +14,7 @@ namespace C21_Ex02
     /// </summary>
     public class GameRunner
     {
+        //מאתתייים פעם החלפתי את השמות וזה חוזר כל הזמן!!למה??????
         private eGameMode m_playerVsComputerMode = eGameMode.PlayerVsPlayer;
         private bool m_gameIsAlive = false;
         private bool m_turn = true;
@@ -71,6 +72,8 @@ namespace C21_Ex02
         {
             while (m_gameIsAlive)
             {
+                //TODO:change path----why twice??
+                //ShowBoardUI.ShowBoard(m_gameBoard);
                 m_gameBoard.ShowBoard();
 
                 if (m_turn)
