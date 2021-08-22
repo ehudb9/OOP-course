@@ -8,13 +8,14 @@ namespace C21_Ex02.LogicGame
     /// </summary>
     public class Board
     {
+        //Todo - try to understand if when we use bool variable 
         public int m_NumOfRows;
         public int m_NumOfColumns;
         public readonly BoardCell[,] m_BoardCells;
-        private int[] m_RowsIndex;
+        private readonly int[] r_RowsIndex; //Todo - Changed to readonly member
         private int m_CurrentCellRowIndex = 0;
         private int m_CurrentCellColumnIndex = 0;
-        private bool v_HasWon = true;
+        private bool v_HasWon = true; //Todo - why this member doesn't start with m_?
 
         public Board(int i_BoardColumnSize, int i_BoardRowSize)
         {
@@ -22,7 +23,7 @@ namespace C21_Ex02.LogicGame
             m_NumOfRows = i_BoardRowSize;
             m_NumOfColumns = i_BoardColumnSize;
             initializeBoard();
-            m_RowsIndex = new int[m_NumOfColumns];
+            r_RowsIndex = new int[m_NumOfColumns];
             resetColumnIndex();
         }
 
@@ -39,9 +40,9 @@ namespace C21_Ex02.LogicGame
 
         private void resetColumnIndex()
         {
-            for (int i = 0; i < m_RowsIndex.Length; i++)
+            for (int i = 0; i < r_RowsIndex.Length; i++)
             {
-                m_RowsIndex[i] = m_NumOfRows;
+                r_RowsIndex[i] = m_NumOfRows;
             }
         }
 
@@ -57,22 +58,23 @@ namespace C21_Ex02.LogicGame
         public void InsertCellToBoard(int i_Column, eCellTokenValue i_PlayerTokenValue)
         {
             m_CurrentCellColumnIndex = i_Column - 1;
-            m_CurrentCellRowIndex = m_RowsIndex[m_CurrentCellColumnIndex] - 1;
+            m_CurrentCellRowIndex = r_RowsIndex[m_CurrentCellColumnIndex] - 1;
             m_BoardCells[m_CurrentCellRowIndex, m_CurrentCellColumnIndex].CellTokenValue = i_PlayerTokenValue;
-            m_RowsIndex[m_CurrentCellColumnIndex]--;
+            r_RowsIndex[m_CurrentCellColumnIndex]--;
         }
         public bool IsFullColumn(int i_Column)
         {
-            return m_RowsIndex[i_Column - 1] == 0 && (i_Column <= m_NumOfColumns);
+            return r_RowsIndex[i_Column - 1] == 0 && (i_Column <= m_NumOfColumns);
         }
+
         public bool BoardIsFull()
         {
             bool v_BoardIsNotFull = true;
-            foreach(int index in m_RowsIndex)
+            foreach(int index in r_RowsIndex)
             {
                 if(index != 0)
                 {
-                    return v_BoardIsNotFull;
+                    return v_BoardIsNotFull; 
                 }
             }
             return !v_BoardIsNotFull;
@@ -208,6 +210,7 @@ namespace C21_Ex02.LogicGame
             return !v_HasWon;
         }
         // move to different module
+        //Todo - think we need to move it to the Prints module
         public void ShowBoard()
         {
             Ex02.ConsoleUtils.Screen.Clear();

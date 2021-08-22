@@ -1,14 +1,14 @@
 ﻿namespace C21_Ex02.LogicGame
 {
-    class Player
+    public class Player
     {
         public int Sign { get; }
         private int m_Score;
 
-        public Player(int i_sign)
+        public Player(int i_Sign)
         {
             m_Score = 0;
-            Sign = i_sign;
+            Sign = i_Sign;
         }
         public int Score
         {

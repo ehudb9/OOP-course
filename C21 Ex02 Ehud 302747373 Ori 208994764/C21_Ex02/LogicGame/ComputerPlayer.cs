@@ -12,15 +12,15 @@ namespace C21_Ex02.LogicGame
     {
         public int Sign { get; }
         private int m_Score;
-        private readonly int m_maxChosenColumnVal;
-        private readonly Random r_random;
+        private readonly int r_MaxChosenColumnVal; 
+        private readonly Random r_Random;
 
         public ComputerPlayer(int i_Sign, int i_MaxChosenColumnVal)
         {
             m_Score = 0;
             Sign = i_Sign;
-            m_maxChosenColumnVal = i_MaxChosenColumnVal + 1;
-            r_random = new Random();
+            r_MaxChosenColumnVal = i_MaxChosenColumnVal + 1;
+            r_Random = new Random();
         }
         public int Score
         {
@@ -29,10 +29,10 @@ namespace C21_Ex02.LogicGame
         }
         private int pickRandomColumnNumber(Board i_GameBoard)
         {
-            int chosenColumn = r_random.Next(1, m_maxChosenColumnVal);
+            int chosenColumn = r_Random.Next(1, r_MaxChosenColumnVal);
             while (i_GameBoard.IsFullColumn(chosenColumn))
             {
-                chosenColumn = r_random.Next(1, m_maxChosenColumnVal);
+                chosenColumn = r_Random.Next(1, r_MaxChosenColumnVal);
             }
             Console.WriteLine(chosenColumn);
             return chosenColumn;
