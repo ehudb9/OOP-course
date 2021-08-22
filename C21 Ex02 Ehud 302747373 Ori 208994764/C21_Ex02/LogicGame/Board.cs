@@ -8,14 +8,13 @@ namespace C21_Ex02.LogicGame
     /// </summary>
     public class Board
     {
-        //Todo - try to understand if 
         public int m_NumOfRows;
         public int m_NumOfColumns;
         public readonly BoardCell[,] m_BoardCells;
-        private readonly int[] r_RowsIndex; //Todo - Changed to readonly member
+        private readonly int[] r_RowsIndex; 
         private int m_CurrentCellRowIndex = 0;
         private int m_CurrentCellColumnIndex = 0;
-        private bool v_HasWon = true; //Todo - why this member doesn't start with m_?
+        private bool v_HasWon = true; 
 
         public Board(int i_BoardColumnSize, int i_BoardRowSize)
         {
@@ -69,30 +68,23 @@ namespace C21_Ex02.LogicGame
 
         public bool BoardIsFull()
         {
-            bool v_BoardIsNotFull = true;
+            bool v_BoardIsFull = true;
             foreach(int index in r_RowsIndex)
             {
                 if(index != 0)
                 {
-                    return v_BoardIsNotFull; 
+                    v_BoardIsFull = false;
+                    break;
                 }
             }
-            return !v_BoardIsNotFull;
+            return v_BoardIsFull;
         }
         
         public bool HasWon(eCellTokenValue i_CellToken)
         {
-            if (checkVertically(i_CellToken) || checkDiagonallyDown(i_CellToken))  
-            {
-                return v_HasWon;
-            }
+            v_HasWon = (checkVertically(i_CellToken) || checkDiagonallyDown(i_CellToken) || checkHorizontally(i_CellToken) || checkDiagonallyUp(i_CellToken)); 
             
-            else if (checkHorizontally(i_CellToken) || checkDiagonallyUp(i_CellToken))
-            {
-                return v_HasWon;
-            }
-            
-            return !v_HasWon;
+            return v_HasWon;
         }
 
         private bool checkVertically(eCellTokenValue i_CellToken)
@@ -114,11 +106,7 @@ namespace C21_Ex02.LogicGame
                 prevValue = m_BoardCells[rowNum, m_CurrentCellColumnIndex].CellTokenValue;
                 rowNum--;
             }
-            if (sameValueCounter == 4)
-            {
-                return v_HasWon;
-            }
-            return !v_HasWon;
+            return (sameValueCounter >= 4);
         }
 
         private bool checkHorizontally(eCellTokenValue i_CellToken)
@@ -140,11 +128,7 @@ namespace C21_Ex02.LogicGame
                 prevValue = m_BoardCells[m_CurrentCellRowIndex, columnNum].CellTokenValue;
                 columnNum--;
             }
-            if (sameValueCounter == 4)
-            {
-                return v_HasWon;
-            }
-            return !v_HasWon;
+            return (sameValueCounter >= 4);
         }
 
         private bool checkDiagonallyDown(eCellTokenValue i_CellToken)
@@ -172,11 +156,7 @@ namespace C21_Ex02.LogicGame
                 columnNum--;
                 rowNum--;
             }
-            if (sameValueCounter == 4)
-            {
-                return v_HasWon;
-            }
-            return !v_HasWon;
+            return (sameValueCounter >= 4);
         }
 
         private bool checkDiagonallyUp(eCellTokenValue i_CellToken)
@@ -203,58 +183,7 @@ namespace C21_Ex02.LogicGame
                 columnNum--;
                 rowNum++;
             }
-            if (sameValueCounter == 4)
-            {
-                return v_HasWon;
-            }
-            return !v_HasWon;
-        }
-        // move to different module
-        //Todo - think we need to move it to the Prints module
-        public void ShowBoard()
-        {
-            Ex02.ConsoleUtils.Screen.Clear();
-
-            StringBuilder visualBoard = new StringBuilder();
-            for(int i = 0; i < m_NumOfRows; i++)
-            {
-                visualBoard.AppendFormat("   {0}", i + 1);
-            }
-
-            visualBoard.AppendLine();
-
-            for(int i = 0; i < m_NumOfRows; i++)
-            {
-                visualBoard.AppendFormat("{0}|", i + 1);
-
-                for(int j = 0; j < m_NumOfColumns; j++)
-                {
-                    eCellTokenValue cellValue = m_BoardCells[i, j].CellTokenValue;
-                    if(cellValue != eCellTokenValue.Empty)
-                    {
-                        char cellTokenIcon;
-                        if(cellValue == eCellTokenValue.Player1)
-                        {
-                            cellTokenIcon = 'X';
-                        }
-                        else
-                        {
-                            cellTokenIcon = 'O';
-                        }
-                        visualBoard.AppendFormat(" {0} |", cellTokenIcon);
-                    }
-                    else
-                    {
-                        visualBoard.AppendFormat("   |");
-                    }
-                }
-
-                visualBoard.AppendLine();
-                visualBoard.Append(" ");
-                visualBoard.Append('=', m_NumOfColumns * 4);
-                visualBoard.Append("\n");
-            }
-            Console.WriteLine(visualBoard.ToString());
+            return (sameValueCounter >= 4);
         }
     }
 }

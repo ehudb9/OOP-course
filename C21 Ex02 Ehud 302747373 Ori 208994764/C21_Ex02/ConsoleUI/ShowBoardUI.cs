@@ -9,7 +9,7 @@ namespace C21_Ex02.ConsoleUI
 {
     public class ShowBoardUI
     {
-        public void ShowBoard(Board i_BoardGame)
+        public static void ShowBoard(Board i_BoardGame)
         {
             Ex02.ConsoleUtils.Screen.Clear();
 
