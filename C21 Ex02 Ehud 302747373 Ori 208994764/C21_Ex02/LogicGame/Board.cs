@@ -65,7 +65,7 @@ namespace C21_Ex02.LogicGame
         public bool IsFullColumn(int i_Column)
         {
             //ToDo - arrive here with wrong input (such char)
-            bool isColumnFull = char.IsDigit((char)i_Column) && i_Column <= m_NumOfColumns && r_RowsIndex[i_Column - 1] == 0 && (i_Column <= m_NumOfColumns);
+            bool isColumnFull = i_Column <= m_NumOfColumns && r_RowsIndex[i_Column - 1] == 0 && (i_Column <= m_NumOfColumns);
             return isColumnFull;
         }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using C21_Ex02.ConsoleUI;
@@ -12,10 +13,11 @@ namespace C21_Ex02
     /// <summary>
     /// Iterate the turns during the game
     /// </summary>
-    public class GameRunner //Todo - Think to change the run method, and remove the object of ComputerPlayer (use it just for get random number)
+    public class GameRunner
     {
         private eGameMode m_PlayerVsComputerMode = eGameMode.PlayerVsPlayer;
         private bool m_GameIsAlive = false;
+        private bool m_PlayerWantsToQuitGame = false;
         private bool m_Turn = true;
         private Player m_PlayerOne = null, m_PlayerTwo = null;
         private ComputerPlayer m_ComputerPlayer = null;
@@ -43,9 +45,10 @@ namespace C21_Ex02
             {
                 Prints.ErrorSizeMessage();
             }
+
             m_GameBoard = new Board(m_SizeOfColumns, m_SizeOfRows);
             m_PlayerOne = new Player(1);
-            Prints.ComputerOrPlayerMeggage();
+            Prints.ComputerOrPlayerMessage();
             if(Console.ReadLine().Equals("y"))
             {
                 m_PlayerVsComputerMode = eGameMode.PlayerVsComputer;
@@ -92,7 +95,13 @@ namespace C21_Ex02
                     ShowBoardUI.ShowBoard(m_GameBoard);
                 }
 
-                if (m_GameBoard.HasWon(m_CurrentPlayer))
+                if(m_PlayerWantsToQuitGame)
+                {
+                    Console.WriteLine("{0} Won!!!", m_CurrentPlayer == eCellTokenValue.Player1 ? eCellTokenValue.Player2 : eCellTokenValue.Player1);
+                    printCurrentScore();
+                    //EndGame(); //Todo - When I'm writing this line the restart option in not available.
+                }
+                else if (m_GameBoard.HasWon(m_CurrentPlayer))
                 {
                     Console.WriteLine("{0} Won!!!", m_CurrentPlayer);
                     if(m_CurrentPlayer == eCellTokenValue.Player1)
@@ -109,7 +118,6 @@ namespace C21_Ex02
                         {
                             m_ComputerPlayer.Score++;
                         }
-                        
                     }
 
                     printCurrentScore();
@@ -131,45 +139,98 @@ namespace C21_Ex02
 
         public void PlayerMove()
         {
+            //Todo - I changed the all method, need to be check again
             Prints.ChooseColumn();
-            string chosenColumn = Console.ReadLine();
-            int numOfColumnToInsert = 0;
-            //ToDo - Why if the user press a number is spit of q and after it try to quit the game?
-            if (chosenColumn.Equals("q") || chosenColumn.Equals("Q"))//Todo - add 1 point to the other player - If someone exit from the game, the second player will win
+            string chosenColumnStr = Console.ReadLine();
+            bool isValidUserInput = false;
+            if(chosenColumnStr.Equals("Q"))
             {
-                if(m_CurrentPlayer == eCellTokenValue.Player1)
+                playerWantsToQuit();
+                m_GameIsAlive = false;
+                m_PlayerWantsToQuitGame = true;
+                printCurrentScore();
+                return;
+            }
+            while (!isValidUserInput)
+            {
+                if(string.IsNullOrEmpty(chosenColumnStr))
                 {
-                    if(m_PlayerVsComputerMode == eGameMode.PlayerVsComputer)
+                    Console.WriteLine("Please enter non-empty number");
+                    chosenColumnStr = Console.ReadLine();
+                    if (chosenColumnStr.Equals("Q"))
                     {
-                        m_ComputerPlayer.Score++;
+                        //Todo - Maybe write this block and more occurrence of its in a method.
+                        playerWantsToQuit();
+                        m_GameIsAlive = false;
+                        m_PlayerWantsToQuitGame = true;
+                        printCurrentScore();
+                        return;
+                    }
+                }
+                else if(chosenColumnStr.Length < 2)
+                {
+                    bool isRowDigit = char.IsDigit(char.Parse(chosenColumnStr));
+                    if(isRowDigit)
+                    {
+                        //ToDo - Check if this IF statement write OK according to the rule.
+                        if(int.TryParse(chosenColumnStr, out int numOfColumnToInsert))
+                        {
+                            if(!IsValidColumn(numOfColumnToInsert))
+                            {
+                                if (m_GameBoard.IsFullColumn(numOfColumnToInsert))
+                                {
+                                    Prints.ColumnIsFullMessage();
+                                }
+                                else
+                                {
+                                    Prints.ErrorSizeMessage();
+                                }
+                                Prints.ChooseColumn();
+                                chosenColumnStr = Console.ReadLine();
+                            }
+                            else
+                            {
+                                m_GameBoard.InsertCellToBoard(numOfColumnToInsert, m_CurrentPlayer);
+                                isValidUserInput = true;
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("There was an error with your input. Please try again");
+                            Prints.ChooseColumn();
+                            chosenColumnStr = Console.ReadLine();
+                        }
                     }
                     else
                     {
-                        m_PlayerTwo.Score++;
+                        Prints.InvalidColumnNumberErrorMessage();
+                        Prints.ChooseColumn();
+                        chosenColumnStr = Console.ReadLine();
+                        if (chosenColumnStr.Equals("Q"))
+                        {
+                            playerWantsToQuit();
+                            m_GameIsAlive = false;
+                            m_PlayerWantsToQuitGame = true;
+                            printCurrentScore();
+                            return;
+                        }
                     }
                 }
                 else
                 {
-                    m_PlayerOne.Score++;
+                    Prints.InvalidColumnNumberErrorMessage();
+                    Prints.ChooseColumn();
+                    chosenColumnStr = Console.ReadLine();
+                    if (chosenColumnStr.Equals("Q"))
+                    {
+                        playerWantsToQuit();
+                        m_GameIsAlive = false;
+                        m_PlayerWantsToQuitGame = true;
+                        printCurrentScore();
+                        return;
+                    }
                 }
-
-                m_GameIsAlive = false;
-                return;
             }
-            while (!(char.IsDigit(char.Parse(chosenColumn)) && int.TryParse(chosenColumn, out numOfColumnToInsert) && IsValidColumn(numOfColumnToInsert)))
-            {
-                if(m_GameBoard.IsFullColumn(numOfColumnToInsert))
-                {
-                    Prints.ColumnIsFullMessage();        
-                }
-                else
-                {
-                    Prints.ErrorSizeMessage();
-                }
-                Prints.ChooseColumn();
-                chosenColumn = Console.ReadLine();
-            }
-            m_GameBoard.InsertCellToBoard(numOfColumnToInsert, m_CurrentPlayer);
         }
 
         public bool IsValidColumn(int i_ChosenColumn)
@@ -182,14 +243,14 @@ namespace C21_Ex02
             bool isValidAnswer = false;
             while (!isValidAnswer)
             {
-                Prints.ReatsrtGameOfferMessage();
+                Prints.RestarttGameOfferMessage();
                 string userAnswer = Console.ReadLine();
                 if (userAnswer.Equals("y"))
                 {
                     ResetBoard();
                     isValidAnswer = true;
                 }
-                else if (userAnswer.Equals("q"))
+                else if (userAnswer.Equals("Q"))
                 {
                     m_GameIsAlive = false;
                     isValidAnswer = true;
@@ -206,6 +267,25 @@ namespace C21_Ex02
             else
             {
                 Console.WriteLine("current score is : \n\tplayer: {0}\n\tcomputer: {1}\n", m_PlayerOne.Score, m_ComputerPlayer.Score);
+            }
+        }
+
+        private void playerWantsToQuit()
+        {
+            if (m_CurrentPlayer == eCellTokenValue.Player1)
+            {
+                if (m_PlayerVsComputerMode == eGameMode.PlayerVsComputer)
+                {
+                    m_ComputerPlayer.Score++;
+                }
+                else
+                {
+                    m_PlayerTwo.Score++;
+                }
+            }
+            else
+            {
+                m_PlayerOne.Score++;
             }
         }
     }

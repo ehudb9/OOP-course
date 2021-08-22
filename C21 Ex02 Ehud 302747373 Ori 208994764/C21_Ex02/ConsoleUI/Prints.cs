@@ -19,21 +19,24 @@ namespace C21_Ex02.ConsoleUI
             Console.WriteLine("Please try again type a single int in range of 4-8:");
         }
 
-        public static void ComputerOrPlayerMeggage()
+        public static void ComputerOrPlayerMessage()
         {
-            Console.WriteLine("Thank you, now type 'y' if you wish to play against the computer , 'n' to play with player 2:");
+            Console.WriteLine("Thank you, now type 'y' if you wish to play against the computer, or any other key to play with another player:");
+        }
 
+        public static void InvalidColumnNumberErrorMessage()
+        {
+            Console.WriteLine("You typed invalid number. Please type the number of the column you want to insert");
         }
 
         public static void ColumnIsFullMessage()
         {
-            Console.WriteLine("the column you chose is full, please try a different column");
-
+            Console.WriteLine("The column you chose is full, please try a different column");
         }
 
         public static void StartMessageQToExit()
         {
-            Console.WriteLine("At any time - press 'q' and enter");
+            Console.WriteLine("At any time - if you want to quit press 'Q' and enter");
         }
 
         public static void ChooseColumn()
@@ -42,9 +45,9 @@ namespace C21_Ex02.ConsoleUI
 
         }
 
-        public static void ReatsrtGameOfferMessage()
+        public static void RestarttGameOfferMessage()
         {
-            Console.WriteLine("GAME END \nFor restart the game type 'y'\nto exit the game type 'q'");
+            Console.WriteLine("GAME END \nFor restart the game type 'y'\nto exit the game type 'Q'");
 
         }
 
