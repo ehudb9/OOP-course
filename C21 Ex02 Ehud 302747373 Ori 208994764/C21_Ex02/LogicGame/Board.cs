@@ -1,11 +1,5 @@
-﻿using System;
-using System.Text;
-
-namespace C21_Ex02.LogicGame
+﻿namespace C21_Ex02.LogicGame
 {
-    /// <summary>
-    /// Create and initialize the board and check its status
-    /// </summary>
     public class Board
     {
         public int m_NumOfRows;
@@ -64,7 +58,6 @@ namespace C21_Ex02.LogicGame
 
         public bool IsFullColumn(int i_Column)
         {
-            //ToDo - arrive here with wrong input (such char)
             bool isColumnFull = i_Column <= m_NumOfColumns && r_RowsIndex[i_Column - 1] == 0 && (i_Column <= m_NumOfColumns);
             return isColumnFull;
         }
@@ -86,8 +79,6 @@ namespace C21_Ex02.LogicGame
         public bool HasWon(eCellTokenValue i_CellToken)
         {
             v_HasWon = checkVertically(i_CellToken) || checkDiagonallyDown(i_CellToken) || checkHorizontally(i_CellToken) || checkDiagonallyUp(i_CellToken);
-            //Todo - I'm adding this message in order to check
-            Console.WriteLine("V: {0}, H: {1}, U: {2}, D: {3}", checkVertically(i_CellToken), checkHorizontally(i_CellToken), checkDiagonallyUp(i_CellToken), checkDiagonallyDown(i_CellToken));
             return v_HasWon;
         }
 
@@ -114,7 +105,7 @@ namespace C21_Ex02.LogicGame
                 rowNum--;
             }
 
-            if (sameValueCounter < 4)
+            if (sameValueCounter < 4) // ToDo to make const
             {
                 foundSequenceVertically = false;
             }

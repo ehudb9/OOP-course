@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using C21_Ex02.LogicGame;
 
 namespace C21_Ex02.ConsoleUI
@@ -52,6 +49,7 @@ namespace C21_Ex02.ConsoleUI
                 visualBoard.Append('=', i_BoardGame.m_NumOfColumns * 4);
                 visualBoard.Append("\n");
             }
+            
             Console.WriteLine(visualBoard.ToString());
         }
     }
