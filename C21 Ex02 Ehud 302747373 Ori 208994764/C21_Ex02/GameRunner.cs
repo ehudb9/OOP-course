@@ -7,8 +7,8 @@ namespace C21_Ex02
     public class GameRunner
     {
         private eGameMode m_PlayerVsComputerMode = eGameMode.PlayerVsPlayer;
-        public static bool v_GameIsAlive = false; //Todo - check about the variable name
-        public static bool v_PlayerWantsToQuitGame = false; //Todo - check about the variable name
+        public  bool v_GameIsAlive = false; 
+        public  bool v_PlayerWantsToQuitGame = false; 
         private bool m_Turn = true;
         private const int k_SignPlayer1 = 1;
         private const int k_SignPlayer2 = 2;
@@ -81,13 +81,13 @@ namespace C21_Ex02
                 
                 if (v_PlayerWantsToQuitGame)
                 {
-                    Console.WriteLine("{0} Won!!!", m_CurrentPlayer == eCellTokenValue.Player1 ? eCellTokenValue.Player2 : eCellTokenValue.Player1);
+                    ConsolePrinter.PrintWinner(m_CurrentPlayer == eCellTokenValue.Player1 ? eCellTokenValue.Player2 : eCellTokenValue.Player1);
                     printCurrentScore();
                     endGame();
                 }
                 else if (m_GameBoard.HasWon(m_CurrentPlayer))
                 {
-                    Console.WriteLine("{0} Won!!!", m_CurrentPlayer);
+                    ConsolePrinter.PrintWinner(m_CurrentPlayer);
                     if(m_CurrentPlayer == eCellTokenValue.Player1)
                     {
                         m_PlayerOne.Score++;
@@ -123,8 +123,7 @@ namespace C21_Ex02
 
         public void PlayerMove()
         {
-            ConsolePrinter.ChooseColumn();
-            string chosenColumnStr = Console.ReadLine();
+            string chosenColumnStr = ConsoleInputValidator.GetUserColumnInput();
             bool isValidUserInput = false;
             bool isRowDigit = false;
             int numOfColumnToInsert = 0;
@@ -136,12 +135,8 @@ namespace C21_Ex02
             {
                 if(string.IsNullOrEmpty(chosenColumnStr))
                 {
-                    Console.WriteLine("Please enter non-empty number");
-                    chosenColumnStr = Console.ReadLine();
-                    if (isPlayerWantsToQuit(chosenColumnStr))
-                    {
-                        break;
-                    }
+                    ConsolePrinter.EmptyInput();
+                    chosenColumnStr = ConsoleInputValidator.GetUserColumnInput();
                 }
                 else if(chosenColumnStr.Length < 2)
                 {
@@ -162,8 +157,7 @@ namespace C21_Ex02
                                     ConsolePrinter.ErrorSizeMessage();
                                 }
 
-                                ConsolePrinter.ChooseColumn();
-                                chosenColumnStr = Console.ReadLine();
+                                chosenColumnStr = ConsoleInputValidator.GetUserColumnInput();
                             }
                             else
                             {
@@ -173,20 +167,18 @@ namespace C21_Ex02
                         }
                         else
                         {
-                            Console.WriteLine("There was an error with your input. Please try again");
-                            ConsolePrinter.ChooseColumn();
-                            chosenColumnStr = Console.ReadLine();
+                            ConsolePrinter.ErrorInput();
+                            chosenColumnStr = ConsoleInputValidator.GetUserColumnInput();
                         }
                     }
                     else
                     {
-                        ConsolePrinter.InvalidColumnNumberErrorMessage(); 
-                        ConsolePrinter.ChooseColumn();
-                        chosenColumnStr = Console.ReadLine();
                         if (isPlayerWantsToQuit(chosenColumnStr))
                         {
                             break;
                         }
+                        ConsolePrinter.InvalidColumnNumberErrorMessage(); 
+                        chosenColumnStr = ConsoleInputValidator.GetUserColumnInput();
                     }
                 }
                 else
@@ -219,14 +211,7 @@ namespace C21_Ex02
 
         private void printCurrentScore()
         {
-            if (m_PlayerVsComputerMode == eGameMode.PlayerVsPlayer)
-            {
-                Console.WriteLine("current score is : \n\tplayer 1: {0}\n\tplayer 2: {1}\n", m_PlayerOne.Score, m_PlayerTwo.Score);
-            }
-            else
-            {
-                Console.WriteLine("current score is : \n\tplayer: {0}\n\tcomputer: {1}\n", m_PlayerOne.Score, m_ComputerPlayer.Score);
-            }
+            ConsolePrinter.PrintCurrentPlayerScore(m_PlayerOne.Score, m_PlayerVsComputerMode == eGameMode.PlayerVsPlayer ? m_PlayerTwo.Score : m_ComputerPlayer.Score);
         }
 
         private void scoreAfterPlayerWantsToQuit()

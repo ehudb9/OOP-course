@@ -73,87 +73,12 @@ namespace C21_Ex02.ConsoleUI
             return userAnswer;
         }
 
-        public int GetColumnNumberFromPlayer()
+        public static string GetUserColumnInput()
         {
+            string chosenColumnStr = "";
             ConsolePrinter.ChooseColumn();
-            string chosenColumnStr = Console.ReadLine();
-            bool isValidUserInput = false;
-            bool isRowDigit = false;
-            int numOfColumnToInsert = 0;
-            if(isPlayerWantsToQuit(chosenColumnStr))
-            {
-                isValidUserInput = true;
-            }
-
-            while(!isValidUserInput)
-            {
-                if(string.IsNullOrEmpty(chosenColumnStr))
-                {
-                    Console.WriteLine("Please enter non-empty number");
-                    chosenColumnStr = Console.ReadLine();
-                    if(isPlayerWantsToQuit(chosenColumnStr))
-                    {
-                        break;
-                    }
-                }
-                else if(chosenColumnStr.Length < 2)
-                {
-                    isRowDigit = char.IsDigit(char.Parse(chosenColumnStr));
-
-                    if(isRowDigit)
-                    {
-                        if(int.TryParse(chosenColumnStr, out numOfColumnToInsert))
-                        {
-                            isValidUserInput = true;
-                        }
-                        else
-                        {
-                            Console.WriteLine("There was an error with your input. Please try again");
-                            ConsolePrinter.ChooseColumn();
-                            chosenColumnStr = Console.ReadLine();
-                        }
-                    }
-                    else
-                    {
-                        ConsolePrinter.InvalidColumnNumberErrorMessage();
-                        ConsolePrinter.ChooseColumn();
-                        chosenColumnStr = Console.ReadLine();
-                        if(isPlayerWantsToQuit(chosenColumnStr))
-                        {
-                            break;
-                        }
-                    }
-                }
-                else
-                {
-                    ConsolePrinter.InvalidColumnNumberErrorMessage();
-                    ConsolePrinter.ChooseColumn();
-                    chosenColumnStr = Console.ReadLine();
-                    if(isPlayerWantsToQuit(chosenColumnStr))
-                    {
-                        break;
-                    }
-                }
-            }
-
-            return numOfColumnToInsert;
-        }
-
-        private bool isPlayerWantsToQuit(string i_ChosenColumnStr)
-        {
-            bool v_isPlayerWantsToQuit = false;
-
-            if (i_ChosenColumnStr.Equals("Q"))
-            {
-                v_isPlayerWantsToQuit = true;
-                /*
-                scoreAfterPlayerWantsToQuit();
-                v_GameIsAlive = false;
-                v_PlayerWantsToQuitGame = true;
-                printCurrentScore();*/
-            }
-
-            return v_isPlayerWantsToQuit;
+            chosenColumnStr = Console.ReadLine();
+            return chosenColumnStr;
         }
     }
 }

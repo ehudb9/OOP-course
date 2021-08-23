@@ -68,21 +68,23 @@ namespace C21_Ex02.ConsoleUI
             Console.WriteLine("It's a Tie!");
         }
 
-        public static void PrintCurrentPlayerScore(int i_PlayerOneScore, int i_PlayerTwoScore, eGameMode i_GameMode)
+        public static void PrintCurrentPlayerScore(int i_PlayerOneScore, int i_PlayerTwoScore)
         {
-            if (i_GameMode == eGameMode.PlayerVsPlayer)
-            {
-                Console.WriteLine("current score is : \n\tplayer 1: {0}\n\tplayer 2: {1}\n", i_PlayerOneScore, i_PlayerTwoScore);
-            }
-            else
-            {
-                Console.WriteLine("current score is : \n\tplayer: {0}\n\tcomputer: {1}\n", i_PlayerOneScore,  i_PlayerTwoScore);
-            }
+            Console.WriteLine("current score is : \n\tplayer 1: {0}\n\tplayer 2: {1}\n", i_PlayerOneScore, i_PlayerTwoScore);
         }
 
         public static void PrintWinner(eCellTokenValue i_WinnerPlayer)
         {
             Console.WriteLine("{0} Won!!!", i_WinnerPlayer);
+        }
+
+        public static void EmptyInput()
+        {
+            Console.WriteLine("Please enter non-empty number");
+        }
+        public static void ErrorInput()
+        {
+            Console.WriteLine("There was an error with your input. Please try again");
         }
     }
 }
