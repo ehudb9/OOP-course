@@ -58,12 +58,12 @@ namespace C21_Ex02
             while (v_GameIsAlive)
             {
                 ShowBoardUI.ShowBoard(m_GameBoard);
-                if(m_Turn)
+                
+                if (m_Turn)
                 {
                     m_CurrentPlayer = eCellTokenValue.Player1;
                     ConsolePrinter.Player1PlayNowMessage();
                     PlayerMove();
-
                 }
                 else if (m_PlayerVsComputerMode == eGameMode.PlayerVsComputer)
                 {
@@ -131,9 +131,15 @@ namespace C21_Ex02
             {
                 isValidUserInput = true;
             }
+
             while (!isValidUserInput)
             {
-                if(string.IsNullOrEmpty(chosenColumnStr))
+                if (isPlayerWantsToQuit(chosenColumnStr))
+                {
+                    break;
+                }
+
+                if (string.IsNullOrEmpty(chosenColumnStr))
                 {
                     ConsolePrinter.EmptyInput();
                     chosenColumnStr = ConsoleInputValidator.GetUserColumnInput();
@@ -205,7 +211,7 @@ namespace C21_Ex02
             }
             else
             {
-                v_GameIsAlive = !v_GameIsAlive;
+                v_GameIsAlive = false;
             }
         }
 
@@ -234,19 +240,17 @@ namespace C21_Ex02
         }
 
         private bool isPlayerWantsToQuit(string i_ChosenColumnStr)
-        {
-            bool v_isPlayerWantsToQuit = false;
-            
+        {            
             if (i_ChosenColumnStr.Equals("Q"))
             {
-                v_isPlayerWantsToQuit = true;
                 scoreAfterPlayerWantsToQuit();
                 v_GameIsAlive = false;
                 v_PlayerWantsToQuitGame = true;
                 printCurrentScore();
             }
 
-            return v_isPlayerWantsToQuit;
+            return v_PlayerWantsToQuitGame;
+
         }
     }
 }
