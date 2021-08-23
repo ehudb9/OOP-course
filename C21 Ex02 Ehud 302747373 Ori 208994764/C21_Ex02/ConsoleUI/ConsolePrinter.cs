@@ -1,4 +1,5 @@
 ﻿using System;
+using C21_Ex02.LogicGame;
 
 namespace C21_Ex02.ConsoleUI
 {
@@ -65,6 +66,23 @@ namespace C21_Ex02.ConsoleUI
         public static void ItsATie()
         {
             Console.WriteLine("It's a Tie!");
+        }
+
+        public static void PrintCurrentPlayerScore(int i_PlayerOneScore, int i_PlayerTwoScore, eGameMode i_GameMode)
+        {
+            if (i_GameMode == eGameMode.PlayerVsPlayer)
+            {
+                Console.WriteLine("current score is : \n\tplayer 1: {0}\n\tplayer 2: {1}\n", i_PlayerOneScore, i_PlayerTwoScore);
+            }
+            else
+            {
+                Console.WriteLine("current score is : \n\tplayer: {0}\n\tcomputer: {1}\n", i_PlayerOneScore,  i_PlayerTwoScore);
+            }
+        }
+
+        public static void PrintWinner(eCellTokenValue i_WinnerPlayer)
+        {
+            Console.WriteLine("{0} Won!!!", i_WinnerPlayer);
         }
     }
 }
