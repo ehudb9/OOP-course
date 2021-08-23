@@ -31,7 +31,7 @@ namespace C21_Ex02
             m_SizeOfRows = ConsoleInputValidator.GetNumOfRowsFromUser();
             m_GameBoard = new Board(m_SizeOfColumns, m_SizeOfRows);
             m_PlayerOne = new Player(k_SignPlayer1);
-            m_PlayerVsComputerMode = ConsoleInputValidator.GetGameModeFromUser();  //Todo - Changed using method in ConsoleInputValidator
+            m_PlayerVsComputerMode = ConsoleInputValidator.GetGameModeFromUser();
 
             if (m_PlayerVsComputerMode == eGameMode.PlayerVsComputer)
             {
@@ -213,7 +213,7 @@ namespace C21_Ex02
             }
             else
             {
-                v_GameIsAlive = false;
+                v_GameIsAlive = !v_GameIsAlive;
             }
         }
 
