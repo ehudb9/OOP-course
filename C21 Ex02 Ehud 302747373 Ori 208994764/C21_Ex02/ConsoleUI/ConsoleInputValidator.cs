@@ -11,6 +11,7 @@ namespace C21_Ex02.ConsoleUI
     {
         private const int k_MinBoardSize = 4;
         private const int k_MaxBoardSize = 8;
+        public const int k_PlayerWantsToQuit = 0;
 
         public static int GetNumOfColumnsFromUser()
         {
@@ -62,7 +63,7 @@ namespace C21_Ex02.ConsoleUI
 
             while (!isValidAnswer)
             {
-                ConsolePrinter.RestarttGameOfferMessage();
+                ConsolePrinter.RestartGameOfferMessage();
                 userAnswer = Console.ReadLine();
                 if (userAnswer.Equals("y") || userAnswer.Equals("Q"))
                 {
@@ -73,12 +74,72 @@ namespace C21_Ex02.ConsoleUI
             return userAnswer;
         }
 
-        public static string GetUserColumnInput()
+        public static int GetUserColumnInput()
         {
-            string chosenColumnStr = "";
+            string chosenColumnStr;
+            bool v_isValidUserInput = false;
+            bool v_isRowDigit = false;
+            int numOfColumnToInsert = 0;
+
             ConsolePrinter.ChooseColumn();
             chosenColumnStr = Console.ReadLine();
-            return chosenColumnStr;
+            v_isValidUserInput = isPlayerTypedQ(ref numOfColumnToInsert, chosenColumnStr);
+
+            while (!v_isValidUserInput)
+            {
+                if (string.IsNullOrEmpty(chosenColumnStr))
+                {
+                    ConsolePrinter.EmptyInput();
+                    chosenColumnStr = Console.ReadLine();
+                    v_isValidUserInput = isPlayerTypedQ(ref numOfColumnToInsert, chosenColumnStr);
+                }
+                else if (chosenColumnStr.Length < 2)
+                {
+                    v_isRowDigit = char.IsDigit(char.Parse(chosenColumnStr));
+
+                    if (v_isRowDigit)
+                    {
+                        if (int.TryParse(chosenColumnStr, out numOfColumnToInsert))
+                        {
+                            v_isValidUserInput = true;
+                        }
+                        else
+                        {
+                            ConsolePrinter.ErrorInput();
+                            chosenColumnStr = Console.ReadLine();
+                            v_isValidUserInput = isPlayerTypedQ(ref numOfColumnToInsert, chosenColumnStr);
+                        }
+                    }
+                    else
+                    {
+                        ConsolePrinter.InvalidColumnNumberErrorMessage();
+                        chosenColumnStr = Console.ReadLine();
+                        v_isValidUserInput = isPlayerTypedQ(ref numOfColumnToInsert, chosenColumnStr);
+                    }
+                }
+                else
+                {
+                    ConsolePrinter.InvalidColumnNumberErrorMessage();
+                    ConsolePrinter.ChooseColumn();
+                    chosenColumnStr = Console.ReadLine();
+                    v_isValidUserInput = isPlayerTypedQ(ref numOfColumnToInsert, chosenColumnStr);
+                }
+            }
+
+            return numOfColumnToInsert;
+        }
+
+        private static bool isPlayerTypedQ(ref int i_NumOfColumnToInsert, string i_ChosenColumn)
+        {
+            bool v_isValidUserInput = false;
+
+            if (i_ChosenColumn.Equals("Q"))
+            {
+                v_isValidUserInput = true;
+                i_NumOfColumnToInsert = k_PlayerWantsToQuit;
+            }
+
+            return v_isValidUserInput;
         }
     }
 }

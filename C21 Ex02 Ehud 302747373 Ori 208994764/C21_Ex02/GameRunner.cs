@@ -81,6 +81,7 @@ namespace C21_Ex02
                 
                 if (v_PlayerWantsToQuitGame)
                 {
+                    
                     ConsolePrinter.PrintWinner(m_CurrentPlayer == eCellTokenValue.Player1 ? eCellTokenValue.Player2 : eCellTokenValue.Player1);
                     printCurrentScore();
                     endGame();
@@ -123,72 +124,35 @@ namespace C21_Ex02
 
         public void PlayerMove()
         {
-            string chosenColumnStr = ConsoleInputValidator.GetUserColumnInput();
-            bool isValidUserInput = false;
-            bool isRowDigit = false;
-            int numOfColumnToInsert = 0;
-            if (isPlayerWantsToQuit(chosenColumnStr))
+            int playerChoseColumnToInsert = 0;
+            bool v_isValidInput = false;
+            playerChoseColumnToInsert = ConsoleInputValidator.GetUserColumnInput();
+            while(!v_isValidInput)
             {
-                isValidUserInput = true;
-            }
-            while (!isValidUserInput)
-            {
-                if(string.IsNullOrEmpty(chosenColumnStr))
+                if (playerChoseColumnToInsert == ConsoleInputValidator.k_PlayerWantsToQuit)
                 {
-                    ConsolePrinter.EmptyInput();
-                    chosenColumnStr = ConsoleInputValidator.GetUserColumnInput();
-                }
-                else if(chosenColumnStr.Length < 2)
-                {
-                    isRowDigit = char.IsDigit(char.Parse(chosenColumnStr));
-                    
-                    if (isRowDigit)
-                    {
-                        if(int.TryParse(chosenColumnStr, out numOfColumnToInsert))
-                        {
-                            if(!m_GameBoard.IsValidColumn(numOfColumnToInsert))
-                            {
-                                if(m_GameBoard.IsFullColumn(numOfColumnToInsert))
-                                {
-                                    ConsolePrinter.ColumnIsFullMessage();
-                                }
-                                else
-                                {
-                                    ConsolePrinter.ErrorSizeMessage();
-                                }
-
-                                chosenColumnStr = ConsoleInputValidator.GetUserColumnInput();
-                            }
-                            else
-                            {
-                                m_GameBoard.InsertCellToBoard(numOfColumnToInsert, m_CurrentPlayer);
-                                isValidUserInput = true;
-                            }
-                        }
-                        else
-                        {
-                            ConsolePrinter.ErrorInput();
-                            chosenColumnStr = ConsoleInputValidator.GetUserColumnInput();
-                        }
-                    }
-                    else
-                    {
-                        if (isPlayerWantsToQuit(chosenColumnStr))
-                        {
-                            break;
-                        }
-                        ConsolePrinter.InvalidColumnNumberErrorMessage(); 
-                        chosenColumnStr = ConsoleInputValidator.GetUserColumnInput();
-                    }
+                    playerWantsToQuit();
+                    v_isValidInput = true;
                 }
                 else
                 {
-                    ConsolePrinter.InvalidColumnNumberErrorMessage();
-                    ConsolePrinter.ChooseColumn();
-                    chosenColumnStr = Console.ReadLine();
-                    if(isPlayerWantsToQuit(chosenColumnStr))
+                    if(!m_GameBoard.IsValidColumn(playerChoseColumnToInsert))
                     {
-                        break;
+                        if (m_GameBoard.IsFullColumn(playerChoseColumnToInsert))
+                        {
+                            ConsolePrinter.ColumnIsFullMessage();
+                        }
+                        else
+                        {
+                            ConsolePrinter.ErrorSizeMessage();
+                        }
+
+                        playerChoseColumnToInsert = ConsoleInputValidator.GetUserColumnInput();
+                    }
+                    else
+                    {
+                        m_GameBoard.InsertCellToBoard(playerChoseColumnToInsert, m_CurrentPlayer);
+                        v_isValidInput = true;
                     }
                 }
             }
@@ -205,7 +169,7 @@ namespace C21_Ex02
             }
             else
             {
-                v_GameIsAlive = !v_GameIsAlive;
+                v_GameIsAlive = false;
             }
         }
 
@@ -233,20 +197,12 @@ namespace C21_Ex02
             }
         }
 
-        private bool isPlayerWantsToQuit(string i_ChosenColumnStr)
+        private void playerWantsToQuit()
         {
-            bool v_isPlayerWantsToQuit = false;
-            
-            if (i_ChosenColumnStr.Equals("Q"))
-            {
-                v_isPlayerWantsToQuit = true;
-                scoreAfterPlayerWantsToQuit();
-                v_GameIsAlive = false;
-                v_PlayerWantsToQuitGame = true;
-                printCurrentScore();
-            }
-
-            return v_isPlayerWantsToQuit;
+            scoreAfterPlayerWantsToQuit();
+            v_GameIsAlive = false;
+            v_PlayerWantsToQuitGame = true;
+            printCurrentScore();
         }
     }
 }

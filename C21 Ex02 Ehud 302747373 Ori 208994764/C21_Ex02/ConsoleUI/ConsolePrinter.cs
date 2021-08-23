@@ -42,7 +42,7 @@ namespace C21_Ex02.ConsoleUI
 
         }
 
-        public static void RestarttGameOfferMessage()
+        public static void RestartGameOfferMessage()
         {
             Console.WriteLine("GAME END \nFor restart the game type 'y'\nto exit the game type 'Q'");
 
