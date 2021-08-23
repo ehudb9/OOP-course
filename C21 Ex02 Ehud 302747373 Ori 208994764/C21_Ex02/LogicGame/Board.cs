@@ -8,6 +8,7 @@
         private readonly int[] r_RowsIndex; 
         private int m_CurrentCellRowIndex = 0;
         private int m_CurrentCellColumnIndex = 0;
+        private const int k_NumOfCellsToWin = 4;
         private bool v_HasWon = true; 
 
         public Board(int i_BoardColumnSize, int i_BoardRowSize)
@@ -105,7 +106,7 @@
                 rowNum--;
             }
 
-            if (sameValueCounter < 4) // ToDo to make const
+            if (sameValueCounter < k_NumOfCellsToWin)
             {
                 foundSequenceVertically = false;
             }
@@ -137,7 +138,7 @@
                 columnNum--;
             }
 
-            if (sameValueCounter < 4)
+            if (sameValueCounter < k_NumOfCellsToWin)
             {
                 foundSequenceHorizontally = false;
             }
@@ -172,7 +173,7 @@
                 rowNum--;
             }
 
-            if (sameValueCounter < 4)
+            if (sameValueCounter < k_NumOfCellsToWin)
             {
                 foundSequenceDiagonallyDown = false;
             }
@@ -206,7 +207,7 @@
                 rowNum++;
             }
 
-            if (sameValueCounter < 4)
+            if (sameValueCounter < k_NumOfCellsToWin)
             {
                 foundSequenceDiagonallyUp = false;
             }

@@ -10,6 +10,8 @@ namespace C21_Ex02
         private bool v_GameIsAlive = false;
         private bool v_PlayerWantsToQuitGame = false;
         private bool m_Turn = true;
+        private const int k_SignPlayer1 = 1;
+        private const int k_SignPlayer2 = 2;
         private Player m_PlayerOne = null, m_PlayerTwo = null;
         private ComputerPlayer m_ComputerPlayer = null;
         public int m_SizeOfColumns = 0;
@@ -38,16 +40,16 @@ namespace C21_Ex02
             }
 
             m_GameBoard = new Board(m_SizeOfColumns, m_SizeOfRows);
-            m_PlayerOne = new Player(1);
+            m_PlayerOne = new Player(k_SignPlayer1);
             Prints.ComputerOrPlayerMessage();
             if(Console.ReadLine().Equals("y"))
             {
                 m_PlayerVsComputerMode = eGameMode.PlayerVsComputer;
-                m_ComputerPlayer = new ComputerPlayer(2, m_SizeOfColumns);
+                m_ComputerPlayer = new ComputerPlayer(k_SignPlayer2, m_SizeOfColumns);
             }
             else
             {
-                m_PlayerTwo = new Player(2); //const?
+                m_PlayerTwo = new Player(k_SignPlayer2);
             }
 
             Prints.StartMessageQToExit();
@@ -71,24 +73,21 @@ namespace C21_Ex02
                     m_CurrentPlayer = eCellTokenValue.Player1;
                     Prints.Player1PlayNowMessage();
                     PlayerMove();
-                    ShowBoardUI.ShowBoard(m_GameBoard); //why duplicate?
 
                 }
                 else if (m_PlayerVsComputerMode == eGameMode.PlayerVsComputer)
                 {
                     m_CurrentPlayer = eCellTokenValue.Player2;
                     m_ComputerPlayer.MakeComputerMove(m_GameBoard);
-                    ShowBoardUI.ShowBoard(m_GameBoard);
                 }
                 else
                 {
                     m_CurrentPlayer = eCellTokenValue.Player2;
                     Prints.Player2PlayNowMessage();
                     PlayerMove();
-                    ShowBoardUI.ShowBoard(m_GameBoard);
                 }
                 
-                //ShowBoardUI.ShowBoard(m_GameBoard); here is enough..
+                ShowBoardUI.ShowBoard(m_GameBoard);
                 
                 if (v_PlayerWantsToQuitGame)
                 {
@@ -134,19 +133,14 @@ namespace C21_Ex02
 
         public void PlayerMove()
         {
-            //Todo - I changed the all method, need to be check again
             Prints.ChooseColumn();
             string chosenColumnStr = Console.ReadLine();
             bool isValidUserInput = false;
             bool isRowDigit = false;
             int numOfColumnToInsert = 0;
-            if (chosenColumnStr.Equals("Q"))
+            if (isPlayerWantsToQuit(chosenColumnStr))
             {
-                playerWantsToQuit();
-                v_GameIsAlive = false;
-                v_PlayerWantsToQuitGame = true;
-                printCurrentScore();
-                return;
+                isValidUserInput = true;
             }
             while (!isValidUserInput)
             {
@@ -154,22 +148,17 @@ namespace C21_Ex02
                 {
                     Console.WriteLine("Please enter non-empty number");
                     chosenColumnStr = Console.ReadLine();
-                    if (chosenColumnStr.Equals("Q"))
+                    if (isPlayerWantsToQuit(chosenColumnStr))
                     {
-                        //Todo - Maybe write this block and more occurrence of its in a method.
-                        playerWantsToQuit();
-                        v_GameIsAlive = false;
-                        v_PlayerWantsToQuitGame = true;
-                        printCurrentScore();
-                        return;
+                        break;
                     }
                 }
                 else if(chosenColumnStr.Length < 2)
                 {
                     isRowDigit = char.IsDigit(char.Parse(chosenColumnStr));
+                    
                     if (isRowDigit)
                     {
-                        //ToDo - Check if this IF statement write OK according to the rule.
                         if(int.TryParse(chosenColumnStr, out numOfColumnToInsert))
                         {
                             if(!IsValidColumn(numOfColumnToInsert))
@@ -200,16 +189,12 @@ namespace C21_Ex02
                     }
                     else
                     {
-                        Prints.InvalidColumnNumberErrorMessage();  ///duplicate code
+                        Prints.InvalidColumnNumberErrorMessage(); 
                         Prints.ChooseColumn();
                         chosenColumnStr = Console.ReadLine();
-                        if (chosenColumnStr.Equals("Q"))
+                        if (isPlayerWantsToQuit(chosenColumnStr))
                         {
-                            playerWantsToQuit();
-                            v_GameIsAlive = false;
-                            v_PlayerWantsToQuitGame = true;
-                            printCurrentScore();
-                            return;
+                            break;
                         }
                     }
                 }
@@ -218,13 +203,9 @@ namespace C21_Ex02
                     Prints.InvalidColumnNumberErrorMessage();
                     Prints.ChooseColumn();
                     chosenColumnStr = Console.ReadLine();
-                    if (chosenColumnStr.Equals("Q"))
+                    if (isPlayerWantsToQuit(chosenColumnStr))
                     {
-                        playerWantsToQuit();
-                        v_GameIsAlive = false;
-                        v_PlayerWantsToQuitGame = true;
-                        printCurrentScore();
-                        return;
+                        break;
                     }
                 }
             }
@@ -267,7 +248,7 @@ namespace C21_Ex02
             }
         }
 
-        private void playerWantsToQuit()
+        private void scoreAfterPlayerWantsToQuit()
         {
             if (m_CurrentPlayer == eCellTokenValue.Player1)
             {
@@ -284,6 +265,22 @@ namespace C21_Ex02
             {
                 m_PlayerOne.Score++;
             }
+        }
+
+        private bool isPlayerWantsToQuit(string i_ChosenColumnStr)
+        {
+            bool v_isPlayerWantsToQuit = false;
+            
+            if (i_ChosenColumnStr.Equals("Q"))
+            {
+                v_isPlayerWantsToQuit = true;
+                scoreAfterPlayerWantsToQuit();
+                v_GameIsAlive = false;
+                v_PlayerWantsToQuitGame = true;
+                printCurrentScore();
+            }
+
+            return v_isPlayerWantsToQuit;
         }
     }
 }
