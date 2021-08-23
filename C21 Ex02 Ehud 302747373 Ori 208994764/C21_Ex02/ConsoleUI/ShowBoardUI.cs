@@ -11,7 +11,7 @@ namespace C21_Ex02.ConsoleUI
             Ex02.ConsoleUtils.Screen.Clear();
 
             StringBuilder visualBoard = new StringBuilder();
-            for (int i = 0; i < i_BoardGame.m_NumOfColumns; i++)
+            for (int i = 0; i < i_BoardGame.s_NumOfColumns; i++)
             {
                 visualBoard.AppendFormat("   {0}", i + 1);
             }
@@ -20,9 +20,9 @@ namespace C21_Ex02.ConsoleUI
 
             for (int i = 0; i < i_BoardGame.m_NumOfRows; i++)
             {
-                visualBoard.AppendFormat("{0}|", i + 1);
+                visualBoard.AppendFormat(" |");
 
-                for (int j = 0; j < i_BoardGame.m_NumOfColumns; j++)
+                for (int j = 0; j < i_BoardGame.s_NumOfColumns; j++)
                 {
                     eCellTokenValue cellValue = i_BoardGame.m_BoardCells[i, j].CellTokenValue;
                     if (cellValue != eCellTokenValue.Empty)
@@ -46,7 +46,7 @@ namespace C21_Ex02.ConsoleUI
 
                 visualBoard.AppendLine();
                 visualBoard.Append(" ");
-                visualBoard.Append('=', i_BoardGame.m_NumOfColumns * 4);
+                visualBoard.Append('=', i_BoardGame.s_NumOfColumns * 4);
                 visualBoard.Append("\n");
             }
             

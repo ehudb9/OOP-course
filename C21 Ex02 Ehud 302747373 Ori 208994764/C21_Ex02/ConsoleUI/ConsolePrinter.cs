@@ -2,7 +2,7 @@
 
 namespace C21_Ex02.ConsoleUI
 {
-    public class Prints
+    public class ConsolePrinter
     {
         public static void WelcomeMessage()
         {

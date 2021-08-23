@@ -3,7 +3,7 @@
     public class Board
     {
         public int m_NumOfRows;
-        public int m_NumOfColumns;
+        public int s_NumOfColumns;
         public readonly BoardCell[,] m_BoardCells;
         private readonly int[] r_RowsIndex; 
         private int m_CurrentCellRowIndex = 0;
@@ -15,9 +15,9 @@
         {
             m_BoardCells = new BoardCell[i_BoardRowSize, i_BoardColumnSize];
             m_NumOfRows = i_BoardRowSize;
-            m_NumOfColumns = i_BoardColumnSize;
+            s_NumOfColumns = i_BoardColumnSize;
             initializeBoard();
-            r_RowsIndex = new int[m_NumOfColumns];
+            r_RowsIndex = new int[s_NumOfColumns];
             resetColumnIndex();
         }
 
@@ -25,7 +25,7 @@
         {
             for (int i = 0; i < m_NumOfRows; i++)
             {
-                for (int j = 0; j < m_NumOfColumns; j++)
+                for (int j = 0; j < s_NumOfColumns; j++)
                 {
                     m_BoardCells[i, j] = new BoardCell();
                 }
@@ -59,8 +59,13 @@
 
         public bool IsFullColumn(int i_Column)
         {
-            bool isColumnFull = i_Column <= m_NumOfColumns && r_RowsIndex[i_Column - 1] == 0 && (i_Column <= m_NumOfColumns);
+            bool isColumnFull = i_Column <= s_NumOfColumns && r_RowsIndex[i_Column - 1] == 0 && (i_Column <= s_NumOfColumns);
             return isColumnFull;
+        }
+
+        public bool IsValidColumn(int i_Column)
+        {
+            return i_Column > 0 && i_Column <= s_NumOfColumns && !IsFullColumn(i_Column);
         }
 
         public bool BoardIsFull()
@@ -122,7 +127,7 @@
             eCellTokenValue prevValue = i_CellToken;
             int columnNum = m_CurrentCellColumnIndex + 1;
 
-            while (columnNum < m_NumOfColumns && prevValue == m_BoardCells[m_CurrentCellRowIndex, columnNum].CellTokenValue)
+            while (columnNum < s_NumOfColumns && prevValue == m_BoardCells[m_CurrentCellRowIndex, columnNum].CellTokenValue)
             {
                 sameValueCounter++;
                 prevValue = m_BoardCells[m_CurrentCellRowIndex, columnNum].CellTokenValue;
@@ -154,7 +159,7 @@
             int columnNum = m_CurrentCellColumnIndex + 1;
             int rowNum = m_CurrentCellRowIndex + 1;
 
-            while (columnNum < m_NumOfColumns && rowNum < m_NumOfRows && prevValue == m_BoardCells[rowNum, columnNum].CellTokenValue)
+            while (columnNum < s_NumOfColumns && rowNum < m_NumOfRows && prevValue == m_BoardCells[rowNum, columnNum].CellTokenValue)
             {
                 sameValueCounter++;
                 prevValue = m_BoardCells[rowNum, columnNum].CellTokenValue;
@@ -189,7 +194,7 @@
             int columnNum = m_CurrentCellColumnIndex + 1;
             int rowNum = m_CurrentCellRowIndex - 1;
 
-            while (columnNum < m_NumOfColumns && rowNum >= 0 && prevValue == m_BoardCells[rowNum, columnNum].CellTokenValue)
+            while (columnNum < s_NumOfColumns && rowNum >= 0 && prevValue == m_BoardCells[rowNum, columnNum].CellTokenValue)
             {
                 sameValueCounter++;
                 prevValue = m_BoardCells[rowNum, columnNum].CellTokenValue;

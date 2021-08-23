@@ -7,8 +7,8 @@ namespace C21_Ex02
     public class GameRunner
     {
         private eGameMode m_PlayerVsComputerMode = eGameMode.PlayerVsPlayer;
-        private bool v_GameIsAlive = false;
-        private bool v_PlayerWantsToQuitGame = false;
+        public static bool v_GameIsAlive = false; //Todo - check about the variable name
+        public static bool v_PlayerWantsToQuitGame = false; //Todo - check about the variable name
         private bool m_Turn = true;
         private const int k_SignPlayer1 = 1;
         private const int k_SignPlayer2 = 2;
@@ -26,25 +26,15 @@ namespace C21_Ex02
         }
         public void InitGame()
         {
-            Prints.WelcomeMessage();
-            Console.WriteLine("Please type size of columns (8-4):");
-            while (!(int.TryParse(Console.ReadLine(),out m_SizeOfColumns) && m_SizeOfColumns >= 4 && m_SizeOfColumns <= 8))
-            {
-                Prints.ErrorSizeMessage();
-            }
-            
-            Console.WriteLine("Please type size of rows (8-4):");
-            while (!(int.TryParse(Console.ReadLine(), out m_SizeOfRows) && m_SizeOfRows >= 4 && m_SizeOfRows <= 8))
-            {
-                Prints.ErrorSizeMessage();
-            }
-
+            ConsolePrinter.WelcomeMessage();
+            m_SizeOfColumns = ConsoleInputValidator.GetNumOfColumnsFromUser();
+            m_SizeOfRows = ConsoleInputValidator.GetNumOfRowsFromUser();
             m_GameBoard = new Board(m_SizeOfColumns, m_SizeOfRows);
             m_PlayerOne = new Player(k_SignPlayer1);
-            Prints.ComputerOrPlayerMessage();
-            if(Console.ReadLine().Equals("y"))
+            m_PlayerVsComputerMode = ConsoleInputValidator.GetGameModeFromUser();  //Todo - Changed using method in ConsoleInputValidator
+
+            if (m_PlayerVsComputerMode == eGameMode.PlayerVsComputer)
             {
-                m_PlayerVsComputerMode = eGameMode.PlayerVsComputer;
                 m_ComputerPlayer = new ComputerPlayer(k_SignPlayer2, m_SizeOfColumns);
             }
             else
@@ -52,7 +42,7 @@ namespace C21_Ex02
                 m_PlayerTwo = new Player(k_SignPlayer2);
             }
 
-            Prints.StartMessageQToExit();
+            ConsolePrinter.StartMessageQToExit();
         }
 
         public void ResetGame()
@@ -60,7 +50,7 @@ namespace C21_Ex02
             m_GameBoard.ResetBoard();
             v_GameIsAlive = true;
             v_PlayerWantsToQuitGame = false;
-            Prints.StartMessageQToExit();
+            ConsolePrinter.StartMessageQToExit();
         }
 
         public void Run()
@@ -71,7 +61,7 @@ namespace C21_Ex02
                 if(m_Turn)
                 {
                     m_CurrentPlayer = eCellTokenValue.Player1;
-                    Prints.Player1PlayNowMessage();
+                    ConsolePrinter.Player1PlayNowMessage();
                     PlayerMove();
 
                 }
@@ -83,7 +73,7 @@ namespace C21_Ex02
                 else
                 {
                     m_CurrentPlayer = eCellTokenValue.Player2;
-                    Prints.Player2PlayNowMessage();
+                    ConsolePrinter.Player2PlayNowMessage();
                     PlayerMove();
                 }
                 
@@ -119,7 +109,7 @@ namespace C21_Ex02
                 }
                 else if (m_GameBoard.BoardIsFull())
                 {
-                    Prints.ItsATie();
+                    ConsolePrinter.ItsATie();
                     printCurrentScore();
                     endGame();
                 }
@@ -127,13 +117,13 @@ namespace C21_Ex02
                 m_Turn = !m_Turn;
             }
 
-            Prints.ExitGameMessage();
+            ConsolePrinter.ExitGameMessage();
             Console.ReadLine();
         }
 
         public void PlayerMove()
         {
-            Prints.ChooseColumn();
+            ConsolePrinter.ChooseColumn();
             string chosenColumnStr = Console.ReadLine();
             bool isValidUserInput = false;
             bool isRowDigit = false;
@@ -161,17 +151,18 @@ namespace C21_Ex02
                     {
                         if(int.TryParse(chosenColumnStr, out numOfColumnToInsert))
                         {
-                            if(!IsValidColumn(numOfColumnToInsert))
+                            if(!m_GameBoard.IsValidColumn(numOfColumnToInsert))
                             {
-                                if (m_GameBoard.IsFullColumn(numOfColumnToInsert))
+                                if(m_GameBoard.IsFullColumn(numOfColumnToInsert))
                                 {
-                                    Prints.ColumnIsFullMessage();
+                                    ConsolePrinter.ColumnIsFullMessage();
                                 }
                                 else
                                 {
-                                    Prints.ErrorSizeMessage();
+                                    ConsolePrinter.ErrorSizeMessage();
                                 }
-                                Prints.ChooseColumn();
+
+                                ConsolePrinter.ChooseColumn();
                                 chosenColumnStr = Console.ReadLine();
                             }
                             else
@@ -183,14 +174,14 @@ namespace C21_Ex02
                         else
                         {
                             Console.WriteLine("There was an error with your input. Please try again");
-                            Prints.ChooseColumn();
+                            ConsolePrinter.ChooseColumn();
                             chosenColumnStr = Console.ReadLine();
                         }
                     }
                     else
                     {
-                        Prints.InvalidColumnNumberErrorMessage(); 
-                        Prints.ChooseColumn();
+                        ConsolePrinter.InvalidColumnNumberErrorMessage(); 
+                        ConsolePrinter.ChooseColumn();
                         chosenColumnStr = Console.ReadLine();
                         if (isPlayerWantsToQuit(chosenColumnStr))
                         {
@@ -200,10 +191,10 @@ namespace C21_Ex02
                 }
                 else
                 {
-                    Prints.InvalidColumnNumberErrorMessage();
-                    Prints.ChooseColumn();
+                    ConsolePrinter.InvalidColumnNumberErrorMessage();
+                    ConsolePrinter.ChooseColumn();
                     chosenColumnStr = Console.ReadLine();
-                    if (isPlayerWantsToQuit(chosenColumnStr))
+                    if(isPlayerWantsToQuit(chosenColumnStr))
                     {
                         break;
                     }
@@ -211,28 +202,18 @@ namespace C21_Ex02
             }
         }
 
-        public bool IsValidColumn(int i_ChosenColumn)
-        {
-            return i_ChosenColumn > 0  && i_ChosenColumn <= m_SizeOfColumns && !m_GameBoard.IsFullColumn(i_ChosenColumn);
-        }
-
         private void endGame()
         {
-            bool isValidAnswer = false;
-            while (!isValidAnswer)
+            string resetOrQuit = "";
+            resetOrQuit = ConsoleInputValidator.GetUserResetOrQuitChoice();
+
+            if (resetOrQuit.Equals("y"))
             {
-                Prints.RestarttGameOfferMessage();
-                string userAnswer = Console.ReadLine();
-                if (userAnswer.Equals("y"))
-                {
-                    ResetGame();
-                    isValidAnswer = true;
-                }
-                else if (userAnswer.Equals("Q"))
-                {
-                    v_GameIsAlive = false;
-                    isValidAnswer = true;
-                }
+                ResetGame();
+            }
+            else
+            {
+                v_GameIsAlive = false;
             }
         }
 

@@ -69,11 +69,12 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsoleUI\ConsoleInputValidator.cs" />
     <Compile Include="ConsoleUI\ShowBoardUI.cs" />
     <Compile Include="LogicGame\ComputerPlayer.cs" />
     <Compile Include="LogicGame\Player.cs" />
     <Compile Include="GameRunner.cs" />
-    <Compile Include="ConsoleUI\Prints.cs" />
+    <Compile Include="ConsoleUI\ConsolePrinter.cs" />
     <Compile Include="LogicGame\Board.cs" />
     <Compile Include="LogicGame\BoardCell.cs" />
     <Compile Include="LogicGame\eCellTokenValue.cs" />
