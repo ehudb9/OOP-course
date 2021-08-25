@@ -53,6 +53,7 @@ namespace C21_Ex02.ConsoleUI
             {
                 chosenGameMode = eGameMode.PlayerVsPlayer;
             }
+
             return chosenGameMode;
         }
 

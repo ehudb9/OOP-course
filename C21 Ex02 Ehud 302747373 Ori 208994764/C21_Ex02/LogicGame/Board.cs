@@ -201,6 +201,7 @@
                 columnNum++;
                 rowNum--;
             }
+
             columnNum = m_CurrentCellColumnIndex - 1;
             rowNum = m_CurrentCellRowIndex + 1;
             prevValue = i_CellToken;

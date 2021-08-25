@@ -24,6 +24,7 @@ namespace C21_Ex02
             v_GameIsAlive = true;
             InitGame();
         }
+
         public void InitGame()
         {
             ConsolePrinter.WelcomeMessage();

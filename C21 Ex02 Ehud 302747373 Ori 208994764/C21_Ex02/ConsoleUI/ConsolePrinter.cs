@@ -82,6 +82,7 @@ namespace C21_Ex02.ConsoleUI
         {
             Console.WriteLine("Please enter non-empty number");
         }
+
         public static void ErrorInput()
         {
             Console.WriteLine("There was an error with your input. Please try again");
