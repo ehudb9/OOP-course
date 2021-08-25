@@ -8,5 +8,13 @@ namespace Ex03.ConsoleUI
 {
     public class UI
     {
+        public UI()
+        {
+
+        }
+        public void Run()
+        {
+            Console.WriteLine("Welcom to Ori & Ehud's OOP project");
+        }
     }
 }
