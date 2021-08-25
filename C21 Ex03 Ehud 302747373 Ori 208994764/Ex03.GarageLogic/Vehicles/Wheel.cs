@@ -8,8 +8,8 @@ namespace Ex03.GarageLogic
 {
     public class Wheel
     {
-        private const float k_MinAirOressure = 0;
-        public float m_MaxAirPressure { get;}
+        private const float k_MinAirPressure = 0;
+        public float m_MaxAirPressure { get; }
         public float m_MinAirPressure = 0;
 
         public Wheel(float i_MaxAirPressure)

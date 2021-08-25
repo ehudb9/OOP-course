@@ -11,7 +11,7 @@ namespace Ex03.ConsoleUI
         public static void Main()
         {
             UI ui = new UI();
-            //Todo - add Run method in order to start the UI
+            ui.Run();
         }
     }
 }
