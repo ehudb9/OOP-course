@@ -8,5 +8,18 @@ namespace Ex03.GarageLogic
 {
     public class VehicleBuilder
     {
+        enum eVehicleTypes
+        {
+            ElectricCar,
+            FuelCar,
+            ElectricMotorcycle,
+            FuelMotorcycle,
+            FuelTruck,
+        }
+
+        public Vehicle Create()
+        {
+            return new Vehicle();
+        }
     }
 }
