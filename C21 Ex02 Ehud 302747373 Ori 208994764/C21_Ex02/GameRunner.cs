@@ -58,12 +58,12 @@ namespace C21_Ex02
             while (v_GameIsAlive)
             {
                 ShowBoardUI.ShowBoard(m_GameBoard);
-                if(m_Turn)
+                
+                if (m_Turn)
                 {
                     m_CurrentPlayer = eCellTokenValue.Player1;
                     ConsolePrinter.Player1PlayNowMessage();
                     PlayerMove();
-
                 }
                 else if (m_PlayerVsComputerMode == eGameMode.PlayerVsComputer)
                 {
