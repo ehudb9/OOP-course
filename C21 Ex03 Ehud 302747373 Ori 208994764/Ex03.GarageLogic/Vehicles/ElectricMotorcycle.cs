@@ -8,5 +8,11 @@ namespace Ex03.GarageLogic
 {
     public class ElectricMotorcycle
     {
+        Motorcycle m_Motorcycle;
+
+        public ElectricMotorcycle()
+        {
+            m_Motorcycle = new Motorcycle();
+        }
     }
 }
