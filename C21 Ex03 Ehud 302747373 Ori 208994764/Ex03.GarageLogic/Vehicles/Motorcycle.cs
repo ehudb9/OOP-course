@@ -16,14 +16,32 @@ namespace Ex03.GarageLogic
             B
         }
 
-        readonly int r_EngieneCapacityInCC;
-        readonly eLicenseType r_LicenseType;
-        bool m_IsElecric;  //why not readonly and why here?
+        public const int k_NumberOfWheels = 2;
+        public const float k_MaxAirPressure = 28;
+        public int EngineCapacityInCc { get; set; }
 
-        public Motorcycle()
+        public eLicenseType LicenseType { get; set; }
+
+        public void Init(Dictionary<string, object> i_DataDictionary)
         {
-
+            LicenseType = (eLicenseType)i_DataDictionary["licenseType"];
+            EngineCapacityInCc = (int)i_DataDictionary["engineCapacity"];
         }
 
+        public static Dictionary<string, VehicleBuilder.InsertDetails> InsertDetails()
+        {
+            Dictionary<string, VehicleBuilder.InsertDetails> detailsToInsert = new Dictionary<string, VehicleBuilder.InsertDetails>();
+            detailsToInsert.Add("licenseType", new VehicleBuilder.InsertDetails("Please type your motorcycle license: ", typeof(eLicenseType)));
+            detailsToInsert.Add("engineCapacity", new VehicleBuilder.InsertDetails("Please type your car color: ", typeof(int)));
+            return detailsToInsert;
+        }
+
+        public void GetData(Dictionary<string, string> i_DataDictionary)
+        {
+            i_DataDictionary.Add("licenseType", LicenseType.ToString());
+            i_DataDictionary.Add("engineCapacity", EngineCapacityInCc.ToString());
+        }
     }
+
+}
 }

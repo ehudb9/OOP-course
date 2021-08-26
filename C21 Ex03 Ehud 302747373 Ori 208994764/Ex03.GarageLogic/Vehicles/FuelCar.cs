@@ -26,12 +26,12 @@ namespace Ex03.GarageLogic
         public static Dictionary<string, VehicleBuilder.InsertDetails> InsertDetails()
         {
             Dictionary<string, VehicleBuilder.InsertDetails> details = new Dictionary<string, VehicleBuilder.InsertDetails>();
-            foreach(var detail in Car.InsertDetails())
+            foreach(KeyValuePair<string, VehicleBuilder.InsertDetails> detail in Car.InsertDetails())
             {
                 details.Add(detail.Key, detail.Value);
             }
 
-            foreach(var detail in FuelVehicle.InsertDetails())
+            foreach(KeyValuePair<string, VehicleBuilder.InsertDetails> detail in FuelVehicle.InsertDetails())
             {
                 details.Add(detail.Key, detail.Value);
             }
