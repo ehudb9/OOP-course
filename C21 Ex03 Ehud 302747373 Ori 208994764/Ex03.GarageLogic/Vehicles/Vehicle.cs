@@ -14,7 +14,7 @@ namespace Ex03.GarageLogic
         float m_EnergyPrecent;
         readonly List<Wheel> r_Wheels;
 
-        public Vehicle()
+        public Vehicle(int i_NumberOfWheels, float i_MaxAirPressure)
         {
             
         }

@@ -17,9 +17,9 @@ namespace Ex03.GarageLogic
             FuelTruck,
         }
 
-        public struct RequiredData //Todo - Think to change this name
+        public struct InsertDetails //Todo - Think to change this name
         {
-            public RequiredData(string i_Question, Type i_InputType)
+            public InsertDetails(string i_Question, Type i_InputType)
             {
                 Question = i_Question;
                 InputType = i_InputType;

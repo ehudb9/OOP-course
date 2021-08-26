@@ -27,7 +27,7 @@ namespace Ex03.GarageLogic
         private eColors m_Color;
         private eDoorNumber m_NumberOfDoors;
         public const int k_NumberOfWheels = 4;
-        public const int k_MakAirPressure = 30;
+        public const int k_MaxAirPressure = 30;
 
         public void Init(Dictionary<string, object> i_DataDictionary)
         {
@@ -35,12 +35,12 @@ namespace Ex03.GarageLogic
             m_Color = (eColors)i_DataDictionary["carColor"];
         }
 
-        public static Dictionary<string, VehicleBuilder.RequiredData> RequiredData()
+        public static Dictionary<string, VehicleBuilder.InsertDetails> InsertDetails()
         {
-            Dictionary<string, VehicleBuilder.RequiredData> resultFromUser = new Dictionary<string, VehicleBuilder.RequiredData>();
-            resultFromUser.Add("numberOfDoors", new VehicleBuilder.RequiredData("Please type how many door your car has: ", typeof(eDoorNumber)));
-            resultFromUser.Add("carColor", new VehicleBuilder.RequiredData("Please type your car color: ", typeof(eColors)));
-            return resultFromUser;
+            Dictionary<string, VehicleBuilder.InsertDetails> detailsToInsert = new Dictionary<string, VehicleBuilder.InsertDetails>();
+            detailsToInsert.Add("numberOfDoors", new VehicleBuilder.InsertDetails("Please type how many door your car has: ", typeof(eDoorNumber)));
+            detailsToInsert.Add("carColor", new VehicleBuilder.InsertDetails("Please type your car color: ", typeof(eColors)));
+            return detailsToInsert;
         }
 
         public void GetData(Dictionary<string, string> i_DataDictionary)
@@ -48,6 +48,5 @@ namespace Ex03.GarageLogic
             i_DataDictionary.Add("numberOfDoors", m_NumberOfDoors.ToString());
             i_DataDictionary.Add("carColor", m_Color.ToString());
         }
-
     }
 }
