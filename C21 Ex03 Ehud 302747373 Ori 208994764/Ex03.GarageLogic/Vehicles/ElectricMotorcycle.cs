@@ -6,13 +6,43 @@ using System.Threading.Tasks;
 
 namespace Ex03.GarageLogic
 {
-    public class ElectricMotorcycle
+    public class ElectricMotorcycle : ElectricVehicle
     {
-        Motorcycle m_Motorcycle;
+        private readonly Motorcycle r_Motorcycle = new Motorcycle();
+        private const float k_MaxBatteryTimeInHours = 1.6f;
 
-        public ElectricMotorcycle()
+        public ElectricMotorcycle() : base(k_MaxBatteryTimeInHours, Car.k_NumberOfWheels, Car.k_MaxAirPressure)
         {
-            m_Motorcycle = new Motorcycle();
+
+        }
+
+        public override void Init(Dictionary<string, object> i_DataDictionary)
+        {
+            r_Motorcycle.Init(i_DataDictionary);
+            base.Init(i_DataDictionary);
+        }
+
+        public static Dictionary<string, VehicleBuilder.InsertDetails> InsertDetails()
+        {
+            Dictionary<string, VehicleBuilder.InsertDetails> details = new Dictionary<string, VehicleBuilder.InsertDetails>();
+            foreach (KeyValuePair<string, VehicleBuilder.InsertDetails> detail in Motorcycle.InsertDetails())
+            {
+                details.Add(detail.Key, detail.Value);
+            }
+
+            foreach (KeyValuePair<string, VehicleBuilder.InsertDetails> detail in ElectricVehicle.InsertDetails())
+            {
+                details.Add(detail.Key, detail.Value);
+            }
+
+            return details;
+        }
+
+        public override void GetData(Dictionary<string, string> i_DataDictionary)
+        {
+            i_DataDictionary.Add("vehicleType", "Electric car");
+            base.GetData(i_DataDictionary);
+            r_Motorcycle.GetData(i_DataDictionary);
         }
     }
 }

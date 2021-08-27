@@ -27,16 +27,6 @@ namespace Ex03.GarageLogic
             r_MaxFuelAmountInLiter = i_MaxFuelAmountInLiter;
         }
 
-        public void Refuel(float i_AmountToAdd, eFuelType i_FuelType)
-        {
-            if (i_FuelType != r_FuelType)
-            {
-                throw new ArgumentException($"This vehicle runs on {r_FuelType.ToString()} only");
-            } //Todo - Need else statement?
-
-            CurrentFuelAmountInLiter += i_AmountToAdd;
-        }
-
         public float CurrentFuelAmountInLiter
         {
             get => m_CurrentFuelAmountInLiter;
@@ -47,19 +37,41 @@ namespace Ex03.GarageLogic
                     throw new ValueOutOfRangeException($"You cant put {value} liters in this vehicle", k_MinFuelAmountInLiter, r_MaxFuelAmountInLiter);
                 }
 
-                EnergyPercent = (value / r_MaxFuelAmountInLiter) * 100;
                 m_CurrentFuelAmountInLiter = value;
+                EnergyPercent = (value / r_MaxFuelAmountInLiter) * 100;
             }
+        }
+
+        public override void Init(Dictionary<string, object> i_DataDictionary)
+        {
+            CurrentFuelAmountInLiter = (float)i_DataDictionary["currentFuelAmountInLiter"];
+            EnergyPercent = (CurrentFuelAmountInLiter / r_MaxFuelAmountInLiter) * 100;
+            base.Init(i_DataDictionary);
+        }
+
+        public void Refuel(float i_AmountToAdd, eFuelType i_FuelType)
+        {
+            if (i_FuelType != r_FuelType)
+            {
+                throw new ArgumentException($"This vehicle runs on {r_FuelType.ToString()} only");
+            } //Todo - Need else statement?
+
+            CurrentFuelAmountInLiter += i_AmountToAdd;
         }
 
         public static Dictionary<string, VehicleBuilder.InsertDetails> InsertDetails()
         {
             Dictionary<string, VehicleBuilder.InsertDetails> details = new Dictionary<string, VehicleBuilder.InsertDetails>();
             details.Add("currentFuelAmountInLiter", new VehicleBuilder.InsertDetails("Please type the current fuel amount in liters: ", typeof(float)));
+            foreach(var detail in Vehicle.InsertDetails)
+            {
+                details.Add(detail.Key, detail.Value);
+            }
+
             return details;
         }
 
-        public void GetData(Dictionary<string, string> i_DataDictionary)
+        public override void GetData(Dictionary<string, string> i_DataDictionary)
         {
             base.GetData(i_DataDictionary); //Todo - write GetData method in Vehicle class
             i_DataDictionary.Add("fuelType", r_FuelType.ToString());

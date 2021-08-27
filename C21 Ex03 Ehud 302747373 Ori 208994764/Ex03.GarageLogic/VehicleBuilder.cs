@@ -8,7 +8,7 @@ namespace Ex03.GarageLogic
 {
     public class VehicleBuilder
     {
-        enum eVehicleTypes
+        public enum eVehicleTypes
         {
             ElectricCar,
             FuelCar,
@@ -17,7 +17,7 @@ namespace Ex03.GarageLogic
             FuelTruck,
         }
 
-        public struct InsertDetails //Todo - Think to change this name
+        public struct InsertDetails 
         {
             public InsertDetails(string i_Question, Type i_InputType)
             {
@@ -30,9 +30,69 @@ namespace Ex03.GarageLogic
             public Type InputType { get; set; }
         }
 
-        public Vehicle Create()
+        public Vehicle Create(eVehicleTypes i_UserVehicleChoise, Dictionary<string, object> i_VehicleDataLisDictionary)
         {
-            return new Vehicle();
+            Vehicle newVehicle = null;
+            switch(i_UserVehicleChoise)
+            {
+                case eVehicleTypes.ElectricCar:
+                    newVehicle = new ElectricCar();
+                    break;
+
+                case eVehicleTypes.ElectricMotorcycle:
+                    newVehicle = new ElectricMotorcycle();
+                    break;
+
+                case eVehicleTypes.FuelCar:
+                    newVehicle = new FuelCar();
+                    break;
+
+                case eVehicleTypes.FuelMotorcycle:
+                    newVehicle = new FuelMotorcycle();
+                    break;
+
+                case eVehicleTypes.FuelTruck:
+                    newVehicle = new FuelTruck();
+                    break;
+                
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(i_UserVehicleChoise), i_UserVehicleChoise, null);
+            }
+
+            newVehicle.Init(i_VehicleDataLisDictionary);
+            return newVehicle;
+        }
+
+        public static Dictionary<string, InsertDetails> CreateNeededDataList(eVehicleTypes i_UserVehicleChoice)
+        {
+            Dictionary<string, InsertDetails> insertedDetails = null;
+            switch (i_UserVehicleChoice)
+            {
+                case eVehicleTypes.ElectricCar:
+                    insertedDetails = ElectricCar.InsertDetails();
+                    break;
+
+                case eVehicleTypes.ElectricMotorcycle:
+                    insertedDetails = ElectricMotorcycle.InsertDetails();
+                    break;
+
+                case eVehicleTypes.FuelCar:
+                    insertedDetails = FuelCar.InsertDetails();
+                    break;
+
+                case eVehicleTypes.FuelMotorcycle:
+                    insertedDetails = FuelMotorcycle.InsertDetails();
+                    break;
+
+                case eVehicleTypes.FuelTruck:
+                    insertedDetails = FuelTruck.InsertDetails();
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(i_UserVehicleChoice), i_UserVehicleChoice, null);
+            }
+
+            return insertedDetails;
         }
     }
 }

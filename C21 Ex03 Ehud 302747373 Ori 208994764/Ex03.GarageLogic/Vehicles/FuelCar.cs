@@ -8,7 +8,7 @@ namespace Ex03.GarageLogic
 {
     public class FuelCar : FuelVehicle
     {
-        private Car m_Car = new Car();
+        private readonly Car r_Car = new Car();
         private const float k_MaxFuel = 50;
         private const eFuelType k_FuelType = eFuelType.Octan95;
 
@@ -17,10 +17,10 @@ namespace Ex03.GarageLogic
 
         }
 
-        public void Init(Dictionary<string, object> i_DataDictionary)
+        public override void Init(Dictionary<string, object> i_DataDictionary)
         {
-            m_Car.Init(i_DataDictionary);
-            base.Init(i_DataDictionary); //Todo - write Init method in Vehicle class 
+            r_Car.Init(i_DataDictionary);
+            base.Init(i_DataDictionary);
         }
 
         public static Dictionary<string, VehicleBuilder.InsertDetails> InsertDetails()
@@ -39,11 +39,11 @@ namespace Ex03.GarageLogic
             return details;
         }
 
-        public void GetData(Dictionary<string, string> i_DataDictionary)
+        public override void GetData(Dictionary<string, string> i_DataDictionary)
         {
             i_DataDictionary.Add("vehicleType", "Fuel car");
             base.GetData(i_DataDictionary);
-            m_Car.GetData(i_DataDictionary);
+            r_Car.GetData(i_DataDictionary);
         }
     }
 }
