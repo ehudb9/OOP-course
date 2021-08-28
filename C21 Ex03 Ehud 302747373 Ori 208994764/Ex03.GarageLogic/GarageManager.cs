@@ -26,8 +26,7 @@ namespace Ex03.GarageLogic
         {
             if(r_VehicleInTheGarageDictionary.ContainsKey(i_VehicleToInsert.PlateNumber))
             {
-                getVehicleInGarage(i_VehicleToInsert.PlateNumber, out VehicleInTheGarage vehicleInTheGarage);
-                vehicleInTheGarage.VehicleStatus = eGarageVehicleStatus.InRepair; 
+                r_VehicleInTheGarageDictionary[i_VehicleToInsert.PlateNumber].VehicleStatus = eGarageVehicleStatus.InRepair; 
                 throw new ArgumentException("This vehicle is already in the garage");
             }
 
@@ -106,15 +105,5 @@ namespace Ex03.GarageLogic
                 throw new ArgumentException("The required vehicle not found");
             }
         }
-        /*
-        private void getVehicle(string i_VehiclePlateNumber, out Vehicle i_Vehicle)
-        {
-            if(!r_VehicleInTheGarageDictionary.TryGetValue(i_VehiclePlateNumber, out VehicleInTheGarage vehicleInTheGarage))
-            {
-                throw new ArgumentException("The required vehicle not found");
-            }
-
-            i_Vehicle = vehicleInTheGarage.Vehicle;
-        }*/
     }
 }
