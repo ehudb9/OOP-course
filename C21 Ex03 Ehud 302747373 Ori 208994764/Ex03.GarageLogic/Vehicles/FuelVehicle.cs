@@ -63,7 +63,7 @@ namespace Ex03.GarageLogic
         {
             Dictionary<string, VehicleBuilder.InsertDetails> details = new Dictionary<string, VehicleBuilder.InsertDetails>();
             details.Add("currentFuelAmountInLiter", new VehicleBuilder.InsertDetails("Please type the current fuel amount in liters: ", typeof(float)));
-            foreach(var detail in Vehicle.InsertDetails)
+            foreach(KeyValuePair<string, VehicleBuilder.InsertDetails> detail in Vehicle.InsertDetails())
             {
                 details.Add(detail.Key, detail.Value);
             }
@@ -73,7 +73,7 @@ namespace Ex03.GarageLogic
 
         public override void GetData(Dictionary<string, string> i_DataDictionary)
         {
-            base.GetData(i_DataDictionary); //Todo - write GetData method in Vehicle class
+            base.GetData(i_DataDictionary);
             i_DataDictionary.Add("fuelType", r_FuelType.ToString());
             i_DataDictionary.Add("currentFuelAmountInLiter", m_CurrentFuelAmountInLiter.ToString());
             i_DataDictionary.Add("maxFuelAmountInLiter", r_MaxFuelAmountInLiter.ToString());

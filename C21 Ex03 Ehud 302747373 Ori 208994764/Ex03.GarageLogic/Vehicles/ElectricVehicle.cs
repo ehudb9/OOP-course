@@ -60,7 +60,7 @@ namespace Ex03.GarageLogic
 
         public override void GetData(Dictionary<string, string> i_DataDictionary)
         {
-            base.GetData(i_DataDictionary); //Todo - write GetData method in Vehicle class
+            base.GetData(i_DataDictionary);
             i_DataDictionary.Add("batteryTimeRemainInHours", BatteryTimeRemainInHours.ToString());
             i_DataDictionary.Add("maxBatteryTimeInHours", MaxBatteryTimeInHours.ToString());
         }

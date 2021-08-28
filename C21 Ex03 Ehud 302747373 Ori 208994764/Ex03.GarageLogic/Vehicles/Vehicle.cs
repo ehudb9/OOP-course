@@ -16,7 +16,7 @@ namespace Ex03.GarageLogic
         private float m_EnergyPercent;
         private readonly List<Wheel> r_Wheels;
 
-        private string PlateNumber { get; set; }
+        public string PlateNumber { get; set; }
 
         public float EnergyPercent
         {
