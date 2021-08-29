@@ -86,26 +86,26 @@ namespace Ex03.ConsoleUI
                     Console.WriteLine(e.Message);
                     Console.WriteLine($"The maximum valid input is: {e.MaxValue}");
                     Console.WriteLine($"The minimum valid input is: {e.MinValue}");
-                    PressAnyKeyToContinue();
+                    pressAnyKeyToContinue();
                 }
                 catch(ArgumentException e)
                 {
                     Console.WriteLine($"This is not valid operation: {e.Message}");
-                    PressAnyKeyToContinue();
+                    pressAnyKeyToContinue();
                 }
                 catch(FormatException e)
                 {
                     Console.WriteLine($"This is has an incorrect format: {e.Message}");
-                    PressAnyKeyToContinue();
+                    pressAnyKeyToContinue();
                 }
                 catch(Exception e)
                 {
                     Console.WriteLine(e);
-                    PressAnyKeyToContinue();
+                    pressAnyKeyToContinue();
                 }
             }
         }
-
+        
         private static void displayMenu()
         {
             Console.Clear();
@@ -249,7 +249,7 @@ namespace Ex03.ConsoleUI
 
             Console.Clear();
             Console.WriteLine(stringToPrint.ToString());
-            PressAnyKeyToContinue();
+            pressAnyKeyToContinue();
         }
 
         private void displayAllVehiclesInTheGarageFilter(List<string> i_AllVehiclesPlateNumber)
@@ -278,7 +278,89 @@ namespace Ex03.ConsoleUI
             getUserEnumChoice(out GarageManager.eGarageVehicleStatus userNewStatusChoice);
             r_GarageManager.EditVehicleStatus(vehiclePlateNumber, userNewStatusChoice);
             Console.WriteLine("Vehicle status edit successfully");
-            PressAnyKeyToContinue();
+            pressAnyKeyToContinue();
+        }
+
+        private void inflateVehicleTires()
+        {
+            string userInput;
+            string vehiclePlateNumber = getVehiclePlateNumber();
+            GarageManager.eGarageVehicleStatus vehicleStatus = r_GarageManager.GetVehicleStatus(vehiclePlateNumber);
+            Console.WriteLine("Please type how much you want to inflate");
+            userInput = Console.ReadLine();
+            if(float.TryParse(userInput, out float amountToInflate))
+            {
+                r_GarageManager.InflateVehicleTires(vehiclePlateNumber, amountToInflate);
+                Console.WriteLine($"All the tires have been inflated by {amountToInflate}");
+                pressAnyKeyToContinue();
+            }
+            else
+            {
+                throw new FormatException();
+            }
+        }
+
+        private void refuelVehicle()
+        {
+            string userInput;
+            string vehiclePlateNumber = getVehiclePlateNumber();
+            GarageManager.eGarageVehicleStatus vehicleStatus = r_GarageManager.GetVehicleStatus(vehiclePlateNumber);
+            Console.WriteLine("Please choose your vehicle fuel type");
+            showEnumOptions<FuelVehicle.eFuelType>();
+            getUserEnumChoice<FuelVehicle.eFuelType>(out FuelVehicle.eFuelType vehicleFuelType);
+            Console.WriteLine("Please type how much fuel you want to refuel");
+            userInput = Console.ReadLine();
+            if (float.TryParse(userInput, out float amountToIRefuel))
+            {
+                r_GarageManager.RefuelVehicle(vehiclePlateNumber, vehicleFuelType, amountToIRefuel);
+                Console.WriteLine($"All the tires have been inflated by {amountToIRefuel}");
+                pressAnyKeyToContinue();
+            }
+            else
+            {
+                throw new FormatException();
+            }
+        }
+        
+        private void chargeVehicle()
+        {
+            string userInput;
+            string vehiclePlateNumber = getVehiclePlateNumber();
+            GarageManager.eGarageVehicleStatus vehicleStatus = r_GarageManager.GetVehicleStatus(vehiclePlateNumber);
+            Console.WriteLine("Please type how many you want to inflate");
+            userInput = Console.ReadLine();
+            if (float.TryParse(userInput, out float amountOfMinutesForCharge))
+            {
+                r_GarageManager.RechargeVehicle(vehiclePlateNumber, amountOfMinutesForCharge);
+                Console.WriteLine($"All the tires have been inflated by {amountOfMinutesForCharge}");
+                pressAnyKeyToContinue();
+            }
+            else
+            {
+                throw new FormatException();
+            }
+        }
+
+        private void displayVehicleData()
+        {
+            string vehiclePlateNumber = getVehiclePlateNumber();
+            StringBuilder detailsToPrint = new StringBuilder();
+            Dictionary<string, string> vehicleDataDictionary = r_GarageManager.ShowVehicleData(vehiclePlateNumber);
+            foreach(KeyValuePair<string, string> detail in vehicleDataDictionary)
+            {
+                detailsToPrint.Append($"{camelcaseToSentenceCase(detail.Key)}: {detail.Value}");
+                detailsToPrint.Append(Environment.NewLine);
+            }
+
+            Console.Clear();
+            Console.WriteLine(detailsToPrint);
+            pressAnyKeyToContinue();
+        }
+
+        private static void pressAnyKeyToContinue()
+        {
+            Console.WriteLine("Press any key to continue...");
+            Console.ReadKey();
         }
     }
 }

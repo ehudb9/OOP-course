@@ -64,7 +64,7 @@ namespace Ex03.GarageLogic
             vehicleInTheGarage.Vehicle.InflateWheels(i_AmountToInflate);
         }
 
-        public void RefuelVehicle(string i_VehiclePlateNumber, FuelVehicle.eFuelType i_TypeOfFuel, int i_AmountOfFuel)
+        public void RefuelVehicle(string i_VehiclePlateNumber, FuelVehicle.eFuelType i_TypeOfFuel, float i_AmountOfFuel)
         {
             getVehicleInGarage(i_VehiclePlateNumber, out VehicleInTheGarage vehicleInTheGarage);
             if (vehicleInTheGarage.Vehicle is FuelVehicle fuelVehicle)
@@ -77,7 +77,7 @@ namespace Ex03.GarageLogic
             }
         }
 
-        public void RechargeVehicle(string i_VehiclePlateNumber, int i_AmountOfMinutesForCharge)
+        public void RechargeVehicle(string i_VehiclePlateNumber, float i_AmountOfMinutesForCharge)
         {
             getVehicleInGarage(i_VehiclePlateNumber, out VehicleInTheGarage vehicleInTheGarage);
             if (vehicleInTheGarage.Vehicle is ElectricVehicle fuelVehicle)

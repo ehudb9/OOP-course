@@ -11,7 +11,7 @@ namespace Ex03.GarageLogic
     public abstract class Vehicle
     {
         private const int k_MinEnergyPercent = 0;
-        private const int k_MaxEnergyPercent = 0;
+        private const int k_MaxEnergyPercent = 100;
         private string m_ModelName;
         private float m_EnergyPercent;
         private readonly List<Wheel> r_Wheels;
