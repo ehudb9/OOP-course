@@ -30,7 +30,7 @@ namespace Ex03.GarageLogic
             public Type InputType { get; set; }
         }
 
-        public Vehicle Create(eVehicleTypes i_UserVehicleChoise, Dictionary<string, object> i_VehicleDataLisDictionary)
+        public static Vehicle Create(eVehicleTypes i_UserVehicleChoise, Dictionary<string, object> i_VehicleDataLisDictionary)
         {
             Vehicle newVehicle = null;
             switch(i_UserVehicleChoise)

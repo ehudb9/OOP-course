@@ -98,6 +98,12 @@ namespace Ex03.GarageLogic
             return vehicleDataDictionary;
         }
 
+        public eGarageVehicleStatus GetVehicleStatus(string i_VehiclePlateNumber)
+        {
+            getVehicleInGarage(i_VehiclePlateNumber, out VehicleInTheGarage vehicleInTheGarage);
+            return vehicleInTheGarage.VehicleStatus;
+        }
+
         private void getVehicleInGarage(string i_VehiclePlateNumber, out VehicleInTheGarage i_VehicleInTheGarage)
         {
             if (!r_VehicleInTheGarageDictionary.TryGetValue(i_VehiclePlateNumber, out i_VehicleInTheGarage))

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -86,7 +88,7 @@ namespace Ex03.ConsoleUI
                     Console.WriteLine($"The minimum valid input is: {e.MinValue}");
                     PressAnyKeyToContinue();
                 }
-                catch(AggregateException e)
+                catch(ArgumentException e)
                 {
                     Console.WriteLine($"This is not valid operation: {e.Message}");
                     PressAnyKeyToContinue();
@@ -135,11 +137,11 @@ namespace Ex03.ConsoleUI
             return output;
         }
 
-        private void getUserEnumChoice<TEnum>(out TEnum i_UserChice) where TEnum : struct
+        private void getUserEnumChoice<TEnum>(out TEnum i_UserChoice) where TEnum : struct
         {
             int numOfOptions = Enum.GetNames(typeof(TEnum)).Length;
             string userInputStr = Console.ReadLine();
-            if(!(Enum.TryParse<TEnum>(userInputStr, out i_UserChice) && Enum.IsDefined(typeof(TEnum), i_UserChice)))
+            if(!(Enum.TryParse<TEnum>(userInputStr, out i_UserChoice) && Enum.IsDefined(typeof(TEnum), i_UserChoice)))
             {
                 throw new FormatException();
             }
@@ -147,7 +149,136 @@ namespace Ex03.ConsoleUI
 
         private void addNewVehicleToTheGarage()
         {
-            
+            showEnumOptions<VehicleBuilder.eVehicleTypes>();
+            getUserEnumChoice<VehicleBuilder.eVehicleTypes>(out VehicleBuilder.eVehicleTypes userChoice);
+            Dictionary<string, VehicleBuilder.InsertDetails> vehicleNeededDataDictionary = VehicleBuilder.CreateNeededDataList(userChoice);
+            Dictionary<string, object> vehicleDataDictionary = getVehicleDataFromUser(vehicleNeededDataDictionary);
+            Vehicle newVehicle = VehicleBuilder.Create(userChoice, vehicleDataDictionary);
+            Owner newVehicleOwner = getOwnerDataFromUser();
+            r_GarageManager.InsertNewVehicle(newVehicle, newVehicleOwner);
+        }
+
+        private static Dictionary<string, object> getVehicleDataFromUser(Dictionary<string, VehicleBuilder.InsertDetails> i_VehicleNeededDataDictionary)
+        {
+            Dictionary<string, object> vehicleDataFromUserDictionary = new Dictionary<string, object>();
+            string userInput;
+            TypeConverter converter;
+            object neededDataAsObject = null;
+
+            foreach(KeyValuePair<string, VehicleBuilder.InsertDetails> data in i_VehicleNeededDataDictionary)
+            {
+                Console.WriteLine(data.Value.Question);
+                if(data.Value.InputType.IsEnum)
+                {
+                    Console.WriteLine("Valid options: " + string.Join(", ", Enum.GetNames(data.Value.InputType)));
+                }
+
+                if(data.Value.InputType == typeof(bool))
+                {
+                    Console.WriteLine("Valid options: true, false");
+                }
+
+                userInput = Console.ReadLine();
+                converter = TypeDescriptor.GetConverter(data.Value.InputType);
+                if(converter.IsValid(userInput))
+                {
+                    neededDataAsObject = converter.ConvertFromString(userInput);
+                }
+                else
+                {
+                    throw new FormatException();
+                }
+
+                vehicleDataFromUserDictionary.Add(data.Key, neededDataAsObject);
+            }
+
+            return vehicleDataFromUserDictionary;
+        }
+
+        private static Owner getOwnerDataFromUser()
+        {
+            string ownerName = "", ownerPhoneNumber = "";
+            Owner newVehicleOwner;
+
+            Console.WriteLine("Please type the name of the vehicle's owner");
+            ownerName = Console.ReadLine();
+            Console.WriteLine("Please type the phone number of the vehicle's owner");
+            ownerPhoneNumber = Console.ReadLine();
+            newVehicleOwner = new Owner(ownerName, ownerPhoneNumber);
+            return newVehicleOwner;
+        }
+
+        private void displayAllVehiclesInTheGarage()
+        {
+            List<string> allVehiclesPlateNumber = new List<string>();
+            bool validInput = false;
+            string userInput;
+            StringBuilder stringToPrint = new StringBuilder();
+            int index = 1;
+
+            Console.WriteLine("Do you want to filter the vehicles by their garage status?");
+            Console.WriteLine("Valid Options: yes, no");
+
+            while(!validInput)
+            {
+                userInput = Console.ReadLine();
+                if(userInput == "yes")
+                {
+                    displayAllVehiclesInTheGarageFilter(allVehiclesPlateNumber);
+                    validInput = true;
+                }
+                else if(userInput == "no")
+                {
+                    r_GarageManager.PresentVehiclesInTheGarageList(allVehiclesPlateNumber);
+                    validInput = true;
+                }
+                else
+                {
+                    Console.WriteLine("You typed invalid input, please try again");
+                }
+            }
+
+            Console.WriteLine(allVehiclesPlateNumber.Count == 0 ? "There is no vehicles with that status in the garage" : "The vehicles in the garage are:");
+
+            foreach(string plateNumber in allVehiclesPlateNumber)
+            {
+                stringToPrint.Append($"{index} - {plateNumber}");
+                stringToPrint.Append(Environment.NewLine);
+                index++;
+            }
+
+            Console.Clear();
+            Console.WriteLine(stringToPrint.ToString());
+            PressAnyKeyToContinue();
+        }
+
+        private void displayAllVehiclesInTheGarageFilter(List<string> i_AllVehiclesPlateNumber)
+        {
+            Console.WriteLine("Which of the following status do you want to filter by?");
+            showEnumOptions<GarageManager.eGarageVehicleStatus>();
+            getUserEnumChoice<GarageManager.eGarageVehicleStatus>(out GarageManager.eGarageVehicleStatus userChoice);
+            r_GarageManager.PresentVehiclesInTheGarageListFiltered(i_AllVehiclesPlateNumber, userChoice);
+        }
+
+        private static string getVehiclePlateNumber()
+        {
+            string vehiclePlateNumber;
+            Console.WriteLine("Please type the vehicle plate number");
+            vehiclePlateNumber = Console.ReadLine();
+            return vehiclePlateNumber;
+        }
+
+        private void changeVehicleStatus()
+        {
+            string vehiclePlateNumber = getVehiclePlateNumber();
+            GarageManager.eGarageVehicleStatus vehicleStatus = r_GarageManager.GetVehicleStatus(vehiclePlateNumber);
+            Console.WriteLine($"The current vehicle status is: {camelcaseToSentenceCase(vehiclePlateNumber.ToString())}");
+            Console.WriteLine("Enter the new vehicle status");
+            showEnumOptions<GarageManager.eGarageVehicleStatus>();
+            getUserEnumChoice(out GarageManager.eGarageVehicleStatus userNewStatusChoice);
+            r_GarageManager.EditVehicleStatus(vehiclePlateNumber, userNewStatusChoice);
+            Console.WriteLine("Vehicle status edit successfully");
+            PressAnyKeyToContinue();
         }
     }
 }
