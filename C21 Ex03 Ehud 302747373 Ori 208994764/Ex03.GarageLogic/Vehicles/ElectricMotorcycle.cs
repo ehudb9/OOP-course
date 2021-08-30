@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Ex03.GarageLogic
 {
@@ -40,7 +36,7 @@ namespace Ex03.GarageLogic
 
         public override void GetData(Dictionary<string, string> i_DataDictionary)
         {
-            i_DataDictionary.Add("vehicleType", "Electric car");
+            i_DataDictionary.Add("vehicleType", "Electric motorcycle");
             base.GetData(i_DataDictionary);
             r_Motorcycle.GetData(i_DataDictionary);
         }

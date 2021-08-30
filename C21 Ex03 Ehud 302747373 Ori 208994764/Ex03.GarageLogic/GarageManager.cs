@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ex03.GarageLogic
 {
@@ -15,27 +12,27 @@ namespace Ex03.GarageLogic
             Paid
         }
 
-        private readonly Dictionary<string, VehicleInTheGarage> r_VehicleInTheGarageDictionary;
+        private readonly Dictionary<string, VehicleInTheGarage> r_VehiclesInTheGarage;
 
         public GarageManager()
         {
-            r_VehicleInTheGarageDictionary = new Dictionary<string, VehicleInTheGarage>();
+            r_VehiclesInTheGarage = new Dictionary<string, VehicleInTheGarage>();
         }
 
         public void InsertNewVehicle(Vehicle i_VehicleToInsert, Owner i_NewVehicleOwner)
         {
-            if(r_VehicleInTheGarageDictionary.ContainsKey(i_VehicleToInsert.PlateNumber))
+            if(r_VehiclesInTheGarage.ContainsKey(i_VehicleToInsert.PlateNumber))
             {
-                r_VehicleInTheGarageDictionary[i_VehicleToInsert.PlateNumber].VehicleStatus = eGarageVehicleStatus.InRepair; 
+                r_VehiclesInTheGarage[i_VehicleToInsert.PlateNumber].VehicleStatus = eGarageVehicleStatus.InRepair; 
                 throw new ArgumentException("This vehicle is already in the garage");
             }
 
-            r_VehicleInTheGarageDictionary.Add(i_VehicleToInsert.PlateNumber, new VehicleInTheGarage(i_NewVehicleOwner, i_VehicleToInsert));
+            r_VehiclesInTheGarage.Add(i_VehicleToInsert.PlateNumber, new VehicleInTheGarage(i_NewVehicleOwner, i_VehicleToInsert));
         }
 
         public void PresentVehiclesInTheGarageList(List<string> i_VehiclesPlateNumber)
         {
-            foreach(KeyValuePair<string, VehicleInTheGarage> vehicleInTheGarage in r_VehicleInTheGarageDictionary)
+            foreach(KeyValuePair<string, VehicleInTheGarage> vehicleInTheGarage in r_VehiclesInTheGarage)
             {
                 i_VehiclesPlateNumber.Add(vehicleInTheGarage.Value.GetPlateNumber());
             }
@@ -43,7 +40,7 @@ namespace Ex03.GarageLogic
 
         public void PresentVehiclesInTheGarageListFiltered(List<string> i_VehiclesPlateNumber, GarageManager.eGarageVehicleStatus i_FilerStatusBy)
         {
-            foreach(KeyValuePair<string, VehicleInTheGarage> vehicleInTheGarage in r_VehicleInTheGarageDictionary)
+            foreach(KeyValuePair<string, VehicleInTheGarage> vehicleInTheGarage in r_VehiclesInTheGarage)
             {
                 if(vehicleInTheGarage.Value.VehicleStatus == i_FilerStatusBy)
                 {
@@ -106,7 +103,7 @@ namespace Ex03.GarageLogic
 
         private void getVehicleInGarage(string i_VehiclePlateNumber, out VehicleInTheGarage i_VehicleInTheGarage)
         {
-            if (!r_VehicleInTheGarageDictionary.TryGetValue(i_VehiclePlateNumber, out i_VehicleInTheGarage))
+            if (!r_VehiclesInTheGarage.TryGetValue(i_VehiclePlateNumber, out i_VehicleInTheGarage))
             {
                 throw new ArgumentException("The required vehicle not found");
             }
