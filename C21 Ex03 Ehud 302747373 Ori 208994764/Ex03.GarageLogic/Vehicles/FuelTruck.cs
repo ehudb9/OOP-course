@@ -41,7 +41,7 @@ namespace Ex03.GarageLogic
 
         public override void GetData(Dictionary<string, string> i_DataDictionary)
         {
-            i_DataDictionary.Add("vehicleType", "Fuel motorcycle");
+            i_DataDictionary.Add("vehicleType", "Fuel truck");
             base.GetData(i_DataDictionary);
             r_Truck.GetData(i_DataDictionary);
         }

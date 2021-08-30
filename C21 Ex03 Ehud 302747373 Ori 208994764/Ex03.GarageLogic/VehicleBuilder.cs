@@ -30,10 +30,10 @@ namespace Ex03.GarageLogic
             public Type InputType { get; set; }
         }
 
-        public static Vehicle Create(eVehicleTypes i_UserVehicleChoise, Dictionary<string, object> i_VehicleDataLisDictionary)
+        public static Vehicle Create(eVehicleTypes i_UserVehicleChoice, Dictionary<string, object> i_VehicleDataLisDictionary)
         {
             Vehicle newVehicle = null;
-            switch(i_UserVehicleChoise)
+            switch(i_UserVehicleChoice)
             {
                 case eVehicleTypes.ElectricCar:
                     newVehicle = new ElectricCar();
@@ -56,7 +56,7 @@ namespace Ex03.GarageLogic
                     break;
                 
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(i_UserVehicleChoise), i_UserVehicleChoise, null);
+                    throw new ArgumentOutOfRangeException(nameof(i_UserVehicleChoice), i_UserVehicleChoice, null);
             }
 
             newVehicle.Init(i_VehicleDataLisDictionary);

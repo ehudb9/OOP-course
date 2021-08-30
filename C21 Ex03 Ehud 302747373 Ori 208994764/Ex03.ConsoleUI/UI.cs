@@ -90,7 +90,7 @@ namespace Ex03.ConsoleUI
                 }
                 catch(ArgumentException e)
                 {
-                    Console.WriteLine($"This is not valid operation: {e.Message}");
+                    Console.WriteLine($"This is invalid operation: {e.Message}");
                     pressAnyKeyToContinue();
                 }
                 catch(FormatException e)
@@ -133,7 +133,7 @@ namespace Ex03.ConsoleUI
             }
 
             string output = Regex.Replace(i_StrToReformat, @"\p{Lu}", m => " " + m.Value.ToLowerInvariant());
-            output = char.ToUpperInvariant(output[0]) + output.Substring(1);
+            output = char.ToUpperInvariant(output[1]) + output.Substring(2);
             return output;
         }
 
@@ -197,12 +197,13 @@ namespace Ex03.ConsoleUI
 
         private static Owner getOwnerDataFromUser()
         {
-            string ownerName = "", ownerPhoneNumber = "";
+            string ownerName;
+            string ownerPhoneNumber;
             Owner newVehicleOwner;
 
-            Console.WriteLine("Please type the name of the vehicle's owner");
+            Console.WriteLine("Please type the name of the vehicle's owner:");
             ownerName = Console.ReadLine();
-            Console.WriteLine("Please type the phone number of the vehicle's owner");
+            Console.WriteLine("Please type the phone number of the vehicle's owner:");
             ownerPhoneNumber = Console.ReadLine();
             newVehicleOwner = new Owner(ownerName, ownerPhoneNumber);
             return newVehicleOwner;
@@ -272,7 +273,7 @@ namespace Ex03.ConsoleUI
         {
             string vehiclePlateNumber = getVehiclePlateNumber();
             GarageManager.eGarageVehicleStatus vehicleStatus = r_GarageManager.GetVehicleStatus(vehiclePlateNumber);
-            Console.WriteLine($"The current vehicle status is: {camelcaseToSentenceCase(vehiclePlateNumber.ToString())}");
+            Console.WriteLine($"The current vehicle status is: {camelcaseToSentenceCase(vehicleStatus.ToString())}");
             Console.WriteLine("Enter the new vehicle status");
             showEnumOptions<GarageManager.eGarageVehicleStatus>();
             getUserEnumChoice(out GarageManager.eGarageVehicleStatus userNewStatusChoice);
@@ -313,7 +314,7 @@ namespace Ex03.ConsoleUI
             if (float.TryParse(userInput, out float amountToIRefuel))
             {
                 r_GarageManager.RefuelVehicle(vehiclePlateNumber, vehicleFuelType, amountToIRefuel);
-                Console.WriteLine($"All the tires have been inflated by {amountToIRefuel}");
+                Console.WriteLine($"Your vehicle refueled by {amountToIRefuel} liters");
                 pressAnyKeyToContinue();
             }
             else
@@ -332,7 +333,7 @@ namespace Ex03.ConsoleUI
             if (float.TryParse(userInput, out float amountOfMinutesForCharge))
             {
                 r_GarageManager.RechargeVehicle(vehiclePlateNumber, amountOfMinutesForCharge);
-                Console.WriteLine($"All the tires have been inflated by {amountOfMinutesForCharge}");
+                Console.WriteLine($"Your vehicle charged by {amountOfMinutesForCharge} hours");
                 pressAnyKeyToContinue();
             }
             else

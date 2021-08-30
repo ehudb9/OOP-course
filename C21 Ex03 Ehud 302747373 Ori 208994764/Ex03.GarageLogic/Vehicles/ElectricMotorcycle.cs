@@ -11,7 +11,7 @@ namespace Ex03.GarageLogic
         private readonly Motorcycle r_Motorcycle = new Motorcycle();
         private const float k_MaxBatteryTimeInHours = 1.6f;
 
-        public ElectricMotorcycle() : base(k_MaxBatteryTimeInHours, Car.k_NumberOfWheels, Car.k_MaxAirPressure)
+        public ElectricMotorcycle() : base(k_MaxBatteryTimeInHours, Motorcycle.k_NumberOfWheels, Motorcycle.k_MaxAirPressure)
         {
 
         }

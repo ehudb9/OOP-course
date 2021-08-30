@@ -14,7 +14,7 @@ namespace Ex03.GarageLogic
         private const int k_MaxEnergyPercent = 100;
         private string m_ModelName;
         private float m_EnergyPercent;
-        private readonly List<Wheel> r_Wheels;
+        private readonly List<Wheel> r_Wheels = new List<Wheel>();
 
         public string PlateNumber { get; set; }
 
@@ -23,7 +23,7 @@ namespace Ex03.GarageLogic
             get => m_EnergyPercent;
             set
             {
-                if(m_EnergyPercent < k_MinEnergyPercent || m_EnergyPercent > k_MinEnergyPercent)
+                if(m_EnergyPercent < k_MinEnergyPercent || m_EnergyPercent > k_MaxEnergyPercent)
                 {
                     throw new ValueOutOfRangeException("Energy percent out of range. It's need to be between 0 to 100", k_MinEnergyPercent, k_MaxEnergyPercent);
                 }
@@ -80,6 +80,7 @@ namespace Ex03.GarageLogic
             {
                 wheelsData.Append(Environment.NewLine);
                 wheelsData.Append($"Wheel number {i} - {wheel.ToString()}");
+                i++;
             }
 
             i_DataDictionary.Add("wheelsData", wheelsData.ToString());

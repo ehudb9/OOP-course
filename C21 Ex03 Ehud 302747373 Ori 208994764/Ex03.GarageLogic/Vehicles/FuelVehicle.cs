@@ -54,7 +54,7 @@ namespace Ex03.GarageLogic
             if (i_FuelType != r_FuelType)
             {
                 throw new ArgumentException($"This vehicle runs on {r_FuelType.ToString()} only");
-            } //Todo - Need else statement?
+            } 
 
             CurrentFuelAmountInLiter += i_AmountToAdd;
         }

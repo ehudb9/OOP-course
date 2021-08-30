@@ -39,7 +39,7 @@ namespace Ex03.GarageLogic
 
         public void GetData(Dictionary<string, string> i_DataDictionary)
         {
-            i_DataDictionary.Add("carrierHazardousMaterials", IsCarrierHazardousMaterials ? "Yes" : " No"); //Todo - When testing the app, check if we need to add == true
+            i_DataDictionary.Add("carrierHazardousMaterials", IsCarrierHazardousMaterials ? "Yes" : " No");
             i_DataDictionary.Add("cargoVolume", CargoVolume.ToString());
         }
     }

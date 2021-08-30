@@ -32,7 +32,7 @@ namespace Ex03.GarageLogic
         {
             Dictionary<string, VehicleBuilder.InsertDetails> detailsToInsert = new Dictionary<string, VehicleBuilder.InsertDetails>();
             detailsToInsert.Add("licenseType", new VehicleBuilder.InsertDetails("Please type your motorcycle license: ", typeof(eLicenseType)));
-            detailsToInsert.Add("engineCapacity", new VehicleBuilder.InsertDetails("Please type your car color: ", typeof(int)));
+            detailsToInsert.Add("engineCapacity", new VehicleBuilder.InsertDetails("Please type your motorcycle's engine capacity: ", typeof(int)));
             return detailsToInsert;
         }
 

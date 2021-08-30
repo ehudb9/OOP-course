@@ -10,8 +10,12 @@ namespace Ex03.GarageLogic
     public abstract class ElectricVehicle : Vehicle
     {
         private const float k_MinBatteryTimeInHours = 0;
-        private float m_BatteryTimeRemainInHours = 0;
-        public float MaxBatteryTimeInHours { get; }
+        private float m_BatteryTimeRemainInHours;
+        private readonly float r_MaxBatteryTimeInHour;
+        public float MaxBatteryTimeInHours
+        {
+            get => r_MaxBatteryTimeInHour;
+        }
 
         public float BatteryTimeRemainInHours
         {
@@ -19,19 +23,19 @@ namespace Ex03.GarageLogic
 
             set
             {
-                if (value > MaxBatteryTimeInHours || value < k_MinBatteryTimeInHours)
+                if (value > r_MaxBatteryTimeInHour || value < k_MinBatteryTimeInHours)
                 {
-                    throw new ValueOutOfRangeException($"You cant charge your vehicle to {value} remain hours.", k_MinBatteryTimeInHours, MaxBatteryTimeInHours);
+                    throw new ValueOutOfRangeException($"You cant charge your vehicle to {value} remain hours.", k_MinBatteryTimeInHours, r_MaxBatteryTimeInHour);
                 }
 
                 m_BatteryTimeRemainInHours = value;
-                EnergyPercent = (value / MaxBatteryTimeInHours) * 100;
+                EnergyPercent = (value / r_MaxBatteryTimeInHour) * 100;
             }
         }
 
         protected ElectricVehicle(float i_MaxBatteryTimeInHours, int i_NumberOfWheels, float i_MaxAirPressure) : base(i_NumberOfWheels, i_MaxAirPressure)
         {
-            MaxBatteryTimeInHours = i_MaxBatteryTimeInHours;
+            r_MaxBatteryTimeInHour = i_MaxBatteryTimeInHours;
         }
 
         public void Recharge(float i_AmountToAdd)
@@ -41,8 +45,8 @@ namespace Ex03.GarageLogic
 
         public override void Init(Dictionary<string, object> i_DataDictionary)
         {
-            BatteryTimeRemainInHours = (float)i_DataDictionary["currentFuelAmountInLiter"];
-            EnergyPercent = (m_BatteryTimeRemainInHours / MaxBatteryTimeInHours) * 100;
+            BatteryTimeRemainInHours = (float)i_DataDictionary["batteryTimeRemainInHours"];
+            EnergyPercent = (m_BatteryTimeRemainInHours / r_MaxBatteryTimeInHour) * 100;
             base.Init(i_DataDictionary);
         }
 

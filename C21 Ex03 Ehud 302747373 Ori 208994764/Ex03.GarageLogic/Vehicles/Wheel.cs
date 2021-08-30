@@ -21,12 +21,11 @@ namespace Ex03.GarageLogic
             {
                 if (value > MaxAirPressure || value < k_MinAirPressure)
                 {
-                    throw new ValueOutOfRangeException($"You cant put {value} liters in this vehicle", k_MinAirPressure, MaxAirPressure);
+                    throw new ValueOutOfRangeException($"You cant inflate vehicle's tires by {value}", k_MinAirPressure, MaxAirPressure);
                 }
 
                 m_CurrentAirPressure = value;
             }
-
         }
 
         public Wheel(float i_MaxAirPressure)
@@ -59,7 +58,7 @@ namespace Ex03.GarageLogic
             i_DataDictionary.Add("manufacturerName", Manufacturer);
         }
 
-        public override string ToString() //Todo - Think if we really need this method
+        public override string ToString()
         {
             string wheelDetailStr = $"manufacturer name: {Manufacturer}, max air pressure {MaxAirPressure}, current air pressure: {CurrentAirPressure}";
             return wheelDetailStr;
