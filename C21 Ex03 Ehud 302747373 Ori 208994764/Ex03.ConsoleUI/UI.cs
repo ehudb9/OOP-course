@@ -11,7 +11,7 @@ namespace Ex03.ConsoleUI
     {
         private enum eUserChoice
         {
-            AddNewVehicleToTheGarage,
+            AddNewVehicleToTheGarage = 1,
             DisplayAllVehiclesInTheGarage,
             ChangeVehicleStatus,
             InflateVehicleTires,
