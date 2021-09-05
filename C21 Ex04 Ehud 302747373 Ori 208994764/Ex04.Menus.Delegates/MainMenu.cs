@@ -1,43 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Ex04.Menus.Delegates
 {
-    class MainMenu
+    public class MainMenu
     {
-        private String m_MenuTitle;
-        private List<MenuItem> m_MenuItems;
-        private CmdUIManager m_Ui = new CmdUIManager();
-        private const int k_MenuOptionZero = 0;
-
-        public MainMenu(string i_Title, List<MenuItem> i_MenuItems)
+        public MainMenu()
         {
-            m_MenuTitle = i_Title;
-            m_MenuItems = i_MenuItems;
+
         }
 
-        public void Show() // ToDo : Fix Methods calling and naming
+        public object CurrentMenu { get; set; } //Todo - change object to real class name
+
+        public void AddShowItemToMenu(string i_VersionAndSpaces)
         {
-            bool exit = false;
-            int userChoise = -1;
-            while (!exit)
-            {
-                while (!exit)
-                {
-                    m_Ui.PrintMenuOptions(m_MenuTitle, m_MenuItems, eMenuLevelZeroOption.Exit);
-                    userChoise = m_Ui.GetUserChoice(m_MenuItems.Count);
-                    if (userChoise == k_MenuOptionZero)
-                    {
-                        m_Ui.PrintExitMessage();
-                        exit = true;
-                    }
-                    else
-                    {
-                        m_MenuItems[userChoise - 1].Show();
-                    }
-                }
-            }
+            throw new NotImplementedException();
+        }
+
+        public void LevelDown(int i_P0)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void LevelUp()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddExecutableItem(string i_ShowTime, Action i_P1)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void GoBackToMainMenu()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Show()
+        {
+            throw new NotImplementedException();
         }
     }
 }

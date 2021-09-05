@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ex04.Menus.Interfaces
+namespace Ex04.Menus.Delegates
 {
-    public enum eMenuLevelZeroOption
+    class MenuExecutableItem
     {
-        Back,
-        Exit
     }
 }

@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ex04.Menus.Interfaces
 {
-    public enum eMenuLevelZeroOption
+    class MenuExecutableItem
     {
-        Back,
-        Exit
     }
 }
