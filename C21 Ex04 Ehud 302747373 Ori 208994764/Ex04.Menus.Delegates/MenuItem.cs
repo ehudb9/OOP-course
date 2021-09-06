@@ -29,22 +29,22 @@ namespace Ex04.Menus.Delegates
         
         public string Title
         {
-            get { return m_Title; }
+            get => m_Title;
         }
         
         public MenuItem Parent
         {
-            get { return m_Parent; }
+            get => m_Parent;
         }
         
         public eMenuLevelZeroOption Level
         {
-            get { return m_Level; }
+            get => m_Level;
         }
         
         public List<MenuItem> MenuItems
         {
-            get { return r_MenuItems; }
+            get => r_MenuItems;
         }
 
         public void Show()
