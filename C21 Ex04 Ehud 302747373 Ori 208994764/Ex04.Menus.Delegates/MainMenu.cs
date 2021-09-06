@@ -23,7 +23,7 @@ namespace Ex04.Menus.Delegates
             set
             {
                 m_CurrentItem = value;
-            } // when can we do {get;} { set;}??
+            }
         }
 
         public void LevelUp() // why do we need up and down level
@@ -94,9 +94,9 @@ namespace Ex04.Menus.Delegates
                     }
                     catch
                     {
-                        MenuExecuteableItem executeableItem = (MenuExecuteableItem)CurrentMenu.MenuItems[userInput - 1];
+                        ExecutableMenuItem executeableItem = (ExecutableMenuItem)CurrentMenu.MenuItems[userInput - 1];
                         Console.Clear();
-                        executeableItem.InvokeWhenChosen();
+                        executeableItem.InvokeWhenChoose();
                         Console.WriteLine("To go back to menu press any key");
                         Console.ReadLine();
                     }
@@ -112,7 +112,7 @@ namespace Ex04.Menus.Delegates
             while (!isValid)
             {
                 userInput = Console.ReadLine();
-                if(int.TryParse(isUserInput, out o_Number))
+                if(int.TryParse(userInput, out o_Number))
                 {
                     if((o_Number >= 0) && (o_Number <= CurrentMenu.MenuItems.Count()))
                     {
@@ -132,46 +132,9 @@ namespace Ex04.Menus.Delegates
             return o_Number;
         }
 
-        public void goBackToMainMenu()
+        public void GoBackToMainMenu()
         {
             CurrentMenu = m_RootMenuItem;
         }
-        
-        /*public MainMenu()
-        {
-
-        }
-
-        public object CurrentMenu { get; set; } //Todo - change object to real class name
-
-        public void AddShowItemToMenu(string i_VersionAndSpaces)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void LevelDown(int i_P0)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void LevelUp()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AddExecutableItem(string i_ShowTime, IExecutable i_Executable)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void GoBackToMainMenu()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Show()
-        {
-            throw new NotImplementedException();
-        }*/
     }
 }

@@ -2,7 +2,7 @@
 {
     public class MenuItem
     {
-        private int m_ItemLevel;
+        /*private int m_ItemLevel;
         private MenuShowItem m_ItemRoot;
         private string m_ItemTitle;
 
@@ -33,6 +33,6 @@
         public int ItemLevel
         {
             get => m_ItemLevel;
-        }
+        }*/
     }
 }

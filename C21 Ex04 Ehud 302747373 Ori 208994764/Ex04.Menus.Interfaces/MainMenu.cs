@@ -8,7 +8,7 @@ namespace Ex04.Menus.Interfaces
 {
     public class MainMenu
     {
-        public MenuShowItem m_CurrentItem;
+        /*public MenuShowItem m_CurrentItem;
         readonly MenuShowItem m_RootMenuItem;
         
         public MainMenu() 
@@ -67,7 +67,7 @@ namespace Ex04.Menus.Interfaces
                     CurrentMenu.AddMenuItem(itemToRemove);
                 }
             }
-        }*/
+        }
 
         public void Show() 
         {
