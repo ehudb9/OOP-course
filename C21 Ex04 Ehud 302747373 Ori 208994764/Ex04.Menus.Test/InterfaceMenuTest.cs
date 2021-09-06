@@ -12,8 +12,8 @@ namespace Ex04.Menus.Test
         public static void Run()
         {
             Console.WriteLine("TEST USING DELEGATES");
-            //MainMenu currentMenu = new MainMenu("Main Menu");
-            MainMenu currentMenu = new MainMenu();
+            MainMenu currentMenu = new MainMenu("Main Menu");
+            //MainMenu currentMenu = new MainMenu();
             currentMenu.AddItemToMenu("Version and Spaces");
             currentMenu.AddItemToMenu("Show Date/Time");
             currentMenu.LevelDown(0);
