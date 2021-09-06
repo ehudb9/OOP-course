@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ex04.Menus.Delegates
 {
-    class MenuShowItems : MenuItem // Into the class MenuItem ---or be deleted  - implemented in MenuItem class----to be deleted
+    class MenuShowItem : MenuItem // Into the class MenuItem ---or be deleted  - implemented in MenuItem class----to be deleted
     {
         private readonly List<MenuItem> r_MenuItems = new List<MenuItem>();
 

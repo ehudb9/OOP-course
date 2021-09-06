@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Ex04.Menus.Delegates
 {
-    class ExecutableMenuItem : MenuItem
+    public class ExecutableMenuItem : MenuItem
     {
-        public event Action ExecuteUserChoise;
+        public event Action ExecuteUserChoice;
 
-        public ExecutableMenuItem(string i_Title, MenuShowItems i_Root, Action i_ExecuteChoise) : base(i_Title, i_Root)
+        public ExecutableMenuItem(string i_Title, MenuItem i_Root, Action i_ExecuteChoice) : base(i_Title, i_Root)
         {
-            ExecuteUserChoise += i_ExecuteChoise;
+            ExecuteUserChoice += i_ExecuteChoice;
         }
 
         public void InvokeWhenChoose()
@@ -22,9 +22,9 @@ namespace Ex04.Menus.Delegates
 
         protected virtual void OnChoose()
         {
-            if(ExecuteUserChoise != null)
+            if (ExecuteUserChoice != null)
             {
-                ExecuteUserChoise.Invoke();
+                ExecuteUserChoice.Invoke();
             }
         }
     }

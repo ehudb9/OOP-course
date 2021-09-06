@@ -3,10 +3,10 @@
     public class MenuItem
     {
         private int m_ItemLevel;
-        private MenuShowItems m_ItemRoot;
+        private MenuShowItem m_ItemRoot;
         private string m_ItemTitle;
 
-        public MenuItem(string i_ItemTitle, MenuShowItems i_ItemRoot)
+        public MenuItem(string i_ItemTitle, MenuShowItem i_ItemRoot)
         {
             m_ItemTitle = i_ItemTitle;
             m_ItemRoot = i_ItemRoot;
@@ -20,7 +20,7 @@
             }
         }
 
-        public MenuShowItems ItemRoot
+        public MenuShowItem ItemRoot
         {
             get => m_ItemRoot;
         }

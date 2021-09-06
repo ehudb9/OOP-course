@@ -19,8 +19,11 @@ namespace Ex04.Menus.Delegates
 
         public MenuItem CurrentMenu
         {
-            get { return m_CurrentItem; }
-            set { m_CurrentItem = value; } // when can we do {get;} { set;}??
+            get => m_CurrentItem;
+            set
+            {
+                m_CurrentItem = value;
+            } // when can we do {get;} { set;}??
         }
 
         public void LevelUp() // why do we need up and down level
@@ -38,7 +41,7 @@ namespace Ex04.Menus.Delegates
         {
             if(CurrentMenu.MenuItems[i_Index] is MenuItem)
             {
-                CurrentMenu = (MenuItem)urrentMenu.MenuItems[i_Index];
+                CurrentMenu = (MenuItem)CurrentMenu.MenuItems[i_Index];
             }
             else 
             {
@@ -48,26 +51,15 @@ namespace Ex04.Menus.Delegates
 
         public void AddItemToMenu(string i_Title)
         {
-            MenuShowItem showMenuItem = new MenuShowItem(i_Title, CurrentMenu);
+            MenuItem showMenuItem = new MenuItem(i_Title, CurrentMenu);
             CurrentMenu.AddMenuItem(showMenuItem);
         }
 
-        public void AddExecuteableItem(string i_Title, Action i_Excuteable) 
+        public void AddExecutableItem(string i_Title, Action i_Excutable) 
         {
-            ExecutableMenuItem executeItem = new ExecutableMenuItem(i_Title, CurrentMenu, i_Excuteable);
+            ExecutableMenuItem executeItem = new ExecutableMenuItem(i_Title, CurrentMenu, i_Excutable);
             CurrentMenu.AddMenuItem(executeItem);
         }
-        
-        /*public void RemoveItemFromMenu(string i_Title)
-        {
-            foreach (MenuItem itemToRemove in CurrentMenu.MenuItems)
-            {
-                if (itemToRemove.Title == i_Title)
-                {
-                    CurrentMenu.AddMenuItem(itemToRemove);
-                }
-            }
-        }*/
 
         public void Show() 
         {
@@ -90,7 +82,7 @@ namespace Ex04.Menus.Delegates
                     }
                     catch (Exception ex)
                     {
-                        runnig = false;
+                        exit = true;
                     }
                 }
                 else
