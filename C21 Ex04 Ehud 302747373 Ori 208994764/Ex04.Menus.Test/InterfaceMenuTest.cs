@@ -39,7 +39,20 @@ namespace Ex04.Menus.Test
         {
             public void Execute()
             {
-                //Todo - Implement this method - as same as the CountSpaces method in DelegatesMenuTest is implemented
+                string inputText;
+                int spacesCounter = 0;
+
+                Console.WriteLine("Please wrote something:");
+                inputText = Console.ReadLine();
+                foreach (char c in inputText)
+                {
+                    if (char.IsWhiteSpace(c))
+                    {
+                        spacesCounter++;
+                    }
+                }
+
+                Console.WriteLine("Number of spaces: {0}", spacesCounter);
             }
         }
 

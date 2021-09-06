@@ -34,7 +34,20 @@ namespace Ex04.Menus.Test
 
         public static void CountSpaces()
         {
-            //Todo - Implement this method
+            string inputText;
+            int spacesCounter = 0;
+
+            Console.WriteLine("Please wrote something:");
+            inputText = Console.ReadLine();
+            foreach(char c in inputText)
+            {
+                if(char.IsWhiteSpace(c))
+                {
+                    spacesCounter++;
+                }
+            }
+
+            Console.WriteLine("Number of spaces: {0}", spacesCounter);
         }
 
         public static void ShowTime()
