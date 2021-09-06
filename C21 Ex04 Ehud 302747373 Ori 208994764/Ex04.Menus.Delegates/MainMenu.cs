@@ -9,12 +9,12 @@ namespace Ex04.Menus.Delegates
     public class MainMenu
     {
         public MenuItem m_CurrentItem;
-        readonly MenuItem m_RootMenuItem;
+        readonly MenuItem r_RootMenuItem;
         
         public MainMenu(string i_MainTitle) 
         {
-            m_RootMenuItem = new MenuItem(i_MainTitle, null);
-            m_CurrentItem = m_RootMenuItem;
+            r_RootMenuItem = new MenuItem(i_MainTitle, null);
+            m_CurrentItem = r_RootMenuItem;
         }
 
         public MenuItem CurrentMenu
@@ -41,7 +41,7 @@ namespace Ex04.Menus.Delegates
         {
             if(CurrentMenu.MenuItems[i_Index] is MenuItem)
             {
-                CurrentMenu = (MenuItem)CurrentMenu.MenuItems[i_Index];
+                CurrentMenu = CurrentMenu.MenuItems[i_Index];
             }
             else 
             {
@@ -105,16 +105,16 @@ namespace Ex04.Menus.Delegates
         }
 
         private int getValidNumber() {
-            int o_Number = 0;
+            int o_UserChoise = 0;
             string userInput = "";
             bool isValid = false;
 
             while (!isValid)
             {
                 userInput = Console.ReadLine();
-                if(int.TryParse(userInput, out o_Number))
+                if(int.TryParse(userInput, out o_UserChoise))
                 {
-                    if((o_Number >= 0) && (o_Number <= CurrentMenu.MenuItems.Count()))
+                    if((o_UserChoise >= 0) && (o_UserChoise <= CurrentMenu.MenuItems.Count()))
                     {
                         isValid = true;
                     }
@@ -129,12 +129,12 @@ namespace Ex04.Menus.Delegates
                 }
             }
 
-            return o_Number;
+            return o_UserChoise;
         }
 
         public void GoBackToMainMenu()
         {
-            CurrentMenu = m_RootMenuItem;
+            CurrentMenu = r_RootMenuItem;
         }
     }
 }

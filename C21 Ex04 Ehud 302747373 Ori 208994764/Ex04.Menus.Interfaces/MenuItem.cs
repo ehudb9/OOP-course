@@ -1,38 +1,66 @@
-﻿namespace Ex04.Menus.Interfaces
+﻿using System;
+using System.Collections.Generic;
+
+namespace Ex04.Menus.Interfaces
 {
     public class MenuItem
     {
-        /*private int m_ItemLevel;
-        private MenuShowItem m_ItemRoot;
-        private string m_ItemTitle;
+        readonly string m_Title;
+        readonly MenuItem m_Parent;
+        readonly eMenuLevelZeroOption m_Level;
+        private readonly List<MenuItem> r_MenuItems = new List<MenuItem>();
 
-        public MenuItem(string i_ItemTitle, MenuShowItem i_ItemRoot)
+        public MenuItem(string i_Title, MenuItem i_Parent)
         {
-            m_ItemTitle = i_ItemTitle;
-            m_ItemRoot = i_ItemRoot;
-            if(ItemRoot == null)
+            m_Title = i_Title;
+            m_Parent = i_Parent;
+            if (m_Parent == null)
             {
-                m_ItemLevel = 0;
+                m_Level = eMenuLevelZeroOption.Exit;
             }
             else
             {
-                m_ItemLevel = ItemRoot.m_ItemLevel + 1;
+                m_Level = eMenuLevelZeroOption.Back;
             }
         }
 
-        public MenuShowItem ItemRoot
+        public string Title
         {
-            get => m_ItemRoot;
+            get => m_Title;
         }
 
-        public string ItemTitle
+        public MenuItem Parent
         {
-            get => m_ItemTitle;
+            get => m_Parent;
         }
 
-        public int ItemLevel
+        public eMenuLevelZeroOption Level
         {
-            get => m_ItemLevel;
-        }*/
+            get => m_Level;
+        }
+
+        public List<MenuItem> MenuItems
+        {
+            get => r_MenuItems;
+        }
+
+        public void Show()
+        {
+            int counter = 1;
+            Console.WriteLine(Title);
+
+            foreach (MenuItem item in r_MenuItems)
+            {
+                Console.WriteLine("{0} - {1}", counter, item.Title);
+                counter++;
+            }
+            Console.WriteLine("0 - {0}", m_Level);
+            Console.WriteLine();
+        }
+
+        public void AddMenuItem(MenuItem i_menuItem)
+        {
+            r_MenuItems.Add(i_menuItem);
+        }
     }
 }
