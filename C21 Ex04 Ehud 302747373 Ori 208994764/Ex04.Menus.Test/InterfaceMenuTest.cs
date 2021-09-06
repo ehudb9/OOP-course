@@ -25,7 +25,7 @@ namespace Ex04.Menus.Test
             currentMenu.AddExecutableItem("Show Date", new ShowDate());
             currentMenu.GoBackToMainMenu();
             currentMenu.Show();
-            //Console.WriteLine(currentMenu.CurrentMenu.Title);
+            Console.WriteLine(currentMenu.CurrentMenu.Title);
         }
 
         public class ShowVersion : IExecutable

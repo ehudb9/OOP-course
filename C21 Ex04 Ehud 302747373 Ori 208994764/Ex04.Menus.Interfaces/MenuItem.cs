@@ -5,12 +5,12 @@ namespace Ex04.Menus.Interfaces
 {
     public class MenuItem
     {
-        readonly string m_Title;
-        readonly MenuItem m_Parent;
-        readonly eMenuLevelZeroOption m_Level;
+        private string m_Title;
+        private MenuShowItem m_Parent;
+        private eMenuLevelZeroOption m_Level;
         private readonly List<MenuItem> r_MenuItems = new List<MenuItem>();
 
-        public MenuItem(string i_Title, MenuItem i_Parent)
+        public MenuItem(string i_Title, MenuShowItem i_Parent)
         {
             m_Title = i_Title;
             m_Parent = i_Parent;
@@ -29,7 +29,7 @@ namespace Ex04.Menus.Interfaces
             get => m_Title;
         }
 
-        public MenuItem Parent
+        public MenuShowItem Parent
         {
             get => m_Parent;
         }
