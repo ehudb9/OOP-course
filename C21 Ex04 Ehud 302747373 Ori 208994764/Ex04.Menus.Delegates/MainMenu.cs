@@ -39,7 +39,7 @@ namespace Ex04.Menus.Delegates
         }
         public void LevelDown(int i_Index)
         {
-            if(CurrentMenu.MenuItems[i_Index] is MenuItem)
+            if(CurrentMenu.MenuItems[i_Index] != null)
             {
                 CurrentMenu = CurrentMenu.MenuItems[i_Index];
             }
@@ -55,9 +55,9 @@ namespace Ex04.Menus.Delegates
             CurrentMenu.AddMenuItem(showMenuItem);
         }
 
-        public void AddExecutableItem(string i_Title, Action i_Excutable) 
+        public void AddExecutableItem(string i_Title, Action i_Executable) 
         {
-            ExecutableMenuItem executeItem = new ExecutableMenuItem(i_Title, CurrentMenu, i_Excutable);
+            ExecutableMenuItem executeItem = new ExecutableMenuItem(i_Title, CurrentMenu, i_Executable);
             CurrentMenu.AddMenuItem(executeItem);
         }
 
