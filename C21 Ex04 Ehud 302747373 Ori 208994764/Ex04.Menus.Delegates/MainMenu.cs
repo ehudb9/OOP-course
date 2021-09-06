@@ -28,7 +28,7 @@ namespace Ex04.Menus.Delegates
 
         public void LevelUp() // why do we need up and down level
         {
-            if (CurrentMenu.Level == 0)
+            if (CurrentMenu.Level == eMenuLevelZeroOption.Exit)
             {
                 throw new ArgumentOutOfRangeException("no upper level");
             }

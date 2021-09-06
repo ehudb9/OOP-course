@@ -143,9 +143,9 @@ namespace Ex04.Menus.Interfaces
         public void goBackToMainMenu()
         {
             CurrentMenu = m_RootMenuItem;
-        }
+        }*/
         
-        /*public MainMenu()
+        public MainMenu()
         {
 
         }
@@ -180,6 +180,11 @@ namespace Ex04.Menus.Interfaces
         public void Show()
         {
             throw new NotImplementedException();
-        }*/
+        }
+
+        public void AddItemToMenu(string i_VersionAndSpaces)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
