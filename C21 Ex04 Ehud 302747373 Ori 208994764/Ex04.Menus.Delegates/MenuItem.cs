@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ex04.Menus.Delegates
 {
-    class MenuItem
+    public class MenuItem
     {
         readonly string m_Title;
         readonly MenuItem m_Parent;

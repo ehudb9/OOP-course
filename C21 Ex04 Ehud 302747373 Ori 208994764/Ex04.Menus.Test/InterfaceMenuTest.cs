@@ -13,8 +13,8 @@ namespace Ex04.Menus.Test
         {
             Console.WriteLine("TEST USING DELEGATES");
             MainMenu currentMenu = new MainMenu("Main Menu");
-            currentMenu.AddShowItemToMenu("Version and Spaces");
-            currentMenu.AddShowItemToMenu("Show Date/Time");
+            currentMenu.AddItemToMenu("Version and Spaces");
+            currentMenu.AddItemToMenu("Show Date/Time");
             currentMenu.LevelDown(0);
             currentMenu.AddExecutableItem("Show Version", new ShowVersion());
             currentMenu.AddExecutableItem("Count Spaces", new CountSpaces());

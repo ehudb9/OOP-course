@@ -37,7 +37,7 @@ namespace Ex04.Menus.Test
             string inputText;
             int spacesCounter = 0;
 
-            Console.WriteLine("Please wrote something:");
+            Console.WriteLine("Please write something:");
             inputText = Console.ReadLine();
             foreach(char c in inputText)
             {
