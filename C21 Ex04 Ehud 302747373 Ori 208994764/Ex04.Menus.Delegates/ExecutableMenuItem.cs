@@ -17,7 +17,7 @@ namespace Ex04.Menus.Delegates
 
         public void InvokeWhenChoose()
         {
-            OnChoose(); // no need for (this)??
+            OnChoose();
         }
 
         protected virtual void OnChoose()
