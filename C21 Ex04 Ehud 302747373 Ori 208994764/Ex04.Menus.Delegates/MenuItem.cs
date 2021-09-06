@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ex04.Menus.Delegates
 {
-    class MenuItem
+    public class MenuItem
     {
         readonly string m_Title;
         readonly MenuItem m_Parent;
@@ -18,13 +18,13 @@ namespace Ex04.Menus.Delegates
             m_Title = i_Title;
             m_Parent = i_Parent;
             if(m_Parent == null)
-                {
+            {
                     m_Level = eMenuLevelZeroOption.Exit;
-                }
+            }
             else
-                {
+            {
                     m_Level = eMenuLevelZeroOption.Back;
-                }
+            }
         }
         
         public string Title
@@ -37,7 +37,7 @@ namespace Ex04.Menus.Delegates
             get { return m_Parent; }
         }
         
-        public int Level
+        public eMenuLevelZeroOption Level
         {
             get { return m_Level; }
         }
@@ -65,11 +65,6 @@ namespace Ex04.Menus.Delegates
         public void AddMenuItem(MenuItem i_menuItem)
         {
             r_MenuItems.Add(i_menuItem);
-        }
-
-        public void RemoveMenuItem(MenuItem i_menuItem) // TODO: Do we need remove method?
-        {
-            r_MenuItems.Remove(i_menuItem);
         }
     }
 }
