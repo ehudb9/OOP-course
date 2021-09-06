@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ex04.Menus.Delegates
 {
-    class MenuShowItems : MenuItem // Into the class MenuItem
+    class MenuShowItems : MenuItem // Into the class MenuItem ---or be deleted  - implemented in MenuItem class----to be deleted
     {
         private readonly List<MenuItem> r_MenuItems = new List<MenuItem>();
 
@@ -15,8 +15,13 @@ namespace Ex04.Menus.Delegates
         public void Show()
         {
             int counter = 1;
-
             Console.WriteLine(Title);
+
+            foreach (MenuItem item in r_MenuItems)
+            {
+                Console.WriteLine(counter + ". >>>>> " + item.ToString());
+                counter++;
+            }
             if (Level == 0)
             {
                 Console.WriteLine("0. >>>>> Exit");
@@ -24,12 +29,7 @@ namespace Ex04.Menus.Delegates
             else
             {
                 Console.WriteLine("0. >>>>> Back");
-            }
-            foreach (MenuItem item in r_MenuItems)
-            {
-                Console.WriteLine(counter + ". >>>>> " + item.ToString());
-                counter++;
-            }
+            } 
         }
 
         public List<MenuItem> MenuItems

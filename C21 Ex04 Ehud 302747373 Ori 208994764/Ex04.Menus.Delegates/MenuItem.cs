@@ -9,20 +9,21 @@ namespace Ex04.Menus.Delegates
     class MenuItem
     {
         readonly string m_Title;
-        readonly MenuShowItem m_Root;
-        readonly int m_Level;
+        readonly MenuItem m_Parent;
+        readonly eMenuLevelZeroOption m_Level;
+        private readonly List<MenuItem> r_MenuItems = new List<MenuItem>();
         
-        public MenuItem(string i_Title, MenuShowItem i_Root)
+        public MenuItem(string i_Title, MenuItem i_Parent)
         {
             m_Title = i_Title;
-            m_Root = i_Root;
-            if(m_Root == null)
+            m_Parent = i_Parent;
+            if(m_Parent == null)
                 {
-                    m_Level = 0;
+                    m_Level = eMenuLevelZeroOption.Exit;
                 }
             else
                 {
-                    m_Level = Root.m_Level + 1;
+                    m_Level = eMenuLevelZeroOption.Back;
                 }
         }
         
@@ -31,14 +32,44 @@ namespace Ex04.Menus.Delegates
             get { return m_Title; }
         }
         
-        public MenuShowItem Root
+        public MenuItem Parent
         {
-            get { return m_Root; }
+            get { return m_Parent; }
         }
         
         public int Level
         {
             get { return m_Level; }
+        }
+        
+        public List<MenuItem> MenuItems
+        {
+            get { return r_MenuItems; }
+        }
+
+        public void Show()
+        {
+            int counter = 1;
+            Console.WriteLine(Title);
+
+            foreach (MenuItem item in r_MenuItems)
+            {
+                Console.WriteLine("{0} - {1}", counter, item.Title);
+                counter++;
+            }
+            Console.WriteLine();
+            Console.WriteLine("0 - {0}", m_Level);
+
+        }
+
+        public void AddMenuItem(MenuItem i_menuItem)
+        {
+            r_MenuItems.Add(i_menuItem);
+        }
+
+        public void RemoveMenuItem(MenuItem i_menuItem) // TODO: Do we need remove method?
+        {
+            r_MenuItems.Remove(i_menuItem);
         }
     }
 }
