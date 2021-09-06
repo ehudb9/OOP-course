@@ -11,7 +11,7 @@ namespace Ex04.Menus.Test
         public static void Main()
         {
             DelegatesMenuTest.Run();
-            InterfaceMenuTest.Run();
+            //InterfaceMenuTest.Run();
         }
     }
 }
