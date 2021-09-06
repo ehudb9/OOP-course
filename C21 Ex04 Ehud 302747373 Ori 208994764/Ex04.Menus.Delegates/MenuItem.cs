@@ -57,9 +57,8 @@ namespace Ex04.Menus.Delegates
                 Console.WriteLine("{0} - {1}", counter, item.Title);
                 counter++;
             }
-            Console.WriteLine();
             Console.WriteLine("0 - {0}", m_Level);
-
+            Console.WriteLine();
         }
 
         public void AddMenuItem(MenuItem i_menuItem)

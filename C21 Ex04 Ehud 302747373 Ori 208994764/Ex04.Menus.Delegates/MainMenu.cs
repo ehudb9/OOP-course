@@ -13,7 +13,7 @@ namespace Ex04.Menus.Delegates
         
         public MainMenu(string i_MainTitle) 
         {
-            m_RootMenuItem = new MenuShowItem(i_MainTitle, null);
+            m_RootMenuItem = new MenuItem(i_MainTitle, null);
             m_CurrentItem = m_RootMenuItem;
         }
 
