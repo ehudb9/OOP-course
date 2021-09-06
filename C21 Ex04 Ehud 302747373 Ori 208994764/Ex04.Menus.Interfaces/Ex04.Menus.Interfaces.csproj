@@ -42,7 +42,7 @@
     <Compile Include="eMenuLevelZeroOption.cs" />
     <Compile Include="IExecutable.cs" />
     <Compile Include="MainMenu.cs" />
-    <Compile Include="MenuExecutableItem.cs" />
+    <Compile Include="ExecutableMenuItem.cs" />
     <Compile Include="MenuItem.cs" />
     <Compile Include="MenuShowItem.cs" />
   </ItemGroup>
