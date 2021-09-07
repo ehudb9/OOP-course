@@ -1,23 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ex04.Menus.Delegates
 {
     public class MainMenu
     {
-        public MenuItem m_CurrentItem;
-        readonly MenuItem r_RootMenuItem;
+        public MenuShowItem m_CurrentItem;
+        readonly MenuShowItem r_RootMenuItem;
         
         public MainMenu(string i_MainTitle) 
         {
-            r_RootMenuItem = new MenuItem(i_MainTitle, null);
+            r_RootMenuItem = new MenuShowItem(i_MainTitle, null);
             m_CurrentItem = r_RootMenuItem;
         }
 
-        public MenuItem CurrentMenu
+        public MenuShowItem CurrentMenu
         {
             get => m_CurrentItem;
             set
@@ -26,7 +23,7 @@ namespace Ex04.Menus.Delegates
             }
         }
 
-        public void LevelUp() // why do we need up and down level
+        public void LevelUp() 
         {
             if (CurrentMenu.Level == eMenuLevelZeroOption.Exit)
             {
@@ -39,9 +36,9 @@ namespace Ex04.Menus.Delegates
         }
         public void LevelDown(int i_Index)
         {
-            if(CurrentMenu.MenuItems[i_Index] != null)
+            if(CurrentMenu.MenuItems[i_Index] is MenuShowItem)
             {
-                CurrentMenu = CurrentMenu.MenuItems[i_Index];
+                CurrentMenu = (MenuShowItem)CurrentMenu.MenuItems[i_Index];
             }
             else 
             {
@@ -51,7 +48,7 @@ namespace Ex04.Menus.Delegates
 
         public void AddItemToMenu(string i_Title)
         {
-            MenuItem showMenuItem = new MenuItem(i_Title, CurrentMenu);
+            MenuShowItem showMenuItem = new MenuShowItem(i_Title, CurrentMenu);
             CurrentMenu.AddMenuItem(showMenuItem);
         }
 

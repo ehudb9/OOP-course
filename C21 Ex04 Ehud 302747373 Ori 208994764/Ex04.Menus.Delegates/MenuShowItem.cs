@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Ex04.Menus.Interfaces
+namespace Ex04.Menus.Delegates
 {
     public class MenuShowItem : MenuItem
     {
         private readonly List<MenuItem> r_MenuItems = new List<MenuItem>();
 
-        public MenuShowItem(string i_ItemTitle, MenuShowItem i_ItemRoot) : base(i_ItemTitle, i_ItemRoot)
+        public MenuShowItem(string i_ItemTitle, MenuShowItem i_ItemRoot)
+            : base(i_ItemTitle, i_ItemRoot)
         {
 
         }
@@ -17,12 +18,13 @@ namespace Ex04.Menus.Interfaces
             int counter = 1;
             Console.WriteLine(Title);
 
-            foreach (MenuItem item in r_MenuItems)
+            foreach(MenuItem item in r_MenuItems)
             {
                 Console.WriteLine("{0} - {1}", counter, item.Title);
                 counter++;
             }
-            Console.WriteLine("0 - {0}", r_MenuItems[0].Parent.Level); 
+
+            Console.WriteLine("0 - {0}", r_MenuItems[0].Parent.Level);
             Console.WriteLine();
         }
 

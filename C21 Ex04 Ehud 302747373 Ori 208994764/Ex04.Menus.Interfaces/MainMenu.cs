@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ex04.Menus.Interfaces
 {
@@ -39,7 +36,7 @@ namespace Ex04.Menus.Interfaces
         }
         public void LevelDown(int i_Index)
         {
-            if (CurrentMenu.MenuItems[i_Index] is MenuShowItem) //Todo - think why the program fail with index 0 at the first iteration
+            if (CurrentMenu.MenuItems[i_Index] is MenuShowItem) 
             {
                 CurrentMenu = (MenuShowItem)CurrentMenu.MenuItems[i_Index];
             }

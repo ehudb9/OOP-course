@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ex04.Menus.Delegates
 {
@@ -10,7 +6,7 @@ namespace Ex04.Menus.Delegates
     {
         public event Action ExecuteUserChoice;
 
-        public ExecutableMenuItem(string i_Title, MenuItem i_Root, Action i_ExecuteChoice) : base(i_Title, i_Root)
+        public ExecutableMenuItem(string i_Title, MenuShowItem i_Root, Action i_ExecuteChoice) : base(i_Title, i_Root)
         {
             ExecuteUserChoice += i_ExecuteChoice;
         }

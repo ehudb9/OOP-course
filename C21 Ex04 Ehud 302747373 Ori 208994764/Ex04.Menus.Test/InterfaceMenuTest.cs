@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Ex04.Menus.Interfaces;
 
 namespace Ex04.Menus.Test
@@ -11,9 +7,8 @@ namespace Ex04.Menus.Test
     {
         public static void Run()
         {
-            Console.WriteLine("TEST USING DELEGATES");
+            Console.WriteLine("TEST USING INTERFACES");
             MainMenu currentMenu = new MainMenu("Main Menu");
-            //MainMenu currentMenu = new MainMenu();
             currentMenu.AddItemToMenu("Version and Spaces");
             currentMenu.AddItemToMenu("Show Date/Time");
             currentMenu.LevelDown(0);
@@ -36,7 +31,7 @@ namespace Ex04.Menus.Test
             }
         }
 
-        public class CountSpaces : IExecutable
+        public class CountSpaces : IExecutable 
         {
             public void Execute()
             {
@@ -69,7 +64,7 @@ namespace Ex04.Menus.Test
         {
             public void Execute()
             {
-                Console.WriteLine(DateTime.Now.Date);
+                Console.WriteLine(DateTime.Now.Date.Date);
             }
         }
     }
