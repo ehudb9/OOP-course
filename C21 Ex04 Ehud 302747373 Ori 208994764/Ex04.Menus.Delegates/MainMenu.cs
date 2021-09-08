@@ -99,7 +99,10 @@ namespace Ex04.Menus.Delegates
                     {
                         MenuItemFunction executableItem = (MenuItemFunction)CurrentLevelMenu.MenuItems[userInput];
                         Console.Clear();
+                        Console.WriteLine(executableItem.Title);
+                        Console.WriteLine();
                         executableItem.InvokeWhenChoose();
+                        Console.WriteLine();
                         Console.WriteLine("Press any key to return to menu");
                         Console.ReadKey();
                     }

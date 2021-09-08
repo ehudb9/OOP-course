@@ -15,6 +15,12 @@ namespace Ex04.Menus.Test
 
         public void Run()
         {
+            buildTestMenu();
+            m_MainMenu.Show();
+        }
+
+        private void buildTestMenu()
+        {
             m_MainMenu.AddItemToMenu("Version and Spaces");
             m_MainMenu.TrySetLevelDown(0);
             m_MainMenu.AddExecutableItem("Show Version", new ShowVersion());
@@ -25,7 +31,6 @@ namespace Ex04.Menus.Test
             m_MainMenu.AddExecutableItem("Show Time", new ShowTime());
             m_MainMenu.AddExecutableItem("Show Date", new ShowDate());
             m_MainMenu.SetLevelToMainMenuLevel();
-            m_MainMenu.Show();
         }
     }
 }
