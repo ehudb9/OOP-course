@@ -46,7 +46,7 @@ namespace Ex04.Menus.Test
         {
             public void Execute()
             {
-                Console.WriteLine(DateTime.Now.Date.Date);
+                Console.WriteLine(DateTime.Now.ToShortDateString());
             }
         }
     }

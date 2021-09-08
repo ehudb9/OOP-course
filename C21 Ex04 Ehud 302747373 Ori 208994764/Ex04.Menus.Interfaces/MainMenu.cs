@@ -39,16 +39,16 @@ namespace Ex04.Menus.Interfaces
             CurrentLevelMenu = r_RootMenuItem;
         }
 
-        public void LevelUp()
+        private bool trySetLevelToParent()
         {
-            if (CurrentLevelMenu.Level == eMenuLevelZeroOption.Exit)
-            {
-                throw new ArgumentOutOfRangeException("No upper level");
-            }
-            else
+            bool isAParent = false;
+            if (CurrentLevelMenu.Level == eMenuLevelZeroOption.Back)
             {
                 CurrentLevelMenu = CurrentLevelMenu.Parent;
+                isAParent = true;
             }
+
+            return isAParent;
         }
         public void LevelDown(int i_Index)
         {
@@ -71,31 +71,30 @@ namespace Ex04.Menus.Interfaces
             {
                 Console.Clear();
                 CurrentLevelMenu.Show();
-                Console.WriteLine("Please select option:");
+                Console.WriteLine("Please select an option:");
                 userInput = getValidInput();
                 if (userInput == 0)
                 {
-                    try
+                    if(trySetLevelToParent())
                     {
                         Console.Clear();
-                        LevelUp();
                         CurrentLevelMenu.Show();
                     }
-                    catch
+                    else
                     {
                         exit = true;
                     }
                 }
                 else
                 {
+                    userInput--;
                     try
                     {
-                        LevelDown(userInput - 1);
-                        Console.Clear();
+                        LevelDown(userInput);
                     }
                     catch
                     {
-                        MenuItemFunction executableItem = (MenuItemFunction)CurrentLevelMenu.MenuItems[userInput - 1];
+                        MenuItemFunction executableItem = (MenuItemFunction)CurrentLevelMenu.MenuItems[userInput];
                         Console.Clear();
                         executableItem.InvokeWhenChoose();
                         Console.WriteLine("Press any key to return to menu");
@@ -122,12 +121,12 @@ namespace Ex04.Menus.Interfaces
                     }
                     else
                     {
-                        Console.WriteLine("Please enter a number between 0 and {0}", CurrentLevelMenu.MenuItems.Count());
+                        Console.WriteLine("Please enter a number between 0 and {0}\nPlease select an option:", CurrentLevelMenu.MenuItems.Count());
                     }
                 }
                 else
                 {
-                    Console.WriteLine("Please enter an int - number");
+                    Console.WriteLine("Please enter an int - number\nPlease select an option:");
                 }
             }
 
