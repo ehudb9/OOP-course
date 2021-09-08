@@ -68,7 +68,7 @@ namespace Ex04.Menus.Delegates
                 Console.Clear();
                 CurrentMenu.Show();
                 Console.WriteLine("Please select option:");
-                userInput = getValidNumber();
+                userInput = getValidInput();
                 if(userInput == 0)
                 {
                     try
@@ -77,7 +77,7 @@ namespace Ex04.Menus.Delegates
                         LevelUp();
                         CurrentMenu.Show();
                     }
-                    catch (Exception ex)
+                    catch
                     {
                         exit = true;
                     }
@@ -94,26 +94,26 @@ namespace Ex04.Menus.Delegates
                         ExecutableMenuItem executeableItem = (ExecutableMenuItem)CurrentMenu.MenuItems[userInput - 1];
                         Console.Clear();
                         executeableItem.InvokeWhenChoose();
-                        Console.WriteLine("To go back to menu press any key");
-                        Console.ReadLine();
+                        Console.WriteLine("Press any key in order to return to menu");
+                        Console.ReadKey();
                     }
                 }
             }
         }
 
-        private int getValidNumber() {
+        private int getValidInput() {
             int o_UserChoise = 0;
             string userInput = "";
-            bool isValid = false;
+            bool isValidInput = false;
 
-            while (!isValid)
+            while (!isValidInput)
             {
                 userInput = Console.ReadLine();
                 if(int.TryParse(userInput, out o_UserChoise))
                 {
                     if((o_UserChoise >= 0) && (o_UserChoise <= CurrentMenu.MenuItems.Count()))
                     {
-                        isValid = true;
+                        isValidInput = true;
                     }
                     else
                     {
