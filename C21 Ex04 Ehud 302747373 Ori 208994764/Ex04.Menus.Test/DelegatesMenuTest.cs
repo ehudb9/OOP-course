@@ -5,6 +5,8 @@ namespace Ex04.Menus.Test
 {
     public class DelegatesMenuTest
     {
+        //m_MainMenu = ///
+        
         public static void Run()
         {
             Console.WriteLine("TEST USING DELEGATES");

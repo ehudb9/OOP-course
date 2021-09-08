@@ -3,10 +3,10 @@
     public class MenuItem
     {
         private string m_Title;
-        private MenuShowItem m_Parent;
+        private MenuItemNode m_Parent;
         private eMenuLevelZeroOption m_Level;
 
-        public MenuItem(string i_Title, MenuShowItem i_Parent)
+        public MenuItem(string i_Title, MenuItemNode i_Parent)
         {
             m_Title = i_Title;
             m_Parent = i_Parent;
@@ -25,7 +25,7 @@
             get => m_Title;
         }
 
-        public MenuShowItem Parent
+        public MenuItemNode Parent
         {
             get => m_Parent;
         }

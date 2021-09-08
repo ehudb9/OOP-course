@@ -13,6 +13,16 @@ namespace Ex04.Menus.Delegates
 
         }
 
+        public List<MenuItem> MenuItems
+        {
+            get => r_MenuItems;
+        }
+
+        public void AddMenuItem(MenuItem i_MenuItem)
+        {
+            r_MenuItems.Add(i_MenuItem);
+        }
+
         public void Show()
         {
             int counter = 1;
@@ -24,18 +34,10 @@ namespace Ex04.Menus.Delegates
                 counter++;
             }
 
-            Console.WriteLine("0 - {0}", r_MenuItems[0].Parent.Level);
-            Console.WriteLine();
+            Console.WriteLine("0 - {0}\n", r_MenuItems[0].Parent.Level);
+            //Console.WriteLine();
         }
 
-        public List<MenuItem> MenuItems
-        {
-            get => r_MenuItems;
-        }
-
-        public void AddMenuItem(MenuItem i_MenuItem)
-        {
-            r_MenuItems.Add(i_MenuItem);
-        }
+        
     }
 }

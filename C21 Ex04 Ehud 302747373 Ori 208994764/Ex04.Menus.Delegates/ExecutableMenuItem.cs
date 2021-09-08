@@ -4,7 +4,7 @@ namespace Ex04.Menus.Delegates
 {
     public class ExecutableMenuItem : MenuItem
     {
-        public event Action ExecuteUserChoice;
+        public event Action ExecuteUserChoice;  //Implementation of action...
 
         public ExecutableMenuItem(string i_Title, MenuShowItem i_Root, Action i_ExecuteChoice) : base(i_Title, i_Root)
         {

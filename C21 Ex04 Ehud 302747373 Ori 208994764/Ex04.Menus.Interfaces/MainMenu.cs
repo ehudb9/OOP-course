@@ -5,16 +5,16 @@ namespace Ex04.Menus.Interfaces
 {
     public class MainMenu
     {
-        public MenuShowItem m_CurrentItem;
-        private readonly MenuShowItem r_RootMenuItem;
+        public MenuItemNode m_CurrentItem;
+        private readonly MenuItemNode r_RootMenuItem;
 
         public MainMenu(string i_MainTitle)
         {
-            r_RootMenuItem = new MenuShowItem(i_MainTitle, null);
+            r_RootMenuItem = new MenuItemNode(i_MainTitle, null);
             m_CurrentItem = r_RootMenuItem;
         }
 
-        public MenuShowItem CurrentMenu
+        public MenuItemNode CurrentLevelMenu
         {
             get => m_CurrentItem;
             set
@@ -23,39 +23,43 @@ namespace Ex04.Menus.Interfaces
             }
         }
 
+        public void AddItemToMenu(string i_Title)
+        {
+            MenuItemNode showMenuItem = new MenuItemNode(i_Title, CurrentLevelMenu);
+            CurrentLevelMenu.AddItemToLevelList(showMenuItem);
+        }
+
+        public void AddExecutableItem(string i_Title, IExecutable i_Function)
+        {
+            MenuItemFunction executeItem = new MenuItemFunction(i_Title, CurrentLevelMenu, i_Function);
+            CurrentLevelMenu.AddItemToLevelList(executeItem);
+        }
+        public void SetLevelToMainMenuLevel()
+        {
+            CurrentLevelMenu = r_RootMenuItem;
+        }
+
         public void LevelUp()
         {
-            if (CurrentMenu.Level == eMenuLevelZeroOption.Exit)
+            if (CurrentLevelMenu.Level == eMenuLevelZeroOption.Exit)
             {
-                throw new ArgumentOutOfRangeException("no upper level");
+                throw new ArgumentOutOfRangeException("No upper level");
             }
             else
             {
-                CurrentMenu = CurrentMenu.Parent;
+                CurrentLevelMenu = CurrentLevelMenu.Parent;
             }
         }
         public void LevelDown(int i_Index)
         {
-            if (CurrentMenu.MenuItems[i_Index] is MenuShowItem) 
+            if (CurrentLevelMenu.MenuItems[i_Index] is MenuItemNode) 
             {
-                CurrentMenu = (MenuShowItem)CurrentMenu.MenuItems[i_Index];
+                CurrentLevelMenu = (MenuItemNode)CurrentLevelMenu.MenuItems[i_Index];
             }
             else
             {
                 throw new ArgumentException();
             }
-        }
-
-        public void AddItemToMenu(string i_Title)
-        {
-            MenuShowItem showMenuItem = new MenuShowItem(i_Title, CurrentMenu);
-            CurrentMenu.AddMenuItem(showMenuItem);
-        }
-
-        public void AddExecutableItem(string i_Title, IExecutable i_Executable)
-        {
-            ExecutableMenuItem executeItem = new ExecutableMenuItem(i_Title, CurrentMenu, i_Executable);
-            CurrentMenu.AddMenuItem(executeItem);
         }
 
         public void Show()
@@ -66,7 +70,7 @@ namespace Ex04.Menus.Interfaces
             while (!exit)
             {
                 Console.Clear();
-                CurrentMenu.Show();
+                CurrentLevelMenu.Show();
                 Console.WriteLine("Please select option:");
                 userInput = getValidInput();
                 if (userInput == 0)
@@ -75,7 +79,7 @@ namespace Ex04.Menus.Interfaces
                     {
                         Console.Clear();
                         LevelUp();
-                        CurrentMenu.Show();
+                        CurrentLevelMenu.Show();
                     }
                     catch
                     {
@@ -91,10 +95,10 @@ namespace Ex04.Menus.Interfaces
                     }
                     catch
                     {
-                        ExecutableMenuItem executableItem = (ExecutableMenuItem)CurrentMenu.MenuItems[userInput - 1];
+                        MenuItemFunction executableItem = (MenuItemFunction)CurrentLevelMenu.MenuItems[userInput - 1];
                         Console.Clear();
                         executableItem.InvokeWhenChoose();
-                        Console.WriteLine("Press any key in order to return to menu");
+                        Console.WriteLine("Press any key to return to menu");
                         Console.ReadKey();
                     }
                 }
@@ -112,27 +116,22 @@ namespace Ex04.Menus.Interfaces
                 userInput = Console.ReadLine();
                 if (int.TryParse(userInput, out o_UserChoise))
                 {
-                    if ((o_UserChoise >= 0) && (o_UserChoise <= CurrentMenu.MenuItems.Count()))
+                    if ((o_UserChoise >= 0) && (o_UserChoise <= CurrentLevelMenu.MenuItems.Count()))
                     {
                         isValidInput = true;
                     }
                     else
                     {
-                        Console.WriteLine("Please enter a number between 0 and {0}", CurrentMenu.MenuItems.Count());
+                        Console.WriteLine("Please enter a number between 0 and {0}", CurrentLevelMenu.MenuItems.Count());
                     }
                 }
                 else
                 {
-                    Console.WriteLine("Please enter a number");
+                    Console.WriteLine("Please enter an int - number");
                 }
             }
 
             return o_UserChoise;
-        }
-
-        public void GoBackToMainMenu()
-        {
-            CurrentMenu = r_RootMenuItem;
         }
     }
 }

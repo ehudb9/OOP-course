@@ -4,8 +4,11 @@
     {
         public static void Main()
         {
-            DelegatesMenuTest.Run();
-            InterfaceMenuTest.Run();
+            //DelegatesMenuTest delegatesMenu = new DelegatesMenuTest("Delegates Main Menu");
+            InterfaceMenuTest interfaceMenu = new InterfaceMenuTest("Interface Main Menu");
+
+            //delegatesMenu.Run();
+            interfaceMenu.Run();
         }
     }
 }
