@@ -5,25 +5,28 @@ namespace Ex04.Menus.Test
 {
     public class DelegatesMenuTest
     {
-        //m_MainMenu = ///
-        
-        public static void Run()
+        MainMenu m_MainMenu;
+
+        public DelegatesMenuTest(string i_Title)
         {
-            Console.WriteLine("TEST USING DELEGATES");
-            MainMenu currentMenu = new MainMenu("Main menu");
-            currentMenu.AddItemToMenu("Version and Spaces");
-            currentMenu.AddItemToMenu("Show Date/Time");
-            currentMenu.LevelDown(0);
-            currentMenu.AddExecutableItem("Show Version", ShowVersion);
-            currentMenu.AddExecutableItem("Count Spaces", CountSpaces);
-            currentMenu.LevelUp();
-            currentMenu.LevelDown(1);
-            currentMenu.AddExecutableItem("Show Time", ShowTime);
-            currentMenu.AddExecutableItem("Show Date", ShowDate);
-            currentMenu.GoBackToMainMenu();
-            currentMenu.Show();
-            Console.WriteLine(currentMenu.CurrentMenu.Title);
+            m_MainMenu = new MainMenu(i_Title);
         }
+
+        public void Run()
+        {
+            m_MainMenu.AddItemToMenu("Version and Spaces");
+            m_MainMenu.TrySetLevelDown(0);
+            m_MainMenu.AddExecutableItem("Show Version", ShowVersion);
+            m_MainMenu.AddExecutableItem("Count Spaces", CountSpaces);
+            m_MainMenu.SetLevelToMainMenuLevel();
+            m_MainMenu.AddItemToMenu("Show Date/Time");
+            m_MainMenu.TrySetLevelDown(1);
+            m_MainMenu.AddExecutableItem("Show Time", ShowTime);
+            m_MainMenu.AddExecutableItem("Show Date", ShowDate);
+            m_MainMenu.SetLevelToMainMenuLevel();
+            m_MainMenu.Show();
+        }
+
 
         public static void ShowVersion()
         {
@@ -37,14 +40,13 @@ namespace Ex04.Menus.Test
 
             Console.WriteLine("Please write something:");
             inputText = Console.ReadLine();
-            foreach(char c in inputText)
+            foreach (char c in inputText)
             {
-                if(char.IsWhiteSpace(c))
+                if (char.IsWhiteSpace(c))
                 {
                     spacesCounter++;
                 }
             }
-
             Console.WriteLine("Number of spaces: {0}", spacesCounter);
         }
 
@@ -55,7 +57,7 @@ namespace Ex04.Menus.Test
 
         public static void ShowDate()
         {
-            Console.WriteLine(DateTime.Now.Date);
+            Console.WriteLine(DateTime.Now.ToShortDateString());
         }
     }
 }

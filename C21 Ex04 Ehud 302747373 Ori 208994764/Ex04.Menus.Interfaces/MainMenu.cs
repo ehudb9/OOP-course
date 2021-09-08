@@ -39,7 +39,7 @@ namespace Ex04.Menus.Interfaces
             CurrentLevelMenu = r_RootMenuItem;
         }
 
-        private bool trySetLevelToParent()
+        public bool TrySetLevelToParent()
         {
             bool isAParent = false;
             if (CurrentLevelMenu.Level == eMenuLevelZeroOption.Back)
@@ -50,11 +50,12 @@ namespace Ex04.Menus.Interfaces
 
             return isAParent;
         }
-        public void LevelDown(int i_Index)
+        public void TrySetLevelDown(int i_NodeIndex)
         {
-            if (CurrentLevelMenu.MenuItems[i_Index] is MenuItemNode) 
+            MenuItemNode currentMenuItem = CurrentLevelMenu.MenuItems[i_NodeIndex] as MenuItemNode;
+            if (currentMenuItem != null) 
             {
-                CurrentLevelMenu = (MenuItemNode)CurrentLevelMenu.MenuItems[i_Index];
+                CurrentLevelMenu = (MenuItemNode)CurrentLevelMenu.MenuItems[i_NodeIndex];
             }
             else
             {
@@ -75,7 +76,7 @@ namespace Ex04.Menus.Interfaces
                 userInput = getValidInput();
                 if (userInput == 0)
                 {
-                    if(trySetLevelToParent())
+                    if(TrySetLevelToParent())
                     {
                         Console.Clear();
                         CurrentLevelMenu.Show();
@@ -90,7 +91,7 @@ namespace Ex04.Menus.Interfaces
                     userInput--;
                     try
                     {
-                        LevelDown(userInput);
+                        TrySetLevelDown(userInput);
                     }
                     catch
                     {

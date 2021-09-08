@@ -2,34 +2,34 @@
 {
     public class MenuItem
     {
-        readonly string m_Title;
-        readonly MenuShowItem m_Parent;
-        readonly eMenuLevelZeroOption m_Level;
+        private string m_Title;
+        private MenuItemNode m_Parent;
+        private eMenuLevelZeroOption m_Level;
 
-        public MenuItem(string i_Title, MenuShowItem i_Parent)
+        public MenuItem(string i_Title, MenuItemNode i_Parent)
         {
             m_Title = i_Title;
             m_Parent = i_Parent;
-            if(m_Parent == null)
+            if (m_Parent == null)
             {
-                    m_Level = eMenuLevelZeroOption.Exit;
+                m_Level = eMenuLevelZeroOption.Exit;
             }
             else
             {
-                    m_Level = eMenuLevelZeroOption.Back;
+                m_Level = eMenuLevelZeroOption.Back;
             }
         }
-        
+
         public string Title
         {
             get => m_Title;
         }
-        
-        public MenuShowItem Parent
+
+        public MenuItemNode Parent
         {
             get => m_Parent;
         }
-        
+
         public eMenuLevelZeroOption Level
         {
             get => m_Level;

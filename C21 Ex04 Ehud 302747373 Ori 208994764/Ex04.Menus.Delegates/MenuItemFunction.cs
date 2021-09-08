@@ -2,13 +2,13 @@
 
 namespace Ex04.Menus.Delegates
 {
-    public class ExecutableMenuItem : MenuItem
+    public class MenuItemFunction : MenuItem
     {
-        public event Action ExecuteUserChoice;  //Implementation of action...
+        public event Action ExecuteUserChoice;
 
-        public ExecutableMenuItem(string i_Title, MenuShowItem i_Root, Action i_ExecuteChoice) : base(i_Title, i_Root)
+        public MenuItemFunction(string i_Title, MenuItemNode i_Root, Action i_FunctionName) : base(i_Title, i_Root)
         {
-            ExecuteUserChoice += i_ExecuteChoice;
+            ExecuteUserChoice += i_FunctionName;
         }
 
         public void InvokeWhenChoose()
