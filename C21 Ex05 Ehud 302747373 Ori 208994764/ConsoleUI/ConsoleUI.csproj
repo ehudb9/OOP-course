@@ -35,5 +35,43 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BoardGameForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BoardGameForm.Designer.cs">
+      <DependentUpon>BoardGameForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GameSettingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GameSettingForm.Designer.cs">
+      <DependentUpon>GameSettingForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="BoardGameForm.resx">
+      <DependentUpon>BoardGameForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GameSettingForm.resx">
+      <DependentUpon>GameSettingForm.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LogicGame\LogicGame.csproj">
+      <Project>{402c3018-7328-40a5-aac5-15684079a07f}</Project>
+      <Name>LogicGame</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
