@@ -109,14 +109,16 @@ namespace ConsoleUI
             this.m_Player2CheckBox.TabIndex = 2;
             this.m_Player2CheckBox.Text = "Player 2:";
             this.m_Player2CheckBox.UseVisualStyleBackColor = true;
+            this.m_Player2CheckBox.CheckedChanged += new System.EventHandler(this.player2CheckBox_CheckedChanged);
             // 
             // m_Player2TextBox
             // 
+            this.m_Player2TextBox.Enabled = false;
             this.m_Player2TextBox.Location = new System.Drawing.Point(275, 159);
             this.m_Player2TextBox.Name = "m_Player2TextBox";
             this.m_Player2TextBox.Size = new System.Drawing.Size(337, 38);
             this.m_Player2TextBox.TabIndex = 3;
-            this.m_Player2TextBox.Text = "[Computer]";
+            this.m_Player2TextBox.Text = "[computer]";
             // 
             // m_Player1TextBox
             // 
@@ -205,6 +207,7 @@ namespace ConsoleUI
             this.m_StartGameButton.TabIndex = 10;
             this.m_StartGameButton.Text = "Start!";
             this.m_StartGameButton.UseVisualStyleBackColor = true;
+            this.m_StartGameButton.Click += new System.EventHandler(this.startButton_Click);
             // 
             // GameSettingForm
             // 
@@ -226,6 +229,7 @@ namespace ConsoleUI
             this.MinimizeBox = false;
             this.Name = "GameSettingForm";
             this.Text = "GameSettingForm";
+            this.Load += new System.EventHandler(this.GameSettingForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.m_RowsUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_ColumnsUpDown)).EndInit();
             this.ResumeLayout(false);

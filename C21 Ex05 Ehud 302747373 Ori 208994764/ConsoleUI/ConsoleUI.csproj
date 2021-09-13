@@ -48,6 +48,7 @@
     <Compile Include="GameSettingForm.Designer.cs">
       <DependentUpon>GameSettingForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="OutputPrinter.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
   <ItemGroup>
