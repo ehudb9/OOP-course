@@ -28,7 +28,7 @@ namespace ConsoleUI
 
         private void startButton_Click(object i_Sender, EventArgs i_Event)
         {
-            if(m_Player1TextBox.Text == string.Empty || m_Player2TextBox.Text == String.Empty)
+            if(m_Player1TextBox.Text == string.Empty || m_Player2TextBox.Text == string.Empty)
             {
                 OutputPrinter.PrintNoNameError();
             }
@@ -41,7 +41,7 @@ namespace ConsoleUI
 
         private void player2CheckBox_CheckedChanged(object i_Sender, EventArgs i_Event)
         {
-            m_Player2TextBox.Text = m_Player2TextBox.Enabled ? k_ComputerName : String.Empty;
+            m_Player2TextBox.Text = m_Player2TextBox.Enabled ? k_ComputerName : string.Empty;
             m_Player2TextBox.Enabled = !m_Player2TextBox.Enabled;
         }
 
