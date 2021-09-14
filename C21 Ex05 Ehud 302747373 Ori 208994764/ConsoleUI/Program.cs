@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 
 namespace ConsoleUI
 {
-    class Program
+    public class Program
     {
-        [STAThread] //Todo - just in order to debug without running error
+        [STAThread]
         public static void Main()
         {
-            //Todo - Just for initial debugging
-            GameSettingForm gameSettingForm = new GameSettingForm();
-            gameSettingForm.ShowDialog();
+            Ui gameUi = new Ui();
+            gameUi.RunGame();
         }
     }
 }

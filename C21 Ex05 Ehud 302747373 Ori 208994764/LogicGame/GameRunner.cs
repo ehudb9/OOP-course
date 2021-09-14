@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LogicGame
 {
-    class GameRunner
+    public class GameRunner
     {
         private eGameMode m_PlayerVsComputerMode = eGameMode.PlayerVsPlayer;
         public bool v_GameIsAlive = false;
@@ -24,21 +24,18 @@ namespace LogicGame
         public GameRunner()
         {
             v_GameIsAlive = true;
-            InitGame();
+            //InitGame();
         }
 
-        public void InitGame()
+        public void InitGame(int i_BoardRowNumber, int i_BoardColNumber, eGameMode i_GameMode)
         {
-            /*
-            ConsolePrinter.WelcomeMessage();
-            m_SizeOfColumns = ConsoleInputValidator.GetNumOfColumnsFromUser();
-            m_SizeOfRows = ConsoleInputValidator.GetNumOfRowsFromUser();
-            */
+            m_SizeOfColumns = i_BoardColNumber;
+            m_SizeOfRows = i_BoardRowNumber;
+            
             m_GameBoard = new Board(m_SizeOfColumns, m_SizeOfRows);
             m_PlayerOne = new Player(k_SignPlayer1);
-            //m_PlayerVsComputerMode = ConsoleInputValidator.GetGameModeFromUser();
 
-            if (m_PlayerVsComputerMode == eGameMode.PlayerVsComputer)
+            if (i_GameMode == eGameMode.PlayerVsComputer)
             {
                 m_ComputerPlayer = new ComputerPlayer(k_SignPlayer2, m_SizeOfColumns);
             }
@@ -46,8 +43,6 @@ namespace LogicGame
             {
                 m_PlayerTwo = new Player(k_SignPlayer2);
             }
-
-            //ConsolePrinter.StartMessageQToExit();
         }
 
         public void ResetGame()
@@ -58,7 +53,7 @@ namespace LogicGame
             //ConsolePrinter.StartMessageQToExit();
         }
 
-        //Todo - neet to be change according to this game
+        //Todo - need to be change according to this game
         public void Run()
         {
             /*
@@ -132,6 +127,8 @@ namespace LogicGame
 
         public void PlayerMove()
         {
+            //Todo - need to be change according to this game
+            /*
             int playerChoseColumnToInsert = 0;
             bool v_isValidInput = false;
             playerChoseColumnToInsert = ConsoleInputValidator.GetUserColumnInput();
@@ -164,12 +161,13 @@ namespace LogicGame
                     }
                 }
             }
+            */
         }
 
         private void endGame()
         {
             string resetOrQuit = "";
-            resetOrQuit = ConsoleInputValidator.GetUserResetOrQuitChoice();
+            //resetOrQuit = ConsoleInputValidator.GetUserResetOrQuitChoice();
 
             if (resetOrQuit.Equals("y"))
             {
