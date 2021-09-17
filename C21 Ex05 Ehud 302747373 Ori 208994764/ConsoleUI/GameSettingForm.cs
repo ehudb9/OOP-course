@@ -45,7 +45,7 @@ namespace ConsoleUI
             m_Player2TextBox.Enabled = !m_Player2TextBox.Enabled;
         }
 
-        private void GameSettingForm_Load(object i_Sender, EventArgs i_Event)
+        private void gameSettingForm_Load(object i_Sender, EventArgs i_Event)
         {
 
         }

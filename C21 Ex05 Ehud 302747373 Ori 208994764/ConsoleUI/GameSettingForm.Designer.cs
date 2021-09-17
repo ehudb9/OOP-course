@@ -229,7 +229,7 @@ namespace ConsoleUI
             this.MinimizeBox = false;
             this.Name = "GameSettingForm";
             this.Text = "GameSettingForm";
-            this.Load += new System.EventHandler(this.GameSettingForm_Load);
+            this.Load += new System.EventHandler(this.gameSettingForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.m_RowsUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_ColumnsUpDown)).EndInit();
             this.ResumeLayout(false);

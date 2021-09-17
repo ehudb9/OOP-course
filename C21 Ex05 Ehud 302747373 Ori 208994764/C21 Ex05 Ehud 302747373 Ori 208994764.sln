@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleUI", "ConsoleUI\ConsoleUI.csproj", "{F4834D63-6647-46EB-AC83-46648A7256D8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowUI", "ConsoleUI\WindowUI.csproj", "{F4834D63-6647-46EB-AC83-46648A7256D8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogicGame", "LogicGame\LogicGame.csproj", "{402C3018-7328-40A5-AAC5-15684079A07F}"
 EndProject
