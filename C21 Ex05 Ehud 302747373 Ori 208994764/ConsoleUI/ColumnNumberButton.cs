@@ -34,9 +34,6 @@ namespace WindowUI
         private void InitializeComponent()
         {
             this.SuspendLayout();
-            // 
-            // ColumnNumberButton
-            // 
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Click += new System.EventHandler(this.ColumnNumberButton_Click);
             this.ResumeLayout(false);

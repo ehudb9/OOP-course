@@ -47,7 +47,25 @@ namespace LogicGame
 
         public string Player2Score
         {
-            get => m_PlayerVsComputerMode == eGameMode.PlayerVsPlayer ? m_PlayerTwo.Score.ToString() : m_ComputerPlayer.Score.ToString();
+            get
+            {
+                string score = "0";
+                if (m_PlayerVsComputerMode == eGameMode.PlayerVsPlayer)
+                {
+                    if (m_PlayerTwo != null)
+                    {
+                        score = m_PlayerTwo.Score.ToString();
+                    }
+                }
+                else
+                {
+                    if (m_ComputerPlayer != null)
+                    {
+                        score = m_ComputerPlayer.Score.ToString();
+                    }
+                }
+                return score;
+            }
         }
 
         public string SymbolPlayer
@@ -150,7 +168,6 @@ namespace LogicGame
         {
             m_GameBoard.InsertCellToBoard(m_CohsenColumn, m_Turn ? eCellTokenValue.X : eCellTokenValue.O);
             m_CurrentRow = m_GameBoard.CurrentRow[m_CohsenColumn-1];
-            Console.WriteLine(" "+m_Turn+"   "+ m_CurrentRow+"   "+ m_CohsenColumn);
         }
 
         public void ComputerMove()
@@ -158,21 +175,7 @@ namespace LogicGame
             m_CohsenColumn = m_ComputerPlayer.MakeComputerMove(m_GameBoard);
             m_CurrentRow = m_GameBoard.CurrentRow[m_CohsenColumn - 1];
         }
-        private void endGame()   /// TBC according to dialog end game  window
-        {
-            string resetOrQuit = "";
-            //resetOrQuit = ConsoleInputValidator.GetUserResetOrQuitChoice();   //// TBC  reset window UI dialog
-
-            if (resetOrQuit.Equals("y"))    
-            {
-                ResetGame();
-            }
-            else
-            {
-                v_GameIsAlive = false;
-            }
-        }
-
+        
         public eBoardGameStatus CheckBoard()
         {
             if (m_GameBoard.HasWon(m_Turn ? eCellTokenValue.X : eCellTokenValue.O))
@@ -185,11 +188,17 @@ namespace LogicGame
                 {
                     if (m_PlayerVsComputerMode == eGameMode.PlayerVsPlayer)
                     {
-                        m_PlayerTwo.Score++;
+                        if(m_PlayerTwo != null)
+                        {
+                            m_PlayerTwo.Score++;
+                        }
                     }
                     else
                     {
-                        m_ComputerPlayer.Score++;
+                        if (m_ComputerPlayer != null)
+                        {
+                            m_ComputerPlayer.Score++;
+                        }
                     }
                 }
                 m_BoardStatus = eBoardGameStatus.Winner;

@@ -30,17 +30,6 @@ namespace WindowUI
             Width = r_FormColsSize * 45;
             buildButtonMatrix();
             initPlayerLabels();
-            r_GameRunner.Run();
-            //play();
-        }
-
-        private void play()
-        {
-            while(r_GameRunner.v_GameIsAlive)
-            {
-                Console.WriteLine("Heyy lets play");
-                r_GameRunner.v_GameIsAlive = false;
-            }
         }
 
         private void buildButtonMatrix()
@@ -104,7 +93,7 @@ namespace WindowUI
             Console.WriteLine("you pressed a column button " + m_CohsenColumn);
             r_GameRunner.PlayerMove();
             m_XOButtonsTableLayout.GetControlFromPosition(m_CohsenColumn-1, r_GameRunner.m_CurrentRow).Text = r_GameRunner.Turn ? "X" : "O";
-//to move
+            // move to function
             if (r_GameRunner.m_GameBoard.IsFullColumn(m_CohsenColumn))
             {
                 (sender as ColumnNumberButton).OnFullColumn(m_CohsenColumn);
@@ -185,13 +174,17 @@ namespace WindowUI
         {
             updateScore();
             r_GameRunner.ResetGame();
+            foreach (ColumnNumberButton columnButton in m_ColNumberButtonsTableLayout.Controls)
+            {
+                columnButton.Enabled = true;
+            }
             for (int i = 0; i < r_FormColsSize; i++)
             {
                 if (m_ColNumberButtonsTableLayout.GetControlFromPosition(i, 0) != null)
                 {
                     m_ColNumberButtonsTableLayout.GetControlFromPosition(i, 0).Enabled = true;
                 }
-                for (int j = 0; j < r_FormRowsSize ; j++)
+                for (int j = 0; j < r_FormRowsSize; j++)
                 {
                     m_XOButtonsTableLayout.GetControlFromPosition(i, j).Text = "";
                 }
