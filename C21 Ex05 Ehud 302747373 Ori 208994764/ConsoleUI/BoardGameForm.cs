@@ -87,27 +87,15 @@ namespace WindowUI
         private void boardColumnButton_Click(object sender, EventArgs i_Event)
         {
             m_CohsenColumn = (sender as ColumnNumberButton).ColumnNumberValue;
+            playTurn();
+        }
+
+        private void playTurn()
+        {
             r_GameRunner.m_CohsenColumn = m_CohsenColumn;
             r_GameRunner.PlayerMove();
-            m_XOButtonsTableLayout.GetControlFromPosition(m_CohsenColumn-1, r_GameRunner.m_CurrentRow).Text = r_GameRunner.Turn ? "X" : "O";
-            // move to function
-            if (r_GameRunner.m_GameBoard.IsFullColumn(m_CohsenColumn))
-            {
-                (sender as ColumnNumberButton).OnFullColumn(m_CohsenColumn);
-            }
-            eBoardGameStatus boardStatus = r_GameRunner.CheckBoard();
-            if (boardStatus != eBoardGameStatus.ContinuePlay)
-            {
-                string winnerName = r_GameRunner.Turn ? Player1Label.Text.Substring(0, Player1Label.Text.Length - 1) : Player2Label.Text.Substring(0, Player2Label.Text.Length - 1);
-                if (!OutputPrinter.AskForAnotherRound(boardStatus == eBoardGameStatus.Tie, winnerName))
-                {
-                    Close();
-                }
-                else
-                {
-                    resetGame();
-                }
-            }
+            m_XOButtonsTableLayout.GetControlFromPosition(m_CohsenColumn - 1, r_GameRunner.m_CurrentRow).Text = r_GameRunner.Turn ? "X" : "O";
+            checkBoard();
 
             if (r_UserChoiceOfGameMode == eGameMode.PlayerVsComputer)
             {
@@ -116,32 +104,10 @@ namespace WindowUI
                 r_GameRunner.ComputerMove();
                 m_CohsenColumn = r_GameRunner.m_CohsenColumn;
                 m_XOButtonsTableLayout.GetControlFromPosition(m_CohsenColumn - 1, r_GameRunner.m_CurrentRow).Text = r_GameRunner.Turn ? "X" : "O";
-                ///to make a diff function
-                if (r_GameRunner.m_GameBoard.IsFullColumn(m_CohsenColumn))
-                {
-                    (m_ColNumberButtonsTableLayout.GetControlFromPosition(m_CohsenColumn, 0)).Enabled = false;
-                }
-                boardStatus = r_GameRunner.CheckBoard();
-                if (boardStatus != eBoardGameStatus.ContinuePlay)
-                {
-                    string winnerName = r_GameRunner.Turn ? Player1Label.Text.Substring(0, Player1Label.Text.Length - 1) : Player2Label.Text.Substring(0, Player2Label.Text.Length - 1);
-                    if (!OutputPrinter.AskForAnotherRound(boardStatus == eBoardGameStatus.Tie, winnerName))
-                    {
-                        Close();
-                    }
-                    else
-                    {
-                        resetGame();
-                    }
-                }
+                checkBoard();
             }
             r_GameRunner.Turn = !r_GameRunner.Turn;
             makeCurrentPlayerLabelFontBold();
-        }
-
-        private void playTurn()
-        {
-
         }
 
         private void updateScore()
@@ -150,11 +116,11 @@ namespace WindowUI
             Player2ScoreLabel.Text = r_GameRunner.Player2Score;
         }
        
-        private void checkBoard(object sender)
+        private void checkBoard()
         {
             if (r_GameRunner.m_GameBoard.IsFullColumn(m_CohsenColumn))
             {
-                (sender as ColumnNumberButton).OnFullColumn(m_CohsenColumn);
+                m_ColNumberButtonsTableLayout.GetControlFromPosition(m_CohsenColumn, 0).Enabled = false;
             }
             eBoardGameStatus boardStatus = r_GameRunner.CheckBoard();
             if (boardStatus != eBoardGameStatus.ContinuePlay)
