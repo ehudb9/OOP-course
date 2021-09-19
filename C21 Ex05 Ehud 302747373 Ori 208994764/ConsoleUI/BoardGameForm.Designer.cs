@@ -131,7 +131,6 @@ namespace WindowUI
             this.m_XOButtonsTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.m_XOButtonsTableLayout.Size = new System.Drawing.Size(683, 404);
             this.m_XOButtonsTableLayout.TabIndex = 4;
-            this.m_XOButtonsTableLayout.Paint += new System.Windows.Forms.PaintEventHandler(this.m_XOButtonsTableLayout_Paint);
             // 
             // m_ColNumberButtonsTableLayout
             // 
@@ -156,7 +155,6 @@ namespace WindowUI
             this.m_ColNumberButtonsTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.m_ColNumberButtonsTableLayout.Size = new System.Drawing.Size(683, 32);
             this.m_ColNumberButtonsTableLayout.TabIndex = 5;
-            this.m_ColNumberButtonsTableLayout.Paint += new System.Windows.Forms.PaintEventHandler(this.m_ColNumberButtonsTableLayout_Paint);
             // 
             // BoardGameForm
             // 

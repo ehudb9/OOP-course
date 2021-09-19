@@ -8,8 +8,8 @@ namespace LogicGame
 {
     public class Board
     {
-        public int m_NumOfRows;
-        public int m_NumOfColumns;
+        private readonly int r_NumOfRows;
+        private readonly int r_NumOfColumns;
         public readonly BoardCell[,] r_BoardCells;
         private readonly int[] r_RowsIndex;
         private int m_CurrentCellRowIndex = 0;
@@ -20,10 +20,10 @@ namespace LogicGame
         public Board(int i_BoardColumnSize, int i_BoardRowSize)
         {
             r_BoardCells = new BoardCell[i_BoardRowSize, i_BoardColumnSize];
-            m_NumOfRows = i_BoardRowSize;
-            m_NumOfColumns = i_BoardColumnSize;
+            r_NumOfRows = i_BoardRowSize;
+            r_NumOfColumns = i_BoardColumnSize;
             initializeBoard();
-            r_RowsIndex = new int[m_NumOfColumns];
+            r_RowsIndex = new int[r_NumOfColumns];
             resetColumnIndex();
         }
 
@@ -34,9 +34,9 @@ namespace LogicGame
 
         private void initializeBoard()
         {
-            for (int i = 0; i < m_NumOfRows; i++)
+            for (int i = 0; i < r_NumOfRows; i++)
             {
-                for (int j = 0; j < m_NumOfColumns; j++)
+                for (int j = 0; j < r_NumOfColumns; j++)
                 {
                     r_BoardCells[i, j] = new BoardCell();
                 }
@@ -47,7 +47,7 @@ namespace LogicGame
         {
             for (int i = 0; i < r_RowsIndex.Length; i++)
             {
-                r_RowsIndex[i] = m_NumOfRows;
+                r_RowsIndex[i] = r_NumOfRows;
             }
         }
 
@@ -70,13 +70,13 @@ namespace LogicGame
 
         public bool IsFullColumn(int i_Column)
         {
-            bool isColumnFull = i_Column <= m_NumOfColumns && r_RowsIndex[i_Column - 1] == 0 && (i_Column <= m_NumOfColumns);
+            bool isColumnFull = i_Column <= r_NumOfColumns && r_RowsIndex[i_Column - 1] == 0 && (i_Column <= r_NumOfColumns);
             return isColumnFull;
         }
 
         public bool IsValidColumn(int i_Column)
         {
-            return i_Column > 0 && i_Column <= m_NumOfColumns && !IsFullColumn(i_Column);
+            return i_Column > 0 && i_Column <= r_NumOfColumns && !IsFullColumn(i_Column);
         }
 
         public bool BoardIsFull()
@@ -106,7 +106,7 @@ namespace LogicGame
             eCellTokenValue prevValue = i_CellToken;
             int rowNum = m_CurrentCellRowIndex + 1;
 
-            while (rowNum < m_NumOfRows && prevValue == r_BoardCells[rowNum, m_CurrentCellColumnIndex].CellTokenValue)
+            while (rowNum < r_NumOfRows && prevValue == r_BoardCells[rowNum, m_CurrentCellColumnIndex].CellTokenValue)
             {
                 sameValueCounter++;
                 prevValue = r_BoardCells[rowNum, m_CurrentCellColumnIndex].CellTokenValue;
@@ -138,7 +138,7 @@ namespace LogicGame
             eCellTokenValue prevValue = i_CellToken;
             int columnNum = m_CurrentCellColumnIndex + 1;
 
-            while (columnNum < m_NumOfColumns && prevValue == r_BoardCells[m_CurrentCellRowIndex, columnNum].CellTokenValue)
+            while (columnNum < r_NumOfColumns && prevValue == r_BoardCells[m_CurrentCellRowIndex, columnNum].CellTokenValue)
             {
                 sameValueCounter++;
                 prevValue = r_BoardCells[m_CurrentCellRowIndex, columnNum].CellTokenValue;
@@ -170,7 +170,7 @@ namespace LogicGame
             int columnNum = m_CurrentCellColumnIndex + 1;
             int rowNum = m_CurrentCellRowIndex + 1;
 
-            while (columnNum < m_NumOfColumns && rowNum < m_NumOfRows && prevValue == r_BoardCells[rowNum, columnNum].CellTokenValue)
+            while (columnNum < r_NumOfColumns && rowNum < r_NumOfRows && prevValue == r_BoardCells[rowNum, columnNum].CellTokenValue)
             {
                 sameValueCounter++;
                 prevValue = r_BoardCells[rowNum, columnNum].CellTokenValue;
@@ -205,7 +205,7 @@ namespace LogicGame
             int columnNum = m_CurrentCellColumnIndex + 1;
             int rowNum = m_CurrentCellRowIndex - 1;
 
-            while (columnNum < m_NumOfColumns && rowNum >= 0 && prevValue == r_BoardCells[rowNum, columnNum].CellTokenValue)
+            while (columnNum < r_NumOfColumns && rowNum >= 0 && prevValue == r_BoardCells[rowNum, columnNum].CellTokenValue)
             {
                 sameValueCounter++;
                 prevValue = r_BoardCells[rowNum, columnNum].CellTokenValue;
@@ -216,7 +216,7 @@ namespace LogicGame
             columnNum = m_CurrentCellColumnIndex - 1;
             rowNum = m_CurrentCellRowIndex + 1;
             prevValue = i_CellToken;
-            while (columnNum >= 0 && rowNum < m_NumOfRows && prevValue == r_BoardCells[rowNum, columnNum].CellTokenValue)
+            while (columnNum >= 0 && rowNum < r_NumOfRows && prevValue == r_BoardCells[rowNum, columnNum].CellTokenValue)
             {
                 sameValueCounter++;
                 prevValue = r_BoardCells[rowNum, columnNum].CellTokenValue;

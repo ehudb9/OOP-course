@@ -1,5 +1,4 @@
 ﻿using System.Windows.Forms;
-using System;
 
 namespace WindowUI
 {
@@ -42,7 +41,6 @@ namespace WindowUI
 
         private void ColumnNumberButton_Click(object sender, System.EventArgs e)
         {
-            Console.WriteLine(m_ColumnNumberValue.ToString());
         }
     }
 }

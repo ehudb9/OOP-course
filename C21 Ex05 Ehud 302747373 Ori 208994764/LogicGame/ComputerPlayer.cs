@@ -20,11 +20,13 @@ namespace LogicGame
             r_MaxChosenColumnVal = i_MaxChosenColumnVal + 1;
             r_Random = new Random();
         }
+        
         public int Score
         {
             get => m_Score;
             set => m_Score = value;
         }
+
         private int pickRandomColumnNumber(Board i_GameBoard)
         {
             int chosenColumn = r_Random.Next(1, r_MaxChosenColumnVal);
@@ -32,7 +34,7 @@ namespace LogicGame
             {
                 chosenColumn = r_Random.Next(1, r_MaxChosenColumnVal);
             }
-            Console.WriteLine(chosenColumn);
+            
             return chosenColumn;
         }
 
@@ -42,11 +44,6 @@ namespace LogicGame
             i_GameBoard.InsertCellToBoard(chosenColumn, eCellTokenValue.O);
             
             return chosenColumn;
-        }
-
-        private static bool isValidColumn(int i_ChosenColumn, int i_NumOfColumns, Board i_GameBoard)
-        {
-            return i_ChosenColumn > 0 && i_ChosenColumn <= i_NumOfColumns && !i_GameBoard.IsFullColumn(i_ChosenColumn);
         }
     }
 }

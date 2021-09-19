@@ -2,8 +2,6 @@
 using System.Drawing;
 using System.Windows.Forms;
 using LogicGame;
-using System;
-using System.Threading;
 
 namespace WindowUI
 {
@@ -90,7 +88,6 @@ namespace WindowUI
         {
             m_CohsenColumn = (sender as ColumnNumberButton).ColumnNumberValue;
             r_GameRunner.m_CohsenColumn = m_CohsenColumn;
-            Console.WriteLine("you pressed a column button " + m_CohsenColumn);
             r_GameRunner.PlayerMove();
             m_XOButtonsTableLayout.GetControlFromPosition(m_CohsenColumn-1, r_GameRunner.m_CurrentRow).Text = r_GameRunner.Turn ? "X" : "O";
             // move to function
@@ -118,12 +115,11 @@ namespace WindowUI
                 makeCurrentPlayerLabelFontBold();
                 r_GameRunner.ComputerMove();
                 m_CohsenColumn = r_GameRunner.m_CohsenColumn;
-                Console.WriteLine("comp turn played column "+m_CohsenColumn);
                 m_XOButtonsTableLayout.GetControlFromPosition(m_CohsenColumn - 1, r_GameRunner.m_CurrentRow).Text = r_GameRunner.Turn ? "X" : "O";
                 ///to make a diff function
                 if (r_GameRunner.m_GameBoard.IsFullColumn(m_CohsenColumn))
                 {
-                    (sender as ColumnNumberButton).OnFullColumn(m_CohsenColumn);
+                    (m_ColNumberButtonsTableLayout.GetControlFromPosition(m_CohsenColumn, 0)).Enabled = false;
                 }
                 boardStatus = r_GameRunner.CheckBoard();
                 if (boardStatus != eBoardGameStatus.ContinuePlay)
@@ -141,6 +137,11 @@ namespace WindowUI
             }
             r_GameRunner.Turn = !r_GameRunner.Turn;
             makeCurrentPlayerLabelFontBold();
+        }
+
+        private void playTurn()
+        {
+
         }
 
         private void updateScore()
@@ -190,17 +191,8 @@ namespace WindowUI
                 }
             }
         }
+        
         private void boardGameForm_Load(object i_Sender, EventArgs i_Event)
-        {
-
-        }
-
-        private void m_XOButtonsTableLayout_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void m_ColNumberButtonsTableLayout_Paint(object sender, PaintEventArgs e)
         {
 
         }
