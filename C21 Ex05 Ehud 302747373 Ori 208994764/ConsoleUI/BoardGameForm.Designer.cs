@@ -65,72 +65,82 @@ namespace WindowUI
             // m_Player1Label
             // 
             this.m_Player1Label.AutoSize = true;
-            this.m_Player1Label.Location = new System.Drawing.Point(257, 791);
+            this.m_Player1Label.Location = new System.Drawing.Point(145, 510);
+            this.m_Player1Label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.m_Player1Label.Name = "m_Player1Label";
-            this.m_Player1Label.Size = new System.Drawing.Size(127, 32);
+            this.m_Player1Label.Size = new System.Drawing.Size(69, 20);
             this.m_Player1Label.TabIndex = 0;
             this.m_Player1Label.Text = "Player 1:";
             // 
             // m_Player1ScoreLabel
             // 
             this.m_Player1ScoreLabel.AutoSize = true;
-            this.m_Player1ScoreLabel.Location = new System.Drawing.Point(399, 791);
+            this.m_Player1ScoreLabel.Location = new System.Drawing.Point(224, 510);
+            this.m_Player1ScoreLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.m_Player1ScoreLabel.Name = "m_Player1ScoreLabel";
-            this.m_Player1ScoreLabel.Size = new System.Drawing.Size(31, 32);
+            this.m_Player1ScoreLabel.Size = new System.Drawing.Size(18, 20);
             this.m_Player1ScoreLabel.TabIndex = 1;
             this.m_Player1ScoreLabel.Text = "0";
             // 
             // m_Player2ScoreLabel
             // 
             this.m_Player2ScoreLabel.AutoSize = true;
-            this.m_Player2ScoreLabel.Location = new System.Drawing.Point(947, 791);
+            this.m_Player2ScoreLabel.Location = new System.Drawing.Point(533, 510);
+            this.m_Player2ScoreLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.m_Player2ScoreLabel.Name = "m_Player2ScoreLabel";
-            this.m_Player2ScoreLabel.Size = new System.Drawing.Size(31, 32);
+            this.m_Player2ScoreLabel.Size = new System.Drawing.Size(18, 20);
             this.m_Player2ScoreLabel.TabIndex = 3;
             this.m_Player2ScoreLabel.Text = "0";
             // 
             // m_Player2Label
             // 
             this.m_Player2Label.AutoSize = true;
-            this.m_Player2Label.Location = new System.Drawing.Point(805, 791);
+            this.m_Player2Label.Location = new System.Drawing.Point(453, 510);
+            this.m_Player2Label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.m_Player2Label.Name = "m_Player2Label";
-            this.m_Player2Label.Size = new System.Drawing.Size(127, 32);
+            this.m_Player2Label.Size = new System.Drawing.Size(69, 20);
             this.m_Player2Label.TabIndex = 2;
             this.m_Player2Label.Text = "Player 2:";
             // 
             // m_XOButtonsTableLayout
             // 
+            this.m_XOButtonsTableLayout.AutoSize = true;
             this.m_XOButtonsTableLayout.ColumnCount = 1;
             this.m_XOButtonsTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.m_XOButtonsTableLayout.Location = new System.Drawing.Point(35, 100);
+            this.m_XOButtonsTableLayout.Location = new System.Drawing.Point(20, 70);
+            this.m_XOButtonsTableLayout.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.m_XOButtonsTableLayout.Name = "m_XOButtonsTableLayout";
             this.m_XOButtonsTableLayout.RowCount = 1;
             this.m_XOButtonsTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.m_XOButtonsTableLayout.Size = new System.Drawing.Size(1214, 634);
+            this.m_XOButtonsTableLayout.Size = new System.Drawing.Size(683, 404);
             this.m_XOButtonsTableLayout.TabIndex = 4;
+            this.m_XOButtonsTableLayout.Paint += new System.Windows.Forms.PaintEventHandler(this.m_XOButtonsTableLayout_Paint);
             // 
             // m_ColNumberButtonsTableLayout
             // 
+            this.m_ColNumberButtonsTableLayout.AutoSize = true;
             this.m_ColNumberButtonsTableLayout.ColumnCount = 1;
             this.m_ColNumberButtonsTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.m_ColNumberButtonsTableLayout.Location = new System.Drawing.Point(35, 44);
+            this.m_ColNumberButtonsTableLayout.Location = new System.Drawing.Point(20, 28);
+            this.m_ColNumberButtonsTableLayout.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.m_ColNumberButtonsTableLayout.Name = "m_ColNumberButtonsTableLayout";
             this.m_ColNumberButtonsTableLayout.RowCount = 1;
             this.m_ColNumberButtonsTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.m_ColNumberButtonsTableLayout.Size = new System.Drawing.Size(1214, 50);
+            this.m_ColNumberButtonsTableLayout.Size = new System.Drawing.Size(683, 32);
             this.m_ColNumberButtonsTableLayout.TabIndex = 5;
             // 
             // BoardGameForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1294, 869);
+            this.ClientSize = new System.Drawing.Size(728, 561);
             this.Controls.Add(this.m_ColNumberButtonsTableLayout);
             this.Controls.Add(this.m_XOButtonsTableLayout);
             this.Controls.Add(this.m_Player2ScoreLabel);
             this.Controls.Add(this.m_Player2Label);
             this.Controls.Add(this.m_Player1ScoreLabel);
             this.Controls.Add(this.m_Player1Label);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "BoardGameForm";
@@ -142,8 +152,7 @@ namespace WindowUI
         }
 
         #endregion
-
-        private System.Windows.Forms.TableLayoutPanel m_XOButtonsTableLayout;
         private System.Windows.Forms.TableLayoutPanel m_ColNumberButtonsTableLayout;
+        protected System.Windows.Forms.TableLayoutPanel m_XOButtonsTableLayout;
     }
 }

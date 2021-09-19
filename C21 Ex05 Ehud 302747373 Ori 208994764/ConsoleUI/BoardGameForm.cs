@@ -37,7 +37,7 @@ namespace WindowUI
             {
                 columnNumberButton = new ColumnNumberButton(i + 1);
                 columnNumberButton.Click += boardColumnButton_Click;
-                columnNumberButton.Location = new Point(40 * (i + 1), 40 * j);
+                columnNumberButton.Location = new Point(30 * (i + 1));
                 m_ColNumberButtonsTableLayout.Controls.Add(columnNumberButton, i, 0);
             }
 
@@ -47,7 +47,7 @@ namespace WindowUI
                 {
                     xoBoardButton = new XOBoardButton(i, j);
                     xoBoardButton.CellValue = r_GameRunner.m_GameBoard.r_BoardCells[i, j].CellTokenValue;
-                    xoBoardButton.Location = new Point(40*(i+1),40*j);
+                    xoBoardButton.Location = new Point(30*(i+1),30*j);
                     m_XOButtonsTableLayout.Controls.Add(xoBoardButton, j, i);
                 }
             }
@@ -92,6 +92,11 @@ namespace WindowUI
         }
 
         private void boardGameForm_Load(object i_Sender, EventArgs i_Event)
+        {
+
+        }
+
+        private void m_XOButtonsTableLayout_Paint(object sender, PaintEventArgs e)
         {
 
         }
