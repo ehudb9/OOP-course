@@ -12,7 +12,7 @@ namespace WindowUI
         private readonly int r_FormRowsSize;
         private readonly int r_FormColsSize;
         private readonly GameRunner r_GameRunner;
-        private bool v_IsPlayerOneTurn = true;
+        private int m_CohsenColumn;
 
         public BoardGameForm(string i_Player1Name, string i_Player2Name, GameRunner i_GameRunner, eGameMode i_GameMode)
         {
@@ -28,6 +28,16 @@ namespace WindowUI
             Width = r_FormColsSize * 45;
             buildButtonMatrix();
             initPlayerLabels();
+            //play();
+        }
+
+        private void play()
+        {
+            while(r_GameRunner.v_GameIsAlive)
+            {
+                Console.WriteLine("Heyy lets play");
+                r_GameRunner.v_GameIsAlive = false;
+            }
         }
 
         private void buildButtonMatrix()
@@ -73,7 +83,7 @@ namespace WindowUI
         private void makeCurrentPlayerLabelFontBold()   // who is calling it in each turn?
 
         {
-            if(v_IsPlayerOneTurn)
+            if(r_GameRunner.Turn)
             {
                 Player1Label.Font = new Font(Player1Label.Font, FontStyle.Bold);
                 Player2Label.Font = new Font(Player2Label.Font, FontStyle.Regular);
@@ -87,9 +97,8 @@ namespace WindowUI
 
         private void boardColumnButton_Click(object sender, EventArgs i_Event)
         {
-            Console.WriteLine("sds");
-            //r_GameRunner.Run();
-
+            Console.WriteLine("you pressed a column byutton - nice");
+            m_CohsenColumn = 1; // reach the value of the butomn
         }
 
         private void boardGameForm_Load(object i_Sender, EventArgs i_Event)

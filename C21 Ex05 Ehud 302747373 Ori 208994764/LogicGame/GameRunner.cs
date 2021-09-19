@@ -10,7 +10,7 @@ namespace LogicGame
     {
         private eGameMode m_PlayerVsComputerMode = eGameMode.PlayerVsPlayer;
         public bool v_GameIsAlive = false;
-        public bool v_PlayerWantsToQuitGame = false;    /// D
+        public bool v_PlayerWantsToQuitGame = false;
         private bool m_Turn = true;
         private const eCellTokenValue k_SignPlayer1 = eCellTokenValue.X;
         private const eCellTokenValue k_SignPlayer2 = eCellTokenValue.O;
@@ -24,12 +24,15 @@ namespace LogicGame
         public GameRunner()
         {
             v_GameIsAlive = true;
-            //InitGame();
+        }
+
+        public bool Turn
+        {
+            get => m_Turn;
         }
 
         public void InitGame(int i_BoardRowNumber, int i_BoardColNumber, eGameMode i_GameMode)
         {
-            Console.WriteLine("" + i_BoardRowNumber +  i_BoardColNumber); // ---D
             m_SizeOfColumns = i_BoardColNumber;
             m_SizeOfRows = i_BoardRowNumber;
             
@@ -122,21 +125,19 @@ namespace LogicGame
 
         public void PlayerMove()
         {
-            //Todo - need to be change according to this game
-            /*
             int playerChoseColumnToInsert = 0;
             bool v_isValidInput = false;
-            //// TBC : playerChoseColumnToInsert = ConsoleInputValidator.GetUserColumnInput();  /// tbc --- from the board
-            
+            //playerChoseColumnToInsert = ConsoleInputValidator.GetUserColumnInput();  /// tbc --- from the board how to get the chosen value??
+
             m_GameBoard.InsertCellToBoard(playerChoseColumnToInsert, m_CurrentPlayer);
- 
-            */
+
+
         }
 
         private void endGame()   /// TBC according to dialog end game  window
         {
             string resetOrQuit = "";
-            //resetOrQuit = ConsoleInputValidator.GetUserResetOrQuitChoice();   //// TBC  reset window UI
+            //resetOrQuit = ConsoleInputValidator.GetUserResetOrQuitChoice();   //// TBC  reset window UI dialog
 
             if (resetOrQuit.Equals("y"))    
             {
