@@ -40,6 +40,16 @@ namespace LogicGame
             }
         }
 
+        public string Player1Score
+        {
+            get => m_PlayerOne.Score.ToString();
+        }
+
+        public string Player2Score
+        {
+            get => m_PlayerVsComputerMode == eGameMode.PlayerVsPlayer ? m_PlayerTwo.Score.ToString() : m_ComputerPlayer.Score.ToString();
+        }
+
         public string SymbolPlayer
         {
             get => m_CurrentPlayer.ToString();

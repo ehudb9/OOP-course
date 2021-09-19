@@ -127,13 +127,11 @@ namespace WindowUI
             {
                 r_GameRunner.Turn = !r_GameRunner.Turn;
                 makeCurrentPlayerLabelFontBold();
-                
                 r_GameRunner.ComputerMove();
                 m_CohsenColumn = r_GameRunner.m_CohsenColumn;
                 Console.WriteLine("comp turn played column "+m_CohsenColumn);
                 m_XOButtonsTableLayout.GetControlFromPosition(m_CohsenColumn - 1, r_GameRunner.m_CurrentRow).Text = r_GameRunner.Turn ? "X" : "O";
-                Thread.Sleep(1000);
-///to move!!!!
+                ///to make a diff function
                 if (r_GameRunner.m_GameBoard.IsFullColumn(m_CohsenColumn))
                 {
                     (sender as ColumnNumberButton).OnFullColumn(m_CohsenColumn);
@@ -156,6 +154,12 @@ namespace WindowUI
             makeCurrentPlayerLabelFontBold();
         }
 
+        private void updateScore()
+        {
+            Player1ScoreLabel.Text = r_GameRunner.Player1Score;
+            Player2ScoreLabel.Text = r_GameRunner.Player2Score;
+        }
+       
         private void checkBoard(object sender)
         {
             if (r_GameRunner.m_GameBoard.IsFullColumn(m_CohsenColumn))
@@ -179,6 +183,7 @@ namespace WindowUI
 
         private void resetGame()
         {
+            updateScore();
             r_GameRunner.ResetGame();
             for (int i = 0; i < r_FormColsSize; i++)
             {
