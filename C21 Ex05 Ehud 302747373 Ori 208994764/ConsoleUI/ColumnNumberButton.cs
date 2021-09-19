@@ -1,4 +1,5 @@
 ﻿using System.Windows.Forms;
+using System;
 
 namespace WindowUI
 {
@@ -31,6 +32,23 @@ namespace WindowUI
             {
                 Enabled = false;
             }
+        }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // ColumnNumberButton
+            // 
+            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Click += new System.EventHandler(this.ColumnNumberButton_Click);
+            this.ResumeLayout(false);
+
+        }
+
+        private void ColumnNumberButton_Click(object sender, System.EventArgs e)
+        {
+            Console.WriteLine(m_ColumnNumberValue.ToString());
         }
     }
 }

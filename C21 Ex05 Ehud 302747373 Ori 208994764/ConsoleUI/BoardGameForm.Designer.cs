@@ -94,6 +94,7 @@ namespace WindowUI
             // 
             // m_Player2Label
             // 
+            this.m_Player2Label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.m_Player2Label.AutoSize = true;
             this.m_Player2Label.Location = new System.Drawing.Point(453, 510);
             this.m_Player2Label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
@@ -104,30 +105,58 @@ namespace WindowUI
             // 
             // m_XOButtonsTableLayout
             // 
+            this.m_XOButtonsTableLayout.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.m_XOButtonsTableLayout.AutoSize = true;
-            this.m_XOButtonsTableLayout.ColumnCount = 1;
-            this.m_XOButtonsTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.m_XOButtonsTableLayout.ColumnCount = 8;
+            this.m_XOButtonsTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.m_XOButtonsTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.m_XOButtonsTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.m_XOButtonsTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.m_XOButtonsTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.m_XOButtonsTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.m_XOButtonsTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.m_XOButtonsTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.m_XOButtonsTableLayout.Location = new System.Drawing.Point(20, 70);
-            this.m_XOButtonsTableLayout.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.m_XOButtonsTableLayout.Margin = new System.Windows.Forms.Padding(2);
             this.m_XOButtonsTableLayout.Name = "m_XOButtonsTableLayout";
-            this.m_XOButtonsTableLayout.RowCount = 1;
-            this.m_XOButtonsTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.m_XOButtonsTableLayout.RowCount = 8;
+            this.m_XOButtonsTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.m_XOButtonsTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.m_XOButtonsTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.m_XOButtonsTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.m_XOButtonsTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.m_XOButtonsTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.m_XOButtonsTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.m_XOButtonsTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.m_XOButtonsTableLayout.Size = new System.Drawing.Size(683, 404);
             this.m_XOButtonsTableLayout.TabIndex = 4;
             this.m_XOButtonsTableLayout.Paint += new System.Windows.Forms.PaintEventHandler(this.m_XOButtonsTableLayout_Paint);
             // 
             // m_ColNumberButtonsTableLayout
             // 
+            this.m_ColNumberButtonsTableLayout.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.m_ColNumberButtonsTableLayout.AutoSize = true;
-            this.m_ColNumberButtonsTableLayout.ColumnCount = 1;
-            this.m_ColNumberButtonsTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.m_ColNumberButtonsTableLayout.ColumnCount = 8;
+            this.m_ColNumberButtonsTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.m_ColNumberButtonsTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.m_ColNumberButtonsTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.m_ColNumberButtonsTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.m_ColNumberButtonsTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.m_ColNumberButtonsTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.m_ColNumberButtonsTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.m_ColNumberButtonsTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.m_ColNumberButtonsTableLayout.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.AddColumns;
+            this.m_ColNumberButtonsTableLayout.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.m_ColNumberButtonsTableLayout.Location = new System.Drawing.Point(20, 28);
-            this.m_ColNumberButtonsTableLayout.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.m_ColNumberButtonsTableLayout.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.m_ColNumberButtonsTableLayout.Name = "m_ColNumberButtonsTableLayout";
             this.m_ColNumberButtonsTableLayout.RowCount = 1;
-            this.m_ColNumberButtonsTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.m_ColNumberButtonsTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.m_ColNumberButtonsTableLayout.Size = new System.Drawing.Size(683, 32);
             this.m_ColNumberButtonsTableLayout.TabIndex = 5;
+            this.m_ColNumberButtonsTableLayout.Paint += new System.Windows.Forms.PaintEventHandler(this.m_ColNumberButtonsTableLayout_Paint);
             // 
             // BoardGameForm
             // 
@@ -140,7 +169,7 @@ namespace WindowUI
             this.Controls.Add(this.m_Player2Label);
             this.Controls.Add(this.m_Player1ScoreLabel);
             this.Controls.Add(this.m_Player1Label);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "BoardGameForm";

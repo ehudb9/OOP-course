@@ -79,6 +79,9 @@
     <EmbeddedResource Include="BoardGameForm.resx">
       <DependentUpon>BoardGameForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ColumnNumberButton.resx">
+      <DependentUpon>ColumnNumberButton.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GameSettingForm.resx">
       <DependentUpon>GameSettingForm.cs</DependentUpon>
     </EmbeddedResource>

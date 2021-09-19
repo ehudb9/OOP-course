@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using LogicGame;
+using System;
 
 namespace WindowUI
 {
@@ -23,8 +24,8 @@ namespace WindowUI
             Player2Label.Text = i_Player2Name; 
             r_FormRowsSize = i_GameRunner.m_SizeOfRows;
             r_FormColsSize = i_GameRunner.m_SizeOfColumns;
-            Height = r_FormRowsSize * 75;
-            Width = r_FormColsSize * 75;
+            Height = r_FormRowsSize * 65;
+            Width = r_FormColsSize * 45;
             buildButtonMatrix();
             initPlayerLabels();
         }
@@ -33,11 +34,10 @@ namespace WindowUI
         {
             XOBoardButton xoBoardButton;
             ColumnNumberButton columnNumberButton;
-            for(int i = 0; i < r_FormColsSize; i++)
+            for(int i = 1; i <= r_FormColsSize; i++)
             {
-                columnNumberButton = new ColumnNumberButton(i + 1);
+                columnNumberButton = new ColumnNumberButton(i);
                 columnNumberButton.Click += boardColumnButton_Click;
-                columnNumberButton.Location = new Point(30 * (i + 1));
                 m_ColNumberButtonsTableLayout.Controls.Add(columnNumberButton, i, 0);
             }
 
@@ -47,7 +47,6 @@ namespace WindowUI
                 {
                     xoBoardButton = new XOBoardButton(i, j);
                     xoBoardButton.CellValue = r_GameRunner.m_GameBoard.r_BoardCells[i, j].CellTokenValue;
-                    xoBoardButton.Location = new Point(30*(i+1),30*j);
                     m_XOButtonsTableLayout.Controls.Add(xoBoardButton, j, i);
                 }
             }
@@ -59,19 +58,19 @@ namespace WindowUI
 
         private void initPlayerLabels()
         {
-            int currentXPlace = m_ColNumberButtonsTableLayout.Location.X + 80;
+            int currentXPlace = Width/6;
             int currentYPlace = Height - 55;
             Player1Label.Location = new Point(currentXPlace, currentYPlace);
             currentXPlace = Player1Label.Location.X + Player1Label.Width;
             Player1ScoreLabel.Location = new Point(currentXPlace, currentYPlace);
-            currentXPlace = Player1ScoreLabel.Location.X + Player1ScoreLabel.Width + 10;
+            currentXPlace = (Width/2);
             Player2Label.Location = new Point(currentXPlace, currentYPlace);
             currentXPlace = Player2Label.Location.X + Player2Label.Width;
             Player2ScoreLabel.Location = new Point(currentXPlace, currentYPlace);
             makeCurrentPlayerLabelFontBold();
         }
 
-        private void makeCurrentPlayerLabelFontBold()   // who calling it in each turn?
+        private void makeCurrentPlayerLabelFontBold()   // who is calling it in each turn?
 
         {
             if(v_IsPlayerOneTurn)
@@ -88,7 +87,9 @@ namespace WindowUI
 
         private void boardColumnButton_Click(object sender, EventArgs i_Event)
         {
-            //Todo - need to implement ---- in the buttons class!
+            Console.WriteLine("sds");
+            //r_GameRunner.Run();
+
         }
 
         private void boardGameForm_Load(object i_Sender, EventArgs i_Event)
@@ -97,6 +98,11 @@ namespace WindowUI
         }
 
         private void m_XOButtonsTableLayout_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void m_ColNumberButtonsTableLayout_Paint(object sender, PaintEventArgs e)
         {
 
         }
