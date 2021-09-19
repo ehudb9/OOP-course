@@ -8,12 +8,12 @@ namespace LogicGame
 {
     class ComputerPlayer
     {
-        public int Sign { get; }
+        public eCellTokenValue Sign { get; }
         private int m_Score;
         private readonly int r_MaxChosenColumnVal;
         private readonly Random r_Random;
 
-        public ComputerPlayer(int i_Sign, int i_MaxChosenColumnVal)
+        public ComputerPlayer(eCellTokenValue i_Sign, int i_MaxChosenColumnVal)
         {
             m_Score = 0;
             Sign = i_Sign;
@@ -39,7 +39,7 @@ namespace LogicGame
         public void MakeComputerMove(Board i_GameBoard)
         {
             int chosenColumn = pickRandomColumnNumber(i_GameBoard);
-            i_GameBoard.InsertCellToBoard(chosenColumn, eCellTokenValue.Player2); 
+            i_GameBoard.InsertCellToBoard(chosenColumn, eCellTokenValue.O); 
             // TBC - update the UI the chosen cell ---- new func
         }
 

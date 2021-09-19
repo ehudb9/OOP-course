@@ -8,8 +8,8 @@ namespace LogicGame
 {
     public enum eCellTokenValue
     {
-        Player1,
-        Player2,
+        X,
+        O,
         Empty
     }
 }

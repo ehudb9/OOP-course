@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace LogicGame
 {
-    class Player
+    public class Player
     {
-        public int Sign { get; }
+        public eCellTokenValue Sign { get; }
         private int m_Score;
 
-        public Player(int i_Sign)
+        public Player(eCellTokenValue i_Sign)
         {
             m_Score = 0;
             Sign = i_Sign;

@@ -12,8 +12,8 @@ namespace LogicGame
         public bool v_GameIsAlive = false;
         public bool v_PlayerWantsToQuitGame = false;    /// D
         private bool m_Turn = true;
-        private const int k_SignPlayer1 = 1;
-        private const int k_SignPlayer2 = 2;
+        private const eCellTokenValue k_SignPlayer1 = eCellTokenValue.X;
+        private const eCellTokenValue k_SignPlayer2 = eCellTokenValue.O;
         private Player m_PlayerOne = null, m_PlayerTwo = null;
         private ComputerPlayer m_ComputerPlayer = null;
         public int m_SizeOfColumns = 0;
@@ -152,7 +152,7 @@ namespace LogicGame
 
         private void scoreAfterPlayerWantsToQuit()  //// ---D
         {
-            if (m_CurrentPlayer == eCellTokenValue.Player1)
+            if (m_CurrentPlayer == eCellTokenValue.X)
             {
                 if (m_PlayerVsComputerMode == eGameMode.PlayerVsComputer)
                 {

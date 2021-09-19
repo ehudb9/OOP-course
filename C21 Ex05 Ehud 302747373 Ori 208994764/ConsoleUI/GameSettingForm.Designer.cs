@@ -1,5 +1,5 @@
 ﻿
-namespace ConsoleUI
+namespace WindowUI
 {
     partial class GameSettingForm
     {
