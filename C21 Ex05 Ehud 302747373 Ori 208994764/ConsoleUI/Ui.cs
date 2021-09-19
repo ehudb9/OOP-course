@@ -2,7 +2,7 @@
 
 namespace WindowUI
 {
-    class Ui
+    public class Ui
     {
         private readonly GameSettingForm r_gameSettingForm;
         private BoardGameForm m_boardGameForm;

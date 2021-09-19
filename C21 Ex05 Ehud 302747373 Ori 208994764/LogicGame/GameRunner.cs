@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LogicGame
+﻿namespace LogicGame
 {
     public class GameRunner
     {
         public eBoardGameStatus m_BoardStatus = eBoardGameStatus.ContinuePlay;
-        private eGameMode m_PlayerVsComputerMode = eGameMode.PlayerVsPlayer;
         private bool m_Turn = true;
         private const eCellTokenValue k_SignPlayer1 = eCellTokenValue.X;
         private const eCellTokenValue k_SignPlayer2 = eCellTokenValue.O;
@@ -18,7 +11,6 @@ namespace LogicGame
         public int m_SizeOfColumns = 0;
         public int m_SizeOfRows = 0;
         public Board m_GameBoard = null;
-        private eCellTokenValue m_CurrentPlayer = eCellTokenValue.Empty;
         public int m_CohsenColumn;
         public int m_CurrentRow;
         private int m_player2Score = 0;
@@ -94,11 +86,15 @@ namespace LogicGame
                 {
                     m_player2Score++;
                 }
+
                 m_BoardStatus = eBoardGameStatus.Winner;
             }
-            else if (m_GameBoard.BoardIsFull())
+            else
             {
-                m_BoardStatus = eBoardGameStatus.Tie;
+                if (m_GameBoard.BoardIsFull())
+                {
+                    m_BoardStatus = eBoardGameStatus.Tie;
+                }
             }
 
             return m_BoardStatus;

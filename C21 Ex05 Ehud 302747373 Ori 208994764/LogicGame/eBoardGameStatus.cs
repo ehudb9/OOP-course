@@ -1,5 +1,4 @@
-﻿
-namespace LogicGame
+﻿namespace LogicGame
 {
     public enum eBoardGameStatus
     {

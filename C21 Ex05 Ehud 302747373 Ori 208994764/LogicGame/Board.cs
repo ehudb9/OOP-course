@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LogicGame
+﻿namespace LogicGame
 {
     public class Board
     {
@@ -72,11 +66,6 @@ namespace LogicGame
         {
             bool isColumnFull = i_Column <= r_NumOfColumns && r_RowsIndex[i_Column - 1] == 0 && (i_Column <= r_NumOfColumns);
             return isColumnFull;
-        }
-
-        public bool IsValidColumn(int i_Column)
-        {
-            return i_Column > 0 && i_Column <= r_NumOfColumns && !IsFullColumn(i_Column);
         }
 
         public bool BoardIsFull()

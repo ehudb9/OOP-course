@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace WindowUI
 {
-    class OutputPrinter
+    public class OutputPrinter
     {
         private static void printMessageToUser(string i_Message, string i_Caption)
         {
@@ -28,7 +28,7 @@ namespace WindowUI
             playSound(winSound);
         }
 
-        private static void playSound(UnmanagedMemoryStream i_ResourceToPlay)
+        private static void playSound(Stream i_ResourceToPlay)
         {
             SoundPlayer soundPlayer = new System.Media.SoundPlayer();
             soundPlayer.Stream = i_ResourceToPlay;

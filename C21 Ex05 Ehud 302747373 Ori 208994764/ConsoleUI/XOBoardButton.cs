@@ -19,24 +19,6 @@ namespace WindowUI
             }
         }
 
-        public int Row
-        {
-            get => m_Row;
-            set
-            {
-                m_Row = value;
-            }
-        }
-
-        public int Column
-        {
-            get => m_Column;
-            set
-            {
-                m_Column = value;
-            }
-        }
-
         public XOBoardButton(int i_Row, int i_Column)
         {
             Anchor = AnchorStyles.Left;
@@ -46,15 +28,6 @@ namespace WindowUI
             m_Column = i_Column;
             Width = 30;
             Height = 30;
-        }
-
-        public void OnClickOccurred(eCellTokenValue i_CellValue, int i_Row, int i_Column)
-        {
-            if (m_Row == i_Row && m_Column == i_Column)
-            {
-                m_CellValue = i_CellValue;
-                Text = m_CellValue.ToString();
-            }
         }
     }
 }

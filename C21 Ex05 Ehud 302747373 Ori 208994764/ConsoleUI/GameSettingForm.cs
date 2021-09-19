@@ -19,7 +19,7 @@ namespace WindowUI
             InitializeComponent();
         }
 
-        private void startButton_Click(object i_Sender, EventArgs i_Event)
+        private void startButton_Click(object sender, EventArgs e)
         {
             if(m_Player1TextBox.Text == string.Empty || m_Player2TextBox.Text == string.Empty)
             {
@@ -32,13 +32,13 @@ namespace WindowUI
             }
         }
 
-        private void player2CheckBox_CheckedChanged(object i_Sender, EventArgs i_Event)
+        private void player2CheckBox_CheckedChanged(object sender, EventArgs e)
         {
             m_Player2TextBox.Text = m_Player2TextBox.Enabled ? k_ComputerName : string.Empty;
             m_Player2TextBox.Enabled = !m_Player2TextBox.Enabled;
         }
 
-        private void gameSettingForm_Load(object i_Sender, EventArgs i_Event)
+        private void gameSettingForm_Load(object sender, EventArgs e)
         {
 
         }

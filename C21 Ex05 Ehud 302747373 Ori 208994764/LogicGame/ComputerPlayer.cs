@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LogicGame
 {
-    class ComputerPlayer
+    public class ComputerPlayer
     {
         public eCellTokenValue Sign { get; }
         private int m_Score;

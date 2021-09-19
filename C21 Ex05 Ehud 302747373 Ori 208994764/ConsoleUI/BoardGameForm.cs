@@ -11,8 +11,7 @@ namespace WindowUI
         private readonly int r_FormRowsSize;
         private readonly int r_FormColsSize;
         private readonly GameRunner r_GameRunner;
-        public int m_CohsenColumn;
-        public int m_CurrentRow;
+        public int m_ChosenColumn;
 
         public BoardGameForm(string i_Player1Name, string i_Player2Name, GameRunner i_GameRunner, eGameMode i_GameMode)
         {
@@ -84,28 +83,28 @@ namespace WindowUI
             }
         }
 
-        private void boardColumnButton_Click(object sender, EventArgs i_Event)
+        private void boardColumnButton_Click(object sender, EventArgs e)
         {
-            m_CohsenColumn = (sender as ColumnNumberButton).ColumnNumberValue;
+            m_ChosenColumn = ((ColumnNumberButton)sender).ColumnNumberValue;
             playTurn();
         }
 
         private void playTurn()
         {
-            r_GameRunner.m_CohsenColumn = m_CohsenColumn;
+            r_GameRunner.m_CohsenColumn = m_ChosenColumn;
             r_GameRunner.PlayerMove();
-            m_XOButtonsTableLayout.GetControlFromPosition(m_CohsenColumn - 1, r_GameRunner.m_CurrentRow).Text = r_GameRunner.Turn ? "X" : "O";
+            m_XOButtonsTableLayout.GetControlFromPosition(m_ChosenColumn - 1, r_GameRunner.m_CurrentRow).Text = r_GameRunner.Turn ? "X" : "O";
             checkBoard();
-
-            if (r_UserChoiceOfGameMode == eGameMode.PlayerVsComputer)
+            if(r_UserChoiceOfGameMode == eGameMode.PlayerVsComputer)
             {
                 r_GameRunner.Turn = !r_GameRunner.Turn;
                 makeCurrentPlayerLabelFontBold();
                 r_GameRunner.ComputerMove();
-                m_CohsenColumn = r_GameRunner.m_CohsenColumn;
-                m_XOButtonsTableLayout.GetControlFromPosition(m_CohsenColumn - 1, r_GameRunner.m_CurrentRow).Text = r_GameRunner.Turn ? "X" : "O";
+                m_ChosenColumn = r_GameRunner.m_CohsenColumn;
+                m_XOButtonsTableLayout.GetControlFromPosition(m_ChosenColumn - 1, r_GameRunner.m_CurrentRow).Text = r_GameRunner.Turn ? "X" : "O";
                 checkBoard();
             }
+
             r_GameRunner.Turn = !r_GameRunner.Turn;
             makeCurrentPlayerLabelFontBold();
         }
@@ -118,10 +117,11 @@ namespace WindowUI
        
         private void checkBoard()
         {
-            if (r_GameRunner.m_GameBoard.IsFullColumn(m_CohsenColumn))
+            if (r_GameRunner.m_GameBoard.IsFullColumn(m_ChosenColumn))
             {
-                m_ColNumberButtonsTableLayout.GetControlFromPosition(m_CohsenColumn, 0).Enabled = false;
+                m_ColNumberButtonsTableLayout.GetControlFromPosition(m_ChosenColumn, 0).Enabled = false;
             }
+
             eBoardGameStatus boardStatus = r_GameRunner.CheckBoard();
             if (boardStatus != eBoardGameStatus.ContinuePlay)
             {
@@ -141,24 +141,26 @@ namespace WindowUI
         {
             updateScore();
             r_GameRunner.ResetGame();
-            foreach (ColumnNumberButton columnButton in m_ColNumberButtonsTableLayout.Controls)
+            foreach(ColumnNumberButton columnButton in m_ColNumberButtonsTableLayout.Controls)
             {
                 columnButton.Enabled = true;
             }
-            for (int i = 0; i < r_FormColsSize; i++)
+
+            for(int i = 0; i < r_FormColsSize; i++)
             {
-                if (m_ColNumberButtonsTableLayout.GetControlFromPosition(i, 0) != null)
+                if(m_ColNumberButtonsTableLayout.GetControlFromPosition(i, 0) != null)
                 {
                     m_ColNumberButtonsTableLayout.GetControlFromPosition(i, 0).Enabled = true;
                 }
-                for (int j = 0; j < r_FormRowsSize; j++)
+
+                for(int j = 0; j < r_FormRowsSize; j++)
                 {
                     m_XOButtonsTableLayout.GetControlFromPosition(i, j).Text = "";
                 }
             }
         }
         
-        private void boardGameForm_Load(object i_Sender, EventArgs i_Event)
+        private void boardGameForm_Load(object sender, EventArgs e)
         {
 
         }
