@@ -27,6 +27,11 @@ namespace LogicGame
             resetColumnIndex();
         }
 
+        public int[] CurrentRow
+        {
+            get => r_RowsIndex;
+        }
+
         private void initializeBoard()
         {
             for (int i = 0; i < m_NumOfRows; i++)

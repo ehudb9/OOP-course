@@ -12,7 +12,8 @@ namespace WindowUI
         private readonly int r_FormRowsSize;
         private readonly int r_FormColsSize;
         private readonly GameRunner r_GameRunner;
-        private int m_CohsenColumn;
+        public int m_CohsenColumn;
+        public int m_CurrentRow;
 
         public BoardGameForm(string i_Player1Name, string i_Player2Name, GameRunner i_GameRunner, eGameMode i_GameMode)
         {
@@ -28,7 +29,8 @@ namespace WindowUI
             Width = r_FormColsSize * 45;
             buildButtonMatrix();
             initPlayerLabels();
-            //play();
+            r_GameRunner.Run();
+            play();
         }
 
         private void play()
@@ -80,7 +82,7 @@ namespace WindowUI
             makeCurrentPlayerLabelFontBold();
         }
 
-        private void makeCurrentPlayerLabelFontBold()   // who is calling it in each turn?
+        private void makeCurrentPlayerLabelFontBold()  
 
         {
             if(r_GameRunner.Turn)
@@ -97,8 +99,12 @@ namespace WindowUI
 
         private void boardColumnButton_Click(object sender, EventArgs i_Event)
         {
-            Console.WriteLine("you pressed a column byutton - nice");
-            m_CohsenColumn = 1; // reach the value of the butomn
+            m_CohsenColumn = (sender as ColumnNumberButton).ColumnNumberValue;
+            r_GameRunner.m_CohsenColumn = m_CohsenColumn;
+            Console.WriteLine("you pressed a column button " + m_CohsenColumn);
+            r_GameRunner.v_IsPlayerMoved = true;
+            m_XOButtonsTableLayout.GetControlFromPosition(m_CohsenColumn-1, 2).Text = r_GameRunner.SymbolPlayer;
+            //makeCurrentPlayerLabelFontBold();
         }
 
         private void boardGameForm_Load(object i_Sender, EventArgs i_Event)

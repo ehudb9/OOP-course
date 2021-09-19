@@ -20,6 +20,10 @@ namespace LogicGame
         public int m_SizeOfRows = 0;
         public Board m_GameBoard = null;
         private eCellTokenValue m_CurrentPlayer = eCellTokenValue.Empty;
+        public int m_CohsenColumn;
+        public int m_CurrentRow;
+        public bool v_IsPlayerMoved = false;
+
 
         public GameRunner()
         {
@@ -29,6 +33,11 @@ namespace LogicGame
         public bool Turn
         {
             get => m_Turn;
+        }
+
+        public string SymbolPlayer
+        {
+            get => m_CurrentPlayer.ToString();
         }
 
         public void InitGame(int i_BoardRowNumber, int i_BoardColNumber, eGameMode i_GameMode)
@@ -60,36 +69,34 @@ namespace LogicGame
         public void Run()
         {
             Console.WriteLine("RUNNNN"); // ---D
-
-            /*
-            while (v_GameIsAlive)
+            /*while (v_GameIsAlive)
             {
-                ShowBoardUI.ShowBoard(m_GameBoard); ///d
+                //ShowBoardUI.ShowBoard(m_GameBoard); ///d
 
                 if (m_Turn)
                 {
-                    m_CurrentPlayer = eCellTokenValue.Player1;
-                    ConsolePrinter.Player1PlayNowMessage(); ///D
-                    PlayerMove();    
+                        m_CurrentPlayer = eCellTokenValue.X;
+                        //ConsolePrinter.Player1PlayNowMessage(); ///D
+                        PlayerMove();                       
                 }
                 else if (m_PlayerVsComputerMode == eGameMode.PlayerVsComputer)
                 {
-                    m_CurrentPlayer = eCellTokenValue.Player2;
-                    m_ComputerPlayer.MakeComputerMove(m_GameBoard);
+                    m_CurrentPlayer = eCellTokenValue.O;
+                    m_CohsenColumn = m_ComputerPlayer.MakeComputerMove(m_GameBoard);
                 }
                 else
                 {
-                    m_CurrentPlayer = eCellTokenValue.Player2;
-                    ConsolePrinter.Player2PlayNowMessage();   //// D
+                    m_CurrentPlayer = eCellTokenValue.O;
+                    //ConsolePrinter.Player2PlayNowMessage();   //// D
                     PlayerMove();
                 }
 
-                ShowBoardUI.ShowBoard(m_GameBoard);   ////  D
+                //ShowBoardUI.ShowBoard(m_GameBoard);   ////  D
 
-                if (m_GameBoard.HasWon(m_CurrentPlayer))
+                if (m_GameBoard.HasWon(m_CurrentPlayer)) // fit it 
                 {
-                    ConsolePrinter.PrintWinner(m_CurrentPlayer);   //// TBC ---  widow print of winner with the UI
-                    if (m_CurrentPlayer == eCellTokenValue.Player1)
+                    //ConsolePrinter.PrintWinner(m_CurrentPlayer);   //// TBC ---  widow print of winner with the UI
+                    if (m_CurrentPlayer == eCellTokenValue.X)
                     {
                         m_PlayerOne.Score++;
                     }
@@ -110,28 +117,24 @@ namespace LogicGame
                 }
                 else if (m_GameBoard.BoardIsFull())
                 {
-                    ConsolePrinter.ItsATie();
+                    //ConsolePrinter.ItsATie(); //TBC -- Tie dialog
                     printCurrentScore();     //// TBC ---  widow print of winner with the UI
                     endGame();
                 }
 
                 m_Turn = !m_Turn;
-            }
+            }*/
 
-            ConsolePrinter.ExitGameMessage();       ///// D
-            Console.ReadLine();       /////D
-            */
+            //ConsolePrinter.ExitGameMessage();       ///// D
+            // Console.ReadLine();       /////D
         }
 
         public void PlayerMove()
         {
-            int playerChoseColumnToInsert = 0;
-            bool v_isValidInput = false;
-            //playerChoseColumnToInsert = ConsoleInputValidator.GetUserColumnInput();  /// tbc --- from the board how to get the chosen value??
-
-            m_GameBoard.InsertCellToBoard(playerChoseColumnToInsert, m_CurrentPlayer);
-
-
+            v_IsPlayerMoved = false;
+            m_GameBoard.InsertCellToBoard(m_CohsenColumn, m_CurrentPlayer);
+            m_CurrentRow = m_GameBoard.CurrentRow[m_CohsenColumn];
+            Console.WriteLine(m_CurrentRow.ToString(), m_CohsenColumn);
         }
 
         private void endGame()   /// TBC according to dialog end game  window

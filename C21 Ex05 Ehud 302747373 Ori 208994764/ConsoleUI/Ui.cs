@@ -44,7 +44,6 @@ namespace WindowUI
             gameRunner.InitGame(userSelectedBoardRowsNumber, userSelectedBoardColsNumber, userChoiceGameMode);
             string name1 = $"{r_gameSettingForm.Player1TextBox}:"; 
             m_boardGameForm = new BoardGameForm(name1, name2, gameRunner, userChoiceGameMode);
-            gameRunner.Run();
         }
     }
 }

@@ -36,11 +36,12 @@ namespace LogicGame
             return chosenColumn;
         }
 
-        public void MakeComputerMove(Board i_GameBoard)
+        public int MakeComputerMove(Board i_GameBoard)
         {
             int chosenColumn = pickRandomColumnNumber(i_GameBoard);
-            i_GameBoard.InsertCellToBoard(chosenColumn, eCellTokenValue.O); 
-            // TBC - update the UI the chosen cell ---- new func
+            i_GameBoard.InsertCellToBoard(chosenColumn, eCellTokenValue.O);
+            
+            return chosenColumn;
         }
 
         private static bool isValidColumn(int i_ChosenColumn, int i_NumOfColumns, Board i_GameBoard)
