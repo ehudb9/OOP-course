@@ -18,7 +18,7 @@ namespace LogicGame
         private ComputerPlayer m_ComputerPlayer = null;
         public int m_SizeOfColumns = 0;
         public int m_SizeOfRows = 0;
-        private Board m_GameBoard = null;
+        public Board m_GameBoard = null;
         private eCellTokenValue m_CurrentPlayer = eCellTokenValue.Empty;
 
         public GameRunner()

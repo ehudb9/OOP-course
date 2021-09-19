@@ -43,8 +43,8 @@ namespace WindowUI
             m_CellValue = eCellTokenValue.Empty;
             m_Row = i_Row;
             m_Column = i_Column;
-            Width = 50;
-            Height = 50;
+            Width = 30;
+            Height = 30;
         }
 
         public void OnClickOccurred(eCellTokenValue i_CellValue, int i_Row, int i_Column)

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LogicGame
 {
-    class BoardCell
+    public class BoardCell
     {
         public eCellTokenValue CellTokenValue
         {

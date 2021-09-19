@@ -26,16 +26,23 @@ namespace WindowUI
         {
             int userSelectedBoardRowsNumber = r_gameSettingForm.RowsUpDown;
             int userSelectedBoardColsNumber = r_gameSettingForm.ColumnsUpDown;
-            eGameMode userChoiceGameMode = eGameMode.PlayerVsPlayer;
-            if(!r_gameSettingForm.Player2CheckBox)
+            string name2;
+            eGameMode userChoiceGameMode;
+            GameRunner gameRunner = new GameRunner();
+            if (!r_gameSettingForm.Player2CheckBox)
             {
                 userChoiceGameMode = eGameMode.PlayerVsComputer;
+                name2 = GameSettingForm.k_ComputerName + ":";
+
+            }
+            else
+            {
+                userChoiceGameMode = eGameMode.PlayerVsPlayer;
+                name2 = $"{r_gameSettingForm.Player2TextBox}:";
             }
 
-            GameRunner gameRunner = new GameRunner();
             gameRunner.InitGame(userSelectedBoardRowsNumber, userSelectedBoardColsNumber, userChoiceGameMode);
-            string name1 = $"{r_gameSettingForm.Player1TextBox}:";
-            string name2 = $"{r_gameSettingForm.Player2TextBox}:";
+            string name1 = $"{r_gameSettingForm.Player1TextBox}:"; 
             m_boardGameForm = new BoardGameForm(name1, name2, gameRunner, userChoiceGameMode);
         }
     }

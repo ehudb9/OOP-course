@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LogicGame
 {
-    class Board
+    public class Board
     {
         public int m_NumOfRows;
         public int m_NumOfColumns;

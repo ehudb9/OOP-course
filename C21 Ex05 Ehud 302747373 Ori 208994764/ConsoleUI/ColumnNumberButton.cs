@@ -2,7 +2,7 @@
 
 namespace WindowUI
 {
-    public sealed class ColumnNumberButton : Button
+    public class ColumnNumberButton : Button
     {
         private int m_ColumnNumberValue;
 
@@ -21,7 +21,7 @@ namespace WindowUI
             Anchor = AnchorStyles.Top;
             m_ColumnNumberValue = i_Column;
             Text = m_ColumnNumberValue.ToString();
-            Width = 50;
+            Width = 30;
             Height = 20;
         }
 

@@ -5,7 +5,7 @@ namespace WindowUI
 {
     public partial class GameSettingForm : Form
     {
-        private const string k_ComputerName = "Computer";
+        public const string k_ComputerName = "Computer";
         private bool m_StartButtonSelected;
 
         public bool StartButtonSelected
