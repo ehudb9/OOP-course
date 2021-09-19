@@ -27,7 +27,7 @@ namespace WindowUI
 
         public void OnClickOccurred(int i_Column, bool i_IsColumnIsFull)
         {
-            if(i_Column == m_ColumnNumberValue && i_IsColumnIsFull)
+            if (i_Column == m_ColumnNumberValue && i_IsColumnIsFull)
             {
                 Enabled = false;
             }

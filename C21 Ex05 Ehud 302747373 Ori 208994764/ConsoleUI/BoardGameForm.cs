@@ -37,6 +37,7 @@ namespace WindowUI
             {
                 columnNumberButton = new ColumnNumberButton(i + 1);
                 columnNumberButton.Click += boardColumnButton_Click;
+                columnNumberButton.Location = new Point(40 * (i + 1), 40 * j);
                 m_ColNumberButtonsTableLayout.Controls.Add(columnNumberButton, i, 0);
             }
 
@@ -46,12 +47,14 @@ namespace WindowUI
                 {
                     xoBoardButton = new XOBoardButton(i, j);
                     xoBoardButton.CellValue = r_GameRunner.m_GameBoard.r_BoardCells[i, j].CellTokenValue;
+                    xoBoardButton.Location = new Point(40*(i+1),40*j);
                     m_XOButtonsTableLayout.Controls.Add(xoBoardButton, j, i);
                 }
             }
 
             Controls.Add(m_ColNumberButtonsTableLayout);
             Controls.Add(m_XOButtonsTableLayout);
+
         }
 
         private void initPlayerLabels()
@@ -68,7 +71,8 @@ namespace WindowUI
             makeCurrentPlayerLabelFontBold();
         }
 
-        private void makeCurrentPlayerLabelFontBold()
+        private void makeCurrentPlayerLabelFontBold()   // who calling it in each turn?
+
         {
             if(v_IsPlayerOneTurn)
             {
@@ -84,7 +88,7 @@ namespace WindowUI
 
         private void boardColumnButton_Click(object sender, EventArgs i_Event)
         {
-            //Todo - need to implement
+            //Todo - need to implement ---- in the buttons class!
         }
 
         private void boardGameForm_Load(object i_Sender, EventArgs i_Event)

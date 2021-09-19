@@ -29,6 +29,7 @@ namespace LogicGame
 
         public void InitGame(int i_BoardRowNumber, int i_BoardColNumber, eGameMode i_GameMode)
         {
+            Console.WriteLine("" + i_BoardRowNumber +  i_BoardColNumber); // ---D
             m_SizeOfColumns = i_BoardColNumber;
             m_SizeOfRows = i_BoardRowNumber;
             
@@ -50,11 +51,13 @@ namespace LogicGame
             m_GameBoard.ResetBoard();
             v_GameIsAlive = true;
             v_PlayerWantsToQuitGame = false;
-            //ConsolePrinter.StartMessageQToExit();
+            //ConsolePrinter.StartMessageQToExit(); // TBC -- REset Dialog
         }
 
         public void Run()
         {
+            Console.WriteLine("RUNNNN"); // ---D
+
             /*
             while (v_GameIsAlive)
             {

@@ -1,5 +1,6 @@
 ﻿using System.Windows.Forms;
 using LogicGame;
+using System;
 
 namespace WindowUI
 {
@@ -49,7 +50,7 @@ namespace WindowUI
 
         public void OnClickOccurred(eCellTokenValue i_CellValue, int i_Row, int i_Column)
         {
-            if(m_Row == i_Row && m_Column == i_Column)
+            if (m_Row == i_Row && m_Column == i_Column)
             {
                 m_CellValue = i_CellValue;
                 Text = m_CellValue.ToString();

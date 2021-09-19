@@ -41,9 +41,10 @@ namespace WindowUI
                 name2 = $"{r_gameSettingForm.Player2TextBox}:";
             }
 
-            gameRunner.InitGame(userSelectedBoardRowsNumber, userSelectedBoardColsNumber, userChoiceGameMode);
+            gameRunner.InitGame(userSelectedBoardRowsNumber, userSelectedBoardColsNumber, userChoiceGameMode); // TBC from the board game 
             string name1 = $"{r_gameSettingForm.Player1TextBox}:"; 
             m_boardGameForm = new BoardGameForm(name1, name2, gameRunner, userChoiceGameMode);
+            gameRunner.Run();
         }
     }
 }
