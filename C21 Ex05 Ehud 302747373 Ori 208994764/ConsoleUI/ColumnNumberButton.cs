@@ -26,12 +26,9 @@ namespace WindowUI
             Height = 20;
         }
 
-        public void OnClickOccurred(int i_Column, bool i_IsColumnIsFull)
+        public void OnFullColumn(int i_Column)
         {
-            if (i_Column == m_ColumnNumberValue && i_IsColumnIsFull)
-            {
-                Enabled = false;
-            }
+           Enabled = false;
         }
 
         private void InitializeComponent()

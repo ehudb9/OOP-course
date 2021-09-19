@@ -8,6 +8,7 @@ namespace LogicGame
 {
     public class GameRunner
     {
+        public eBoardGameStatus m_BoardStatus = eBoardGameStatus.ContinuePlay;
         private eGameMode m_PlayerVsComputerMode = eGameMode.PlayerVsPlayer;
         public bool v_GameIsAlive = false;
         public bool v_PlayerWantsToQuitGame = false;
@@ -33,6 +34,10 @@ namespace LogicGame
         public bool Turn
         {
             get => m_Turn;
+            set
+            {
+                m_Turn = value;
+            }
         }
 
         public string SymbolPlayer
@@ -63,12 +68,14 @@ namespace LogicGame
             m_GameBoard.ResetBoard();
             v_GameIsAlive = true;
             v_PlayerWantsToQuitGame = false;
-            //ConsolePrinter.StartMessageQToExit(); // TBC -- REset Dialog
+            m_BoardStatus = eBoardGameStatus.ContinuePlay;
         }
 
         public void Run()
         {
             Console.WriteLine("RUNNNN"); // ---D
+            
+            
             /*while (v_GameIsAlive)
             {
                 //ShowBoardUI.ShowBoard(m_GameBoard); ///d
@@ -131,12 +138,16 @@ namespace LogicGame
 
         public void PlayerMove()
         {
-            v_IsPlayerMoved = false;
-            m_GameBoard.InsertCellToBoard(m_CohsenColumn, m_CurrentPlayer);
-            m_CurrentRow = m_GameBoard.CurrentRow[m_CohsenColumn];
-            Console.WriteLine(m_CurrentRow.ToString(), m_CohsenColumn);
+            m_GameBoard.InsertCellToBoard(m_CohsenColumn, m_Turn ? eCellTokenValue.X : eCellTokenValue.O);
+            m_CurrentRow = m_GameBoard.CurrentRow[m_CohsenColumn-1];
+            Console.WriteLine(" "+m_Turn+"   "+ m_CurrentRow+"   "+ m_CohsenColumn);
         }
 
+        public void ComputerMove()
+        {
+            m_CohsenColumn = m_ComputerPlayer.MakeComputerMove(m_GameBoard);
+            m_CurrentRow = m_GameBoard.CurrentRow[m_CohsenColumn - 1];
+        }
         private void endGame()   /// TBC according to dialog end game  window
         {
             string resetOrQuit = "";
@@ -152,6 +163,33 @@ namespace LogicGame
             }
         }
 
+        public eBoardGameStatus CheckBoard()
+        {
+            if (m_GameBoard.HasWon(m_Turn ? eCellTokenValue.X : eCellTokenValue.O))
+            {
+                if (m_Turn)
+                {
+                    m_PlayerOne.Score++;
+                }
+                else
+                {
+                    if (m_PlayerVsComputerMode == eGameMode.PlayerVsPlayer)
+                    {
+                        m_PlayerTwo.Score++;
+                    }
+                    else
+                    {
+                        m_ComputerPlayer.Score++;
+                    }
+                }
+                m_BoardStatus = eBoardGameStatus.Winner;
+            }
+            else if (m_GameBoard.BoardIsFull())
+            {
+                m_BoardStatus = eBoardGameStatus.Tie;
+            }
+            return m_BoardStatus;
+        }
         private void printCurrentScore()    // TBC - --- send to the lable the value of the scores
         {
             //ConsolePrinter.PrintCurrentPlayerScore(m_PlayerOne.Score, m_PlayerVsComputerMode == eGameMode.PlayerVsPlayer ? m_PlayerTwo.Score : m_ComputerPlayer.Score);

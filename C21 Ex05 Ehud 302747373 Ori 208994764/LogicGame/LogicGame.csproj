@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Board.cs" />
     <Compile Include="BoardCell.cs" />
+    <Compile Include="eBoardGameStatus.cs" />
     <Compile Include="ComputerPlayer.cs" />
     <Compile Include="eCellTokenValue.cs" />
     <Compile Include="eGameMode.cs" />
