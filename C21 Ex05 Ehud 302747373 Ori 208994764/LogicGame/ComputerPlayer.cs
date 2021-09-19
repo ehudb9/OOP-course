@@ -39,7 +39,8 @@ namespace LogicGame
         public void MakeComputerMove(Board i_GameBoard)
         {
             int chosenColumn = pickRandomColumnNumber(i_GameBoard);
-            i_GameBoard.InsertCellToBoard(chosenColumn, eCellTokenValue.Player2);
+            i_GameBoard.InsertCellToBoard(chosenColumn, eCellTokenValue.Player2); 
+            // TBC - update the UI the chosen cell ---- new func
         }
 
         private static bool isValidColumn(int i_ChosenColumn, int i_NumOfColumns, Board i_GameBoard)

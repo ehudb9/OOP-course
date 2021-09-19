@@ -10,7 +10,7 @@ namespace LogicGame
     {
         private eGameMode m_PlayerVsComputerMode = eGameMode.PlayerVsPlayer;
         public bool v_GameIsAlive = false;
-        public bool v_PlayerWantsToQuitGame = false;
+        public bool v_PlayerWantsToQuitGame = false;    /// D
         private bool m_Turn = true;
         private const int k_SignPlayer1 = 1;
         private const int k_SignPlayer2 = 2;
@@ -53,19 +53,18 @@ namespace LogicGame
             //ConsolePrinter.StartMessageQToExit();
         }
 
-        //Todo - need to be change according to this game
         public void Run()
         {
             /*
             while (v_GameIsAlive)
             {
-                ShowBoardUI.ShowBoard(m_GameBoard);
+                ShowBoardUI.ShowBoard(m_GameBoard); ///d
 
                 if (m_Turn)
                 {
                     m_CurrentPlayer = eCellTokenValue.Player1;
-                    ConsolePrinter.Player1PlayNowMessage();
-                    PlayerMove();
+                    ConsolePrinter.Player1PlayNowMessage(); ///D
+                    PlayerMove();    
                 }
                 else if (m_PlayerVsComputerMode == eGameMode.PlayerVsComputer)
                 {
@@ -75,22 +74,15 @@ namespace LogicGame
                 else
                 {
                     m_CurrentPlayer = eCellTokenValue.Player2;
-                    ConsolePrinter.Player2PlayNowMessage();
+                    ConsolePrinter.Player2PlayNowMessage();   //// D
                     PlayerMove();
                 }
 
-                ShowBoardUI.ShowBoard(m_GameBoard);
+                ShowBoardUI.ShowBoard(m_GameBoard);   ////  D
 
-                if (v_PlayerWantsToQuitGame)
+                if (m_GameBoard.HasWon(m_CurrentPlayer))
                 {
-
-                    ConsolePrinter.PrintWinner(m_CurrentPlayer == eCellTokenValue.Player1 ? eCellTokenValue.Player2 : eCellTokenValue.Player1);
-                    printCurrentScore();
-                    endGame();
-                }
-                else if (m_GameBoard.HasWon(m_CurrentPlayer))
-                {
-                    ConsolePrinter.PrintWinner(m_CurrentPlayer);
+                    ConsolePrinter.PrintWinner(m_CurrentPlayer);   //// TBC ---  widow print of winner with the UI
                     if (m_CurrentPlayer == eCellTokenValue.Player1)
                     {
                         m_PlayerOne.Score++;
@@ -107,21 +99,21 @@ namespace LogicGame
                         }
                     }
 
-                    printCurrentScore();
+                    printCurrentScore();   ////////TBC  update the form lable with the scores
                     endGame();
                 }
                 else if (m_GameBoard.BoardIsFull())
                 {
                     ConsolePrinter.ItsATie();
-                    printCurrentScore();
+                    printCurrentScore();     //// TBC ---  widow print of winner with the UI
                     endGame();
                 }
 
                 m_Turn = !m_Turn;
             }
 
-            ConsolePrinter.ExitGameMessage();
-            Console.ReadLine();
+            ConsolePrinter.ExitGameMessage();       ///// D
+            Console.ReadLine();       /////D
             */
         }
 
@@ -131,45 +123,19 @@ namespace LogicGame
             /*
             int playerChoseColumnToInsert = 0;
             bool v_isValidInput = false;
-            playerChoseColumnToInsert = ConsoleInputValidator.GetUserColumnInput();
-            while (!v_isValidInput)
-            {
-                if (playerChoseColumnToInsert == ConsoleInputValidator.k_PlayerWantsToQuit)
-                {
-                    playerWantsToQuit();
-                    v_isValidInput = true;
-                }
-                else
-                {
-                    if (!m_GameBoard.IsValidColumn(playerChoseColumnToInsert))
-                    {
-                        if (m_GameBoard.IsFullColumn(playerChoseColumnToInsert))
-                        {
-                            ConsolePrinter.ColumnIsFullMessage();
-                        }
-                        else
-                        {
-                            ConsolePrinter.ErrorSizeMessage();
-                        }
-
-                        playerChoseColumnToInsert = ConsoleInputValidator.GetUserColumnInput();
-                    }
-                    else
-                    {
-                        m_GameBoard.InsertCellToBoard(playerChoseColumnToInsert, m_CurrentPlayer);
-                        v_isValidInput = true;
-                    }
-                }
-            }
+            //// TBC : playerChoseColumnToInsert = ConsoleInputValidator.GetUserColumnInput();  /// tbc --- from the board
+            
+            m_GameBoard.InsertCellToBoard(playerChoseColumnToInsert, m_CurrentPlayer);
+ 
             */
         }
 
-        private void endGame()
+        private void endGame()   /// TBC according to dialog end game  window
         {
             string resetOrQuit = "";
-            //resetOrQuit = ConsoleInputValidator.GetUserResetOrQuitChoice();
+            //resetOrQuit = ConsoleInputValidator.GetUserResetOrQuitChoice();   //// TBC  reset window UI
 
-            if (resetOrQuit.Equals("y"))
+            if (resetOrQuit.Equals("y"))    
             {
                 ResetGame();
             }
@@ -179,12 +145,12 @@ namespace LogicGame
             }
         }
 
-        private void printCurrentScore()
+        private void printCurrentScore()    // TBC - --- send to the lable the value of the scores
         {
             //ConsolePrinter.PrintCurrentPlayerScore(m_PlayerOne.Score, m_PlayerVsComputerMode == eGameMode.PlayerVsPlayer ? m_PlayerTwo.Score : m_ComputerPlayer.Score);
         }
 
-        private void scoreAfterPlayerWantsToQuit()
+        private void scoreAfterPlayerWantsToQuit()  //// ---D
         {
             if (m_CurrentPlayer == eCellTokenValue.Player1)
             {
@@ -203,7 +169,7 @@ namespace LogicGame
             }
         }
 
-        private void playerWantsToQuit()
+        private void playerWantsToQuit()   ///  ---D
         {
             scoreAfterPlayerWantsToQuit();
             v_GameIsAlive = false;
